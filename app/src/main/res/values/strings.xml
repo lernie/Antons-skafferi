@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Antons Skafferi</string>
+
+    <string name="table1">Bord 1</string>
+    <string name="table2">Bord 2</string>
+    <string name="table3">Bord 3</string>
+    <string name="table4">Bord 4</string>
+    <string name="table5">Bord 5</string>
+    <string name="table6">Bord 6</string>
+    <string name="table7">Bord 7</string>
+
+    <string name="title_activity_tables">Bord X</string>
+    <string name="add">Lägg till</string>
+    <string name="clear_table">Rensa bord</string>
 </resources>
