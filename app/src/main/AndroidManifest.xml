@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".TablesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,12 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TablesActivity"
+            android:name=".OrdersActivity"
             android:label="@string/title_activity_tables"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".TablesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.MainActivity" />
+                android:value="se.miun.antonsskafferi.TablesActivity" />
         </activity>
     </application>
 
