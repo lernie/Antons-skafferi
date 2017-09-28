@@ -11,6 +11,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, KitchenActivity.class);
+        startActivity(intent);
     }
 
     public void goToTables (View view){

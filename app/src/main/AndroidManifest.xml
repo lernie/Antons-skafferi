@@ -24,6 +24,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="se.miun.antonsskafferi.MainActivity" />
         </activity>
+        <activity android:name=".KitchenActivity"></activity>
     </application>
 
 </manifest>
