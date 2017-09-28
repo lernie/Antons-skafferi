@@ -17,4 +17,9 @@ public class TablesActivity extends Activity {
         Intent intent = new Intent(this, OrdersActivity.class);
         startActivity(intent);
     }
+
+    public void goToKitchen (View view){
+        Intent intent = new Intent(this, KitchenActivity.class);
+        startActivity(intent);
+    }
 }

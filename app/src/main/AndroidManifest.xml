@@ -26,13 +26,19 @@
         </activity>
         <activity
             android:name=".CoursesActivity"
-            android:label="@string/title_activity_tables"
+            android:label="Rätter"
             android:parentActivityName=".OrdersActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="se.miun.antonsskafferi.OrdersActivity" />
         </activity>
-        <activity android:name=".KitchenActivity"></activity>
+        <activity android:name=".KitchenActivity"
+            android:label="Kök"
+            android:parentActivityName=".OrdersActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="se.miun.antonsskafferi.OrdersActivity" />
+        </activity>
     </application>
 
 </manifest>
