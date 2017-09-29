@@ -1,36 +1,23 @@
 package miun.erfa1501;
 
+import miun.erfa1501.DerbyDB.DerbyDB;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 class Restaurants
 {
-  private static String dbURL = "jdbc:derby://localhost:1527/myDB;create=true";
+
   private static String tableName = "restaurants";
-  
-  private static java.sql.Connection conn = null;
   private static Statement stmt = null;
 
-  private static void createConnection()
-  {
-    try
-    {
-      Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-      
-      conn = java.sql.DriverManager.getConnection(dbURL);
-    }
-    catch (Exception except)
-    {
-      except.printStackTrace();
-    }
-  }
   
   private static void insertRestaurants(int id, String restName, String cityName)
   {
     try
     {
-      stmt = conn.createStatement();
+      stmt = DerbyDB.conn.createStatement();
       stmt.execute("insert into " + tableName + " values (" + id + ",'" + restName + "','" + cityName + "')");
       
       stmt.close();
@@ -42,10 +29,9 @@ class Restaurants
   }
   
   public String getLastRestaurant() {
-    createConnection();
     String finalMessage = "";
     try {
-      stmt = conn.createStatement();
+      stmt = DerbyDB.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       results.next();
@@ -59,7 +45,7 @@ class Restaurants
     {
       sqlExcept.printStackTrace();
     }
-    shutdown();
+
     return finalMessage;
   }
   
@@ -67,7 +53,7 @@ class Restaurants
   {
     try
     {
-      stmt = conn.createStatement();
+      stmt = DerbyDB.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       int numberCols = rsmd.getColumnCount();
@@ -97,10 +83,10 @@ class Restaurants
   
   public java.util.List<ARestaurant> getAllRestaurants() {
     java.util.List<ARestaurant> restaurants = new java.util.ArrayList();
-    createConnection();
+
     try
     {
-      stmt = conn.createStatement();
+      stmt = DerbyDB.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       while (results.next())
@@ -119,24 +105,8 @@ class Restaurants
     {
       sqlExcept.printStackTrace();
     }
-    shutdown();
     return restaurants;
   }
   
-  private static void shutdown()
-  {
-    try
-    {
-      if (stmt != null)
-      {
-        stmt.close();
-      }
-      if (conn != null)
-      {
-        java.sql.DriverManager.getConnection(dbURL + ";shutdown=true");
-        conn.close();
-      }
-    }
-    catch (SQLException localSQLException) {}
-  }
+
 }
