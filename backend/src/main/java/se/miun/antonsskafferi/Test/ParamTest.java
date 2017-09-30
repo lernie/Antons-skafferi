@@ -1,6 +1,6 @@
-package miun.erfa1501.test;
+package se.miun.antonsskafferi.Test;
 
-import miun.erfa1501.Models.ARestaurant;
+import se.miun.antonsskafferi.Models.ARestaurant;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

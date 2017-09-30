@@ -1,8 +1,6 @@
-package se.miun.antonsskafferi;
+package se.miun.antonsskafferi.Database;
 
-import se.miun.antonsskafferi.DerbyDB.DerbyDB;
 import se.miun.antonsskafferi.Models.ARestaurant;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,7 +16,7 @@ public class Restaurants
   {
     try
     {
-      stmt = DerbyDB.conn.createStatement();
+      stmt = ConnectionSetup.conn.createStatement();
       stmt.execute("insert into " + tableName + " values (" + id + ",'" + restName + "','" + cityName + "')");
       
       stmt.close();
@@ -32,7 +30,7 @@ public class Restaurants
   public String getLastRestaurant() {
     String finalMessage = "";
     try {
-      stmt = DerbyDB.conn.createStatement();
+      stmt = ConnectionSetup.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       results.next();
@@ -54,7 +52,7 @@ public class Restaurants
   {
     try
     {
-      stmt = DerbyDB.conn.createStatement();
+      stmt = ConnectionSetup.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       int numberCols = rsmd.getColumnCount();
@@ -87,7 +85,7 @@ public class Restaurants
 
     try
     {
-      stmt = DerbyDB.conn.createStatement();
+      stmt = ConnectionSetup.conn.createStatement();
       ResultSet results = stmt.executeQuery("select * from " + tableName);
       java.sql.ResultSetMetaData rsmd = results.getMetaData();
       while (results.next())

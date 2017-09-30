@@ -17,37 +17,160 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/User.java">
+      <file leaf-file-name="GetManyRestaurants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/GetManyRestaurants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            <state relative-caret-position="280">
+              <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserRequests.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/UserRequests.java">
+      <file leaf-file-name="Glassboi.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Glassboi.iml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            <state relative-caret-position="931">
+              <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InventoryRequests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/InventoryRequests.java">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+            <state relative-caret-position="2431">
+              <caret line="329" column="67" lean-forward="true" selection-start-line="329" selection-start-column="67" selection-end-line="329" selection-end-column="67" />
+              <folding>
+                <marker date="1506785440794" expanded="true" signature="57562:57579" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57562:57597" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57562:57610" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57562:57625" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57660:59965" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57673:59950" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57727:58111" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57746:58096" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57859:58076" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57899:58042" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="57920:58020" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58161:58467" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58180:58452" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58254:58432" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58294:58398" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58315:58376" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58518:58783" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58537:58768" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58570:58748" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58610:58714" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58631:58692" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58826:59132" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58845:59117" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58919:59097" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58959:59063" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="58980:59041" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59183:59533" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59202:59518" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59281:59498" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59321:59464" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59342:59442" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59585:59936" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59604:59921" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59723:59901" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59763:59867" ph="..." />
+                <marker date="1506785440794" expanded="true" signature="59784:59845" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HelloWorld.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/HelloWorld.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostStuff.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/PostStuff.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GlassFishSetup.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/GlassFishSetup.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Restaurants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/Restaurants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+              <folding>
+                <marker date="1506784407851" expanded="true" signature="473:560" ph="insert into restaurants... " />
+                <marker date="1506784407851" expanded="true" signature="862:876" ph="select * fro... restaurants" />
+                <marker date="1506784407851" expanded="true" signature="1442:1456" ph="select * fro... restaurants" />
+                <marker date="1506784407851" expanded="true" signature="2435:2449" ph="select * fro... restaurants" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="191">
+              <caret line="56" column="35" lean-forward="true" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectionSetup.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/ConnectionSetup.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="10" column="69" lean-forward="true" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -74,6 +197,20 @@
         <option value="$PROJECT_DIR$/src/main/java/miun/erfa1501/GetManyRestaurants.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/InventoryRequests.java" />
         <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/UserRequests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/WebsiteRequests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/HelloWorld.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/ARestaurant.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/MyResource.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/PostStuff.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/ParamTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/GetManyRestaurants.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/Restaurants.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/GlassFishSetup.java" />
+        <option value="$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/ConnectionSetup.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -129,6 +266,11 @@
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -151,6 +293,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="antonsskafferi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="antonsskafferi" type="462c0819:PsiDirectoryNode" />
+              <item name="Database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -178,6 +329,28 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="antonsskafferi" type="462c0819:PsiDirectoryNode" />
               <item name="Test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -212,7 +385,7 @@
   <component name="RunManager" selected="GlassFish Server.Unnamed">
     <configuration name="Unnamed" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 4.1.2" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/Glassboi/helloworld" />
-      <option name="UPDATING_POLICY" value="restart-server" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
         <artifact name="Glassboi:war exploded">
           <settings>
@@ -381,12 +554,12 @@
       <workItem from="1506768178341" duration="459000" />
       <workItem from="1506768760025" duration="1734000" />
       <workItem from="1506770551504" duration="805000" />
-      <workItem from="1506777663145" duration="1121000" />
+      <workItem from="1506777663145" duration="6902000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5317000" />
+    <option name="totallyTimeSpent" value="11209000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1832" extended-state="6" />
@@ -394,12 +567,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32890576" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -418,7 +592,6 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -445,14 +618,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ARestaurant.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/SimpleApp.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/GetManyRestaurants.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/InventoryRequests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -463,9 +628,315 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/UserRequests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="280">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/WebsiteRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/ARestaurant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/MyResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/ParamTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/PostStuff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="56" column="35" lean-forward="true" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/HelloWorld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/GlassFishSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/Restaurants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+          <folding>
+            <marker date="1506784407851" expanded="true" signature="473:560" ph="insert into restaurants... " />
+            <marker date="1506784407851" expanded="true" signature="862:876" ph="select * fro... restaurants" />
+            <marker date="1506784407851" expanded="true" signature="1442:1456" ph="select * fro... restaurants" />
+            <marker date="1506784407851" expanded="true" signature="2435:2449" ph="select * fro... restaurants" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/ConnectionSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="69" lean-forward="true" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/GetManyRestaurants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Glassboi.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="931">
+          <caret line="53" column="9" lean-forward="true" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2431">
+          <caret line="329" column="67" lean-forward="true" selection-start-line="329" selection-start-column="67" selection-end-line="329" selection-end-column="67" />
+          <folding>
+            <marker date="1506785440794" expanded="true" signature="57562:57579" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57562:57597" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57562:57610" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57562:57625" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57660:59965" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57673:59950" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57727:58111" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57746:58096" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57859:58076" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57899:58042" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="57920:58020" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58161:58467" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58180:58452" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58254:58432" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58294:58398" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58315:58376" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58518:58783" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58537:58768" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58570:58748" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58610:58714" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58631:58692" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58826:59132" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58845:59117" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58919:59097" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58959:59063" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="58980:59041" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59183:59533" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59202:59518" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59281:59498" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59321:59464" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59342:59442" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59585:59936" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59604:59921" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59723:59901" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59763:59867" ph="..." />
+            <marker date="1506785440794" expanded="true" signature="59784:59845" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ParamTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ParamTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ParamTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ParamTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/DerbyDB/DerbyDB.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/ARestaurant.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/SimpleApp.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/miun/erfa1501/GetManyRestaurants.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/InventoryRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/UserRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/HTTP/WebsiteRequests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="17" column="28" lean-forward="false" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/ARestaurant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Models/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/MyResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/ParamTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/PostStuff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="56" column="35" lean-forward="true" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/HelloWorld.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/Restaurants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="4" column="19" lean-forward="false" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+          <folding>
+            <marker date="1506784407851" expanded="true" signature="473:560" ph="insert into restaurants... " />
+            <marker date="1506784407851" expanded="true" signature="862:876" ph="select * fro... restaurants" />
+            <marker date="1506784407851" expanded="true" signature="1442:1456" ph="select * fro... restaurants" />
+            <marker date="1506784407851" expanded="true" signature="2435:2449" ph="select * fro... restaurants" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Database/ConnectionSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="69" lean-forward="true" selection-start-line="10" selection-start-column="69" selection-end-line="10" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/Test/GetManyRestaurants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/se/miun/antonsskafferi/GlassFishSetup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

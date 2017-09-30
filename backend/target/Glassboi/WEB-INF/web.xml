@@ -7,7 +7,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>miun.erfa1501</param-value>
+            <param-value>se.miun.antonsskafferi</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -58,6 +58,6 @@
     </filter-mapping>
     
     <listener>
-        <listener-class>miun.erfa1501.DerbyDB.DerbyDB</listener-class>
+        <listener-class>se.miun.antonsskafferi.Database.ConnectionSetup</listener-class>
     </listener>
 </web-app>

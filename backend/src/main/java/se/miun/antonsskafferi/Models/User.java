@@ -1,4 +1,4 @@
-package miun.erfa1501.Models;
+package se.miun.antonsskafferi.Models;
 
 public class User {
     private int id;

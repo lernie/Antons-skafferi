@@ -1,4 +1,4 @@
-package miun.erfa1501.test;
+package se.miun.antonsskafferi.Test;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

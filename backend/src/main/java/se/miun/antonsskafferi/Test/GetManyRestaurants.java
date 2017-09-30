@@ -1,7 +1,7 @@
-package miun.erfa1501;
+package se.miun.antonsskafferi.Test;
 
-import miun.erfa1501.Models.ARestaurant;
-
+import se.miun.antonsskafferi.Database.Restaurants;
+import se.miun.antonsskafferi.Models.ARestaurant;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
