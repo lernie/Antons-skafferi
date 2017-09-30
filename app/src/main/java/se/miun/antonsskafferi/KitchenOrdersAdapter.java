@@ -42,9 +42,23 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
         tableNumberView.setText("Bord " + order.getTable());
 
         for (int i = 0; i < order.getCourseCount(); i++) {
-            View courseView = inflater.inflate(R.layout.kitchen_order_courses, linLayout, false);
+
+            Order.OrderItem item = order.getItem(i);
+
+            View courseView;
+
+            if (item.isSpecial()) {
+                courseView = inflater.inflate(R.layout.kitchen_order_courses_spec, linLayout, false);
+                TextView specText = (TextView) courseView.findViewById(R.id.course_spec_text);
+
+                specText.setText(item.getText());
+            } else {
+                courseView = inflater.inflate(R.layout.kitchen_order_courses, linLayout, false);
+            }
+
             TextView textView = (TextView) courseView.findViewById(R.id.course_name);
-            textView.setText(order.getCourse(i));
+
+            textView.setText(item.getCourse());
             linLayout.addView(courseView);
         }
         //linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));

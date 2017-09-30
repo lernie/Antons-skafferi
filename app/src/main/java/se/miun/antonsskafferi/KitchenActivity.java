@@ -17,16 +17,16 @@ public class KitchenActivity extends Activity {
         KitchenOrdersAdapter adapter = new KitchenOrdersAdapter(this);
         ((ListView) findViewById(R.id.kitchen_list)).setAdapter(adapter);
 
-        ArrayList<String> list = new ArrayList<String>(2);
-        list.add("PonnyP-patch-plättar");
-        list.add("Grodlår");
+        ArrayList<Order.OrderItem> list = new ArrayList<Order.OrderItem>(2);
+        list.add(new Order.OrderItem("PonnyP-patch-plättar", 3));
+        list.add(new Order.OrderItem("Grodlår", 2));
 
         Order order = new Order(3, list);
         adapter.add(order);
 
-        list = new ArrayList<String>(2);
-        list.add("Känguru");
-        list.add("Mys macka");
+        list = new ArrayList<Order.OrderItem>(2);
+        list.add(new Order.OrderItem("Känguru", "Utan vitlök"));
+        list.add(new Order.OrderItem("Känguru", 2));
 
         order = new Order(4, list);
         adapter.add(order);

@@ -9,16 +9,16 @@ import java.util.Collection;
 
 public class Order {
     private int table;
-    private ArrayList<String> courses;
+    private ArrayList<OrderItem> courses;
 
     public Order(int table) {
         this.table = table;
-        this.courses = new ArrayList<String>();
+        this.courses = new ArrayList<OrderItem>();
     }
 
-    public Order(int table, Collection<String> courses) {
+    public Order(int table, Collection<OrderItem> courses) {
         this.table = table;
-        this.courses = new ArrayList<String>(courses);
+        this.courses = new ArrayList<OrderItem>(courses);
     }
 
     public int getTable() {
@@ -29,7 +29,47 @@ public class Order {
         return courses.size();
     }
 
-    public String getCourse(int index) {
+    public OrderItem getItem(int index) {
         return courses.get(index);
+    }
+
+    public static class OrderItem {
+        private String course;
+        private int count = 0;
+        private String text = "";
+
+        public OrderItem(String course, int count) {
+            this.course = course;
+            this.count = count;
+        }
+
+        public OrderItem(String course, String text) {
+            this.course = course;
+            this.text = text;
+        }
+
+        public boolean isSpecial() {
+            return !"".equals(text);
+        }
+
+        public String getCourse() {
+            return course;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
     }
 }
