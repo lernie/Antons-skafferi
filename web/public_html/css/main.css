@@ -1,0 +1,19 @@
+#wrapper{
+    background-color: red;
+    height: 1000px;
+    width: 800px;
+    margin: 0 auto;
+    overflow: hidden; 
+    padding: 0px;
+    border: 0px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%; 
+    vertical-align: baseline;
+    background: transparent;
+}
