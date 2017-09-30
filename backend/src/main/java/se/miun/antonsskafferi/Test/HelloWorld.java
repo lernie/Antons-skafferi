@@ -1,4 +1,4 @@
-package se.miun.antonsskafferi;
+package se.miun.antonsskafferi.Test;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

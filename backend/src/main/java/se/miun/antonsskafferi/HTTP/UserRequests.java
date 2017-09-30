@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/users")
 public class UserRequests {
-    
+
     @Path("/add")
     @POST
     @Produces(MediaType.APPLICATION_JSON)

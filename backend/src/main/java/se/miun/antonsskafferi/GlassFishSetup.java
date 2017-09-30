@@ -1,8 +1,7 @@
-package miun.erfa1501;
+package se.miun.antonsskafferi;
 
-import miun.erfa1501.test.ParamTest;
-import miun.erfa1501.test.PostStuff;
-
+import se.miun.antonsskafferi.HTTP.UserRequests;
+import se.miun.antonsskafferi.Test.*;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -11,7 +10,7 @@ import java.util.Set;
 //Defines the base URI for all resource URIs.
 @ApplicationPath("/")
 //The java class declares root resource and provider classes
-public class MyApplication extends Application {
+public class GlassFishSetup extends Application {
     //The method returns a non-empty collection with classes, that must be included in the published JAX-RS application
     @Override
     public Set<Class<?>> getClasses() {
@@ -21,7 +20,7 @@ public class MyApplication extends Application {
         h.add(HelloWorld.class);
         h.add(GetManyRestaurants.class);
         h.add(PostStuff.class);
-        h.add(UserFactory.class);
+        h.add(UserRequests.class);
         return h;
     }
 }
