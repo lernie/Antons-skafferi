@@ -8,6 +8,24 @@
     border: 0px;
 }
 
+#meny{
+    background-color: green;
+    height: 50px;
+    width: 1000px; 
+    padding: 0px;
+    border: px; 
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#bild{
+    background-color: orange; 
+    height: 630px;
+    width: 1000px;
+    overflow: hidden;
+    
+}
+
 *{
     margin: 0;
     padding: 0;
