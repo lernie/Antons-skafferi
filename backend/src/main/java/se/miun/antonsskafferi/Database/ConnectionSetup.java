@@ -9,6 +9,7 @@ import java.sql.SQLException;
 //https://stackoverflow.com/questions/12875682/initialize-database-on-jersey-webapp-startup
 public class ConnectionSetup implements ServletContextListener {
     private static String dbURL = "jdbc:derby://localhost:1527/myDB";
+    //private static String dbURL = "jdbc:derby://localhost:1527/myDB";
     public static Connection conn;
 
     public void contextInitialized(ServletContextEvent arg0) {

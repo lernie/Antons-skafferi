@@ -15,6 +15,6 @@ public class WebsiteRequests {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOpeningHours(){
 
-        return Response.ok("").build();
+        return Response.ok(/*WebsiteDB.getAllOpeningHours*/).build();
     }
 }
