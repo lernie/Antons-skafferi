@@ -1,4 +1,5 @@
-package se.miun.antonsskafferi;
+package se.miun.antonsskafferi.HTTP;
 
-public class Inventory {
+public class InventoryRequests {
+
 }

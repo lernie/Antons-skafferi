@@ -1,19 +1,12 @@
-package se.miun.antonsskafferi;
+package se.miun.antonsskafferi.HTTP;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/users")
-public class UserFactory {
-    @GET("/get/{Id}")
-    public Response getUserByUserId(UserId) {
-
-    }
-
-    @
-
-
+public class UserRequests {
+    
     @Path("/add")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
