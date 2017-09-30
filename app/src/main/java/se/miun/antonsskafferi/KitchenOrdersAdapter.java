@@ -10,12 +10,17 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.Collection;
+
+import se.miun.antonsskafferi.Courses.Order;
 
 /**
  * Created by joel on 2017-09-28.
  */
 
-public class KitchenOrdersAdapter extends ArrayAdapter<String> {
+public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
 
     public KitchenOrdersAdapter(@NonNull Context context) {
         super(context, R.layout.kitchen_order);
@@ -30,8 +35,20 @@ public class KitchenOrdersAdapter extends ArrayAdapter<String> {
         View view = (ViewGroup) inflater.inflate(R.layout.kitchen_order, parent, false);
 
         LinearLayout linLayout = view.findViewById(R.id.course_list);
-        linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
-        linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
+
+        Order order = getItem(position);
+
+        TextView tableNumberView = (TextView) view.findViewById(R.id.order_title);
+        tableNumberView.setText("Bord " + order.getTable());
+
+        for (int i = 0; i < order.getCourseCount(); i++) {
+            View courseView = inflater.inflate(R.layout.kitchen_order_courses, linLayout, false);
+            TextView textView = (TextView) courseView.findViewById(R.id.course_name);
+            textView.setText(order.getCourse(i));
+            linLayout.addView(courseView);
+        }
+        //linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
+        //linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
 
         return view;
     }
