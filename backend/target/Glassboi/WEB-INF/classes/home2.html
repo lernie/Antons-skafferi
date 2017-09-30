@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            url: "http://37.139.13.250:8080/Glassboi/create",
+            type: "POST",
+            contentType: "application/json",
+            dataType: 'json',
+            crossDomain: true,
+            statusCode: {
+                200: function(){}
+            },
+            data:  JSON.stringify([{"cityName":"Berkeley","id":5,"restaurantName":"LaVals"},{"cityName":"New York City","id":1,"restaurantName":"Taco Bell"},{"cityName":"Boston","id":2,"restaurantName":"Burger King"},{"cityName":"Seattle","id":3,"restaurantName":"McDonalds"},{"cityName":"New York City","id":4,"restaurantName":"McDonalds"}]),
+            complete: function(jqXHR) {
+                console.log(jqXHR.status);
+                $("#ps").html(jqXHR.status);
+            }
+        })
+
+        $.ajax({
+            url: "http://37.139.13.250:8080/Glassboi/create",
+            type: "GET",
+            contentType: "text/plain",
+            dataType: 'text',
+            crossDomain: true,
+            statusCode: {
+                200: function(){}
+            },
+            success: function(data, textStatus, xhr){
+                console.log(xhr.status);
+                $("#gs").html(xhr.status + " " + data);
+            }
+        });
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Here is the POST space: <p id="ps"></p>
+    Here is the GET space: <p id="gs"></p>
+</body>
+</html>
