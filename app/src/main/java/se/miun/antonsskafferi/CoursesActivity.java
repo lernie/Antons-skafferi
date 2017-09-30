@@ -18,14 +18,13 @@ public class CoursesActivity extends Activity{
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
     CourseAdapter userAdapter;
-    private Button spec;
+   Button spec;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_main);
-        //  setContentView(R.layout.row);
 
         list.add(new CourseListItem(new Course("Räkcocktail")));
         list.add(new CourseListItem(new Course("Caprese")));
@@ -40,29 +39,12 @@ public class CoursesActivity extends Activity{
         listView.setItemsCanFocus(false);
         listView.setAdapter(userAdapter);
         spec = (Button)findViewById(R.id.Special);
-
-
-        }
+            }
 
         public void toast(View v){
             Toast.makeText(CoursesActivity.this,
                     "Special Added", Toast.LENGTH_LONG).show();
-
         }
-
     }
-
-/*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                                    final int position, long id) {
-                Log.i("List View CLicked", "*******");
-                Toast.makeText(CoursesActivity.this, "Added" + position,
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-*/
-
 
 

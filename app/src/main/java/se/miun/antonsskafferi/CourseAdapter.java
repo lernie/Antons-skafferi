@@ -17,11 +17,11 @@ import android.widget.TextView;
 
 import se.miun.antonsskafferi.Courses.CourseListItem;
 
-public class CourseAdapter extends ArrayAdapter<CourseListItem>{
+public class CourseAdapter extends ArrayAdapter<CourseListItem> {
 
-        ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
-        Context context;
-        int layoutResourceld;
+    ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
+    Context context;
+    int layoutResourceld;
 
 
         public CourseAdapter(Context context, int layoutResourceld,
@@ -32,6 +32,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
             this.list = list;
 
         }
+
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
@@ -65,9 +66,14 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
                                 CourseListItem item = list.get(position);
                                 if (item.getCount() > 0) {
                                     item.setCount(item.getCount() - 1);
+                                    if (item.getCount() == 0) {
+                                        ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
+                                                .setText("");
+                                    } else {
 
-                                    ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
-                                            .setText(Integer.toString(item.getCount()));
+                                        ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
+                                                .setText(Integer.toString(item.getCount()));
+                                    }
                                 }
                             }
                         });
