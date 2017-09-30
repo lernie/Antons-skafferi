@@ -10,14 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by joel on 2017-09-28.
  */
 
 public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
 
-    public KitchenOrdersAdapter(@NonNull Context context) {
-        super(context, R.layout.kitchen_order);
+    public KitchenOrdersAdapter(@NonNull Context context, ArrayList<Order> list) {
+        super(context, R.layout.kitchen_order, list);
     }
 
     @NonNull
@@ -55,8 +57,6 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
             textView.setText(item.getCourse());
             linLayout.addView(courseView);
         }
-        //linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
-        //linLayout.addView(inflater.inflate(R.layout.kitchen_order_courses, linLayout, false));
 
         return view;
     }
