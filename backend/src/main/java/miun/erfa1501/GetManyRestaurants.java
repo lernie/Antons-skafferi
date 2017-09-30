@@ -13,8 +13,7 @@ public class GetManyRestaurants {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<ARestaurant> read() throws NullPointerException {
-        Restaurants r = new Restaurants();
-        List<ARestaurant> ARes = r.getAllRestaurants();
+        List<ARestaurant> ARes = Restaurants.getAllRestaurants();
 
         ARestaurant ARU = new ARestaurant();
         ARU.setId(45);

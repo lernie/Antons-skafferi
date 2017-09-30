@@ -81,7 +81,7 @@ class Restaurants
     }
   }
   
-  public java.util.List<ARestaurant> getAllRestaurants() {
+  public static java.util.List<ARestaurant> getAllRestaurants() {
     java.util.List<ARestaurant> restaurants = new java.util.ArrayList();
 
     try
