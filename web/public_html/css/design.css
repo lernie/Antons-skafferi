@@ -1,16 +1,17 @@
 #wrapper{
-    background-color: red;
+    background-color: #ff8080;
     height: 1000px;
     width: 800px;
     margin: 0 auto;
     overflow: hidden; 
     padding: 0px;
     border: 0px;
+    word-wrap:break-word;
 }
 
 #meny{
     background-color: green;
-    height: 50px;
+    height: 46px;
     width: 1000px; 
     padding: 0px;
     border: px; 
@@ -35,3 +36,4 @@
     vertical-align: baseline;
     background: transparent;
 }
+
