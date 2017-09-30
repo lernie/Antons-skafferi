@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi;
 
 import se.miun.antonsskafferi.HTTP.UserRequests;
+import se.miun.antonsskafferi.HTTP.WebsiteRequests;
 import se.miun.antonsskafferi.Test.*;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -21,6 +22,7 @@ public class GlassFishSetup extends Application {
         h.add(GetManyRestaurants.class);
         h.add(PostStuff.class);
         h.add(UserRequests.class);
+        h.add(WebsiteRequests.class);
         return h;
     }
 }
