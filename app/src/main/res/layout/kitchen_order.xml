@@ -17,12 +17,28 @@
             android:textSize="30dp"
             android:text="Bord 1" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/came_in_minutes_ago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_toLeftOf="@id/check_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:text="2 min"/>
+
         <Button
-            android:id="@+id/check_button"
+            android:id="@id/check_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:onClick="removeOrder"
             android:text="Checka av" />
+
     </RelativeLayout>
 
    <LinearLayout
