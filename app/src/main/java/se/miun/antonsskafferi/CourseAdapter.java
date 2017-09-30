@@ -45,7 +45,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
                         holder.meal = (TextView) row.findViewById(R.id.textView2);
                         holder.btnAdd = (Button) row.findViewById(R.id.ButtonAdd);
                         holder.btnSubb = (Button) row.findViewById(R.id.ButtonSubb);
-                        holder.quantity = (EditText) row.findViewById(R.id.counter);
+                        holder.quantity = (TextView) row.findViewById(R.id.counter);
                         holder.btnAdd.setOnClickListener(new View.OnClickListener() {
 
                             @Override
@@ -53,7 +53,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
 
                                 CourseListItem item = list.get(position);
                                 item.setCount(item.getCount() +1 );
-                                ((EditText) ((View) v.getParent()).findViewById(R.id.counter))
+                                ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
                                         .setText(Integer.toString(item.getCount()));
                         }
                         });
@@ -66,7 +66,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
                                 if (item.getCount() > 0) {
                                     item.setCount(item.getCount() - 1);
 
-                                    ((EditText) ((View) v.getParent()).findViewById(R.id.counter))
+                                    ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
                                             .setText(Integer.toString(item.getCount()));
                                 }
                             }
@@ -86,7 +86,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem>{
 
         static class UserHolder{
 
-            EditText quantity;
+            TextView quantity;
             TextView meal;
             Button btnAdd;
             Button btnSubb;
