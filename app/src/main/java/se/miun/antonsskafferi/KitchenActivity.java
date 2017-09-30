@@ -6,8 +6,6 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import se.miun.antonsskafferi.Courses.Order;
-
 public class KitchenActivity extends Activity {
 
     @Override

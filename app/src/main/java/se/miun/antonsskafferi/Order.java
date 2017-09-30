@@ -1,4 +1,4 @@
-package se.miun.antonsskafferi.Courses;
+package se.miun.antonsskafferi;
 
 import java.util.ArrayList;
 import java.util.Collection;
