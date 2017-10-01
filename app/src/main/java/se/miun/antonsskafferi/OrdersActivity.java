@@ -9,22 +9,20 @@ import java.util.ArrayList;
 
 public class OrdersActivity extends Activity {
     private TableOrdersAdapter adapter;
-    private ArrayList<String> stringArrayList;
+    private ArrayList<Order.OrderItem> orderItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stringArrayList = new ArrayList<>();
+        orderItems = new ArrayList<Order.OrderItem>();
         setContentView(R.layout.activity_orders);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        adapter = new TableOrdersAdapter(this, stringArrayList);
+        adapter = new TableOrdersAdapter(this, orderItems);
         ((ListView) findViewById(R.id.orderList)).setAdapter(adapter);
 
-        stringArrayList.add("test");
-        stringArrayList.add("test");
-        stringArrayList.add("test");
-        stringArrayList.add("test");
-        stringArrayList.add("test");
-        stringArrayList.add("test");
+        orderItems.add(new Order.OrderItem("Gino", 3));
+        orderItems.add(new Order.OrderItem("Känguru", "Utan lök"));
+        orderItems.add(new Order.OrderItem("Cola", 1));
+
         adapter.notifyDataSetChanged();
     }
 
@@ -40,7 +38,7 @@ public class OrdersActivity extends Activity {
     public void clearSpec(View view){
         ListView listView = findViewById(R.id.orderList);
         int i = listView.getPositionForView((View) view.getParent());
-        stringArrayList.remove(i);
+        orderItems.remove(i);
         adapter.notifyDataSetChanged();
     }
 
