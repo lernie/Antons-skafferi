@@ -10,28 +10,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Button;
 
+import java.util.ArrayList;
 
 
 public class TableOrdersAdapter extends ArrayAdapter<String>{
 
     private final Context context;
-    //private final ArrayList<String> stringArrayList;
-    public TableOrdersAdapter(Context context) {
-        super(context, R.layout.table_order_spec);
+    private final ArrayList<String> stringArrayList;
+    public TableOrdersAdapter(Context context, ArrayList<String> stringArrayList) {
+        super(context, R.layout.table_order_spec, stringArrayList);
         this.context = context;
+        this.stringArrayList=stringArrayList;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
         // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // 2. Get rowView from inflater
         View rowView;
-        if(position==4){
+        if(position==2){
             rowView = inflater.inflate(R.layout.table_order_spec, parent, false);
+
         }
         else {
             rowView = inflater.inflate(R.layout.table_order, parent, false);
@@ -56,6 +60,9 @@ public class TableOrdersAdapter extends ArrayAdapter<String>{
         // 5. retrn rowView
         return rowView;
     }
+
+
+
 
 
 
