@@ -1,5 +1,11 @@
+#bigwrapper{
+    background-color: white;
+    height: 100%;
+    width: 100%;
+}
+
 #wrapper{
-    background-color: #ff8080;
+    background-color: #f2f2f2;
     height: 1000px;
     width: 800px;
     margin: 0 auto;
@@ -20,9 +26,9 @@
 }
 
 #bild{
-    background-color: orange; 
-    height: 630px;
-    width: 1000px;
+     
+    height: 100%;
+    width: 100%;
     overflow: hidden;
     
 }
@@ -36,4 +42,17 @@
     vertical-align: baseline;
     background: transparent;
 }
+p{
+    color: black;
+    padding-left: 100px; 
+}
 
+h1{
+    color: black;
+    padding-left: 100px; 
+}
+
+h2{
+    color: black;
+    padding-left: 100px;
+}
