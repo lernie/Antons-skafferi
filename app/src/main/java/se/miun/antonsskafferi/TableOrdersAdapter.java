@@ -15,57 +15,39 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 
-public class TableOrdersAdapter extends ArrayAdapter<String>{
+
+public class TableOrdersAdapter extends ArrayAdapter<Order.OrderItem>{
 
     private final Context context;
-    private final ArrayList<String> stringArrayList;
-    public TableOrdersAdapter(Context context, ArrayList<String> stringArrayList) {
-        super(context, R.layout.table_order_spec, stringArrayList);
+    private final ArrayList<Order.OrderItem> orderItems;
+
+    public TableOrdersAdapter(Context context, ArrayList<Order.OrderItem> orderItems) {
+        super(context, R.layout.table_order_spec, orderItems);
         this.context = context;
-        this.stringArrayList=stringArrayList;
+        this.orderItems = orderItems;
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent){
-        // 1. Create inflater
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        // 2. Get rowView from inflater
+        Order.OrderItem item = orderItems.get(position);
+
         View rowView;
-        if(position==2){
-            final int i= position;
+        if(item.isSpecial()){
             rowView = inflater.inflate(R.layout.table_order_spec, parent, false);
-            Button removeSpec=(Button)rowView.findViewById(R.id.trash);
-            removeSpec.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    stringArrayList.remove(i);
-                    notifyDataSetChanged();
-                }
-            });
-        }
-        else {
+        } else {
             rowView = inflater.inflate(R.layout.table_order, parent, false);
+            TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
+            quantity.setText(Integer.toString(item.getCount()) + "x");
         }
-        TextView textView = (TextView) rowView.findViewById(R.id.order);
-        int mod=position%3;
-        if(mod==0){
-            textView.setText("Stekta grodlår");
-        }
-        else if(mod==1){
-            textView.setText("Friterad känguru");
-        }
-        else
-            textView.setText("Gino");
+        TextView courseName =  (TextView) rowView.findViewById(R.id.order);
 
 
-
-        // 3. Get the two text view from the rowView
-        TextView labelView = (TextView) rowView.findViewById(R.id.order);
+        courseName.setText(item.getCourse());
 
 
-        // 5. retrn rowView
         return rowView;
     }
 
