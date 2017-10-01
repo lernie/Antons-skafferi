@@ -10,10 +10,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-import se.miun.antonsskafferi.Courses.CourseListItem;
-import se.miun.antonsskafferi.Courses.Course;
-
-
 public class CoursesActivity extends Activity{
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
