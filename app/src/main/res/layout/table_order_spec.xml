@@ -42,7 +42,8 @@
         android:layout_marginRight="30dp"
 
         android:layout_marginStart="20dp"
-        android:text="R" />
+        android:text="R"
+        android:onClick="clearSpec"/>
 
 
 </LinearLayout>

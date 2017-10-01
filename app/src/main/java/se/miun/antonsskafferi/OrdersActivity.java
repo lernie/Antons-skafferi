@@ -13,7 +13,7 @@ public class OrdersActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stringArrayList = new ArrayList<String>();
+        stringArrayList = new ArrayList<>();
         setContentView(R.layout.activity_orders);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         adapter = new TableOrdersAdapter(this, stringArrayList);
@@ -37,8 +37,11 @@ public class OrdersActivity extends Activity {
         adapter.clear();
     }
 
-   /* public boolean clearSpecialOrder(View view){
-        adapter.remove(R.id.orderList.indexOfChild(view));
-    }*/
+    public void clearSpec(View view){
+        ListView listView = findViewById(R.id.orderList);
+        int i = listView.getPositionForView((View) view.getParent());
+        stringArrayList.remove(i);
+        adapter.notifyDataSetChanged();
+    }
 
 }

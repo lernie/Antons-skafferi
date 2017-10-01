@@ -34,16 +34,8 @@ public class TableOrdersAdapter extends ArrayAdapter<String>{
         // 2. Get rowView from inflater
         View rowView;
         if(position==2){
-            final int i= position;
             rowView = inflater.inflate(R.layout.table_order_spec, parent, false);
-            Button removeSpec=(Button)rowView.findViewById(R.id.trash);
-            removeSpec.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    stringArrayList.remove(i);
-                    notifyDataSetChanged();
-                }
-            });
+
         }
         else {
             rowView = inflater.inflate(R.layout.table_order, parent, false);
