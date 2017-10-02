@@ -22,4 +22,9 @@ public class TablesActivity extends Activity {
         Intent intent = new Intent(this, KitchenActivity.class);
         startActivity(intent);
     }
+
+    public void goToInventory (View view){
+        Intent intent = new Intent(this, InventoryActivity.class);
+        startActivity(intent);
+    }
 }
