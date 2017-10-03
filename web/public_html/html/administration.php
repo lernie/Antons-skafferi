@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?php
+    
     // Start the session
 	ob_start();
     session_start();
@@ -14,9 +13,9 @@
 			$_SESSION['username'] = $username;
 			header('Location: gomd.php');
 		}else{
-			echo '<script language="javascript">';
-			echo 'alert("Felaktigt användarnamn eller lösenord")';
-			echo '</script>';
+                    echo '<script language="javascript">';
+                    echo 'alert("Felaktigt användarnamn eller lösenord")';
+                    echo '</script>';
 		}
 	
 	}
@@ -26,6 +25,8 @@
     <head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       
+
     </head>
     <body>
         <div id="logindiv">
@@ -45,3 +46,4 @@
 	</div>
     </body>
 </html>
+
