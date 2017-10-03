@@ -16,7 +16,7 @@ public class OrdersActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         orderItems = new ArrayList<Order.OrderItem>();
         adapter = new TableOrdersAdapter(this, orderItems);

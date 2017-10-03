@@ -1,12 +1,13 @@
 package se.miun.antonsskafferi;
 
-import android.support.v7.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.os.Bundle;
 import java.util.ArrayList;
 import android.view.View;
 import android.widget.ListView;
 
-public class InventoryActivity extends AppCompatActivity {
+public class InventoryActivity extends Activity {
 
     private ArrayList<Ingredient> inventoryList;
     private InventoryListAdapter adapter;
@@ -15,7 +16,7 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         inventoryList = new ArrayList<Ingredient>();
         adapter = new InventoryListAdapter(this, inventoryList);

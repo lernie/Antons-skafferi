@@ -38,7 +38,7 @@ public class InventoryListAdapter extends ArrayAdapter<Ingredient>{
         TextView ingredientUnit = (TextView) rowView.findViewById(R.id.ingredient_unit);
 
         ingredientName.setText(ingredient.getName());
-        ingredientQuantity.setText(ingredient.getQuantity());
+        ingredientQuantity.setText(Integer.toString(ingredient.getQuantity()));
         ingredientUnit.setText(ingredient.getUnit());
 
         return rowView;
