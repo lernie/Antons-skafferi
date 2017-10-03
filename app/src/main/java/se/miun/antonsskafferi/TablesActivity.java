@@ -3,7 +3,10 @@ package se.miun.antonsskafferi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class TablesActivity extends Activity {
 
@@ -11,6 +14,15 @@ public class TablesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
+
+        ListView listView = (ListView) findViewById(R.id.navigation_drawer);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+
+        listView.setAdapter(adapter);
+
+        adapter.add("Test 1");
+        adapter.add("Test 2");
     }
 
     public void goToOrder (View view){
