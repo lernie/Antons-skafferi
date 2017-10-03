@@ -11,7 +11,7 @@
 		$password = $_POST['password'];
 		if ($username == "admin" and $password == "12345"){
 			$_SESSION['username'] = $username;
-			header('Location: gomd.php');
+			header('Location: admin.php');
 		}else{
                     echo '<script language="javascript">';
                     echo 'alert("Felaktigt användarnamn eller lösenord")';
