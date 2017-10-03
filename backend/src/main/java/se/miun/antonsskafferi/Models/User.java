@@ -1,7 +1,7 @@
 package se.miun.antonsskafferi.Models;
 
 public class User {
-    private int id;
+    private int id; //PK
     private String name;
 
     public int getId() {

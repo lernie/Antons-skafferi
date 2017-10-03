@@ -1,7 +1,7 @@
 package se.miun.antonsskafferi.Models;
 
 public class ARestaurant {
-  private int id;
+  private int id; //PK
   private String restaurantName;
   private String cityName;
   
