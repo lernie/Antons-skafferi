@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="se.miun.antonsskafferi.InventoryActivity">
+    tools:context="se.miun.antonsskafferi.OrdersActivity">
 
-    <ListView
-        android:id="@+id/inventory_list"
-        android:layout_width="match_parent"
-        android:layout_height="504dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
-    </ListView>
+    <Button
+        android:id="@+id/imageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/round_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="25dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="+"
+        android:textColor="@color/colorWhite"
+        android:textSize="35sp"/>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="-135dp">
+
+        <ListView
+            android:id="@+id/inventory_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"></ListView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
