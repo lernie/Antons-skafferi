@@ -7,7 +7,7 @@
     tools:context="se.miun.antonsskafferi.OrdersActivity">
 
     <Button
-        android:id="@+id/imageButton"
+        android:id="@+id/add_ingredient"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="25dp"
@@ -17,9 +17,11 @@
         app:layout_constraintRight_toRightOf="parent"
         android:text="+"
         android:textColor="@color/colorWhite"
-        android:textSize="35sp"/>
+        android:textSize="35sp"
+        android:onClick="showIngredientPopupWindow"/>
 
     <LinearLayout
+        android:id="@+id/inventory_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
