@@ -16,19 +16,20 @@
         android:textColor="@color/colorBlack"
         />
 
-    <TextView
+    <EditText
         android:id="@+id/ingredient_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="35sp"
+        android:inputType="numberDecimal"
         />
 
     <TextView
         android:id="@+id/ingredient_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:textSize="35sp"
         />
 

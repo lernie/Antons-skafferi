@@ -23,8 +23,8 @@ public class InventoryActivity extends Activity {
         ((ListView) findViewById(R.id.inventory_list)).setAdapter(adapter);
 
         inventoryList.add(new Ingredient("Gino", 3, "st"));
-        inventoryList.add(new Ingredient("Känguru", 2, "Kg"));
-        inventoryList.add(new Ingredient("Cola", 1, "L"));
+        inventoryList.add(new Ingredient("Känguru", 2.5, "st"));
+        inventoryList.add(new Ingredient("Cola", 1, "l"));
 
         adapter.notifyDataSetChanged();
 

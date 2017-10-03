@@ -6,10 +6,10 @@ package se.miun.antonsskafferi;
 
 public class Ingredient {
     private String name;
-    private int quantity;
+    private double quantity;
     private String unit;
 
-    public Ingredient(String name, int quantity, String unit){
+    public Ingredient(String name, double quantity, String unit){
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
@@ -19,7 +19,7 @@ public class Ingredient {
         return name;
     }
 
-    public int getQuantity(){
+    public double getQuantity(){
         return quantity;
     }
 
