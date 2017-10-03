@@ -1,7 +1,7 @@
 package se.miun.antonsskafferi.Models;
 
 public class OpeningHour {
-    private int id;
+    private int id; //PK
     private String day;
     private short openingTime;
     private short closingTime;

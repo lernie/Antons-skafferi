@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         $.ajax({
-            url: "http://37.139.13.250:8080/Glassboi/create",
+            url: "http://localhost:8080/create",
             type: "POST",
             contentType: "application/json",
             dataType: 'json',
@@ -20,7 +20,7 @@
         })
 
         $.ajax({
-            url: "http://37.139.13.250:8080/Glassboi/create",
+            url: "http://localhost:8080/create",
             type: "GET",
             contentType: "text/plain",
             dataType: 'text',
@@ -34,7 +34,7 @@
             }
         });
         $.ajax({
-            url: "http://37.139.13.250:8080/Glassboi/site/openinghours",
+            url: "http://localhost:8080/api/openinghour",
             type: "GET",
             contentType: "application/json",
             dataType: 'json',
@@ -47,6 +47,48 @@
                 $("#oh").html(xhr.status + " " + data);
             }
         });
+        $.ajax({
+            url: "http://localhost:8080/api/employee",
+            type: "GET",
+            contentType: "application/json",
+            dataType: 'json',
+            crossDomain: true,
+            statusCode: {
+                200: function(){}
+            },
+            success: function(data, textStatus, xhr){
+                console.log(xhr.status);
+                $("#es").html(xhr.status + " " + data);
+            }
+        });
+        $.ajax({
+            url: "http://localhost:8080/api/diningtable",
+            type: "GET",
+            contentType: "application/json",
+            dataType: 'json',
+            crossDomain: true,
+            statusCode: {
+                200: function(){}
+            },
+            success: function(data, textStatus, xhr){
+                console.log(xhr.status);
+                $("#dts").html(xhr.status + " " + data);
+            }
+        });
+        $.ajax({
+            url: "http://localhost:8080/api/foodorder",
+            type: "GET",
+            contentType: "application/json",
+            dataType: 'json',
+            crossDomain: true,
+            statusCode: {
+                200: function(){}
+            },
+            success: function(data, textStatus, xhr){
+                console.log(xhr.status);
+                $("#fos").html(xhr.status + " " + data);
+            }
+        });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,5 +99,8 @@
     Here is the POST space: <p id="ps"></p>
     Here is the GET space: <p id="gs"></p>
     Here is the GET space for the opening hours: <p id="oh"></p>
+    Here is the GET space for the employees: <p id="es"></p>
+    Here is the GET space for the diningtables: <p id="dts"></p>
+    Here is the GET space for the foodorders: <p id="fos"></p>
 </body>
 </html>
