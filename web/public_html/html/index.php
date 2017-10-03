@@ -123,7 +123,7 @@
             <h1>Vill du boka bord?</h1>
             <p>
                 För att boka bok ikväll, eller för en kommande spelning, klicka
-                på länken nedan!
+                på länken nedan! asd
             </p>
             
             <a href="bokning.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
