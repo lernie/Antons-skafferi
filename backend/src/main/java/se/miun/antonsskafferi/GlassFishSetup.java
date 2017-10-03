@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi;
 
+import se.miun.antonsskafferi.HTTP.InventoryRequests;
 import se.miun.antonsskafferi.HTTP.UserRequests;
 import se.miun.antonsskafferi.HTTP.WebsiteRequests;
 import se.miun.antonsskafferi.Test.*;
@@ -23,6 +24,7 @@ public class GlassFishSetup extends Application {
         h.add(PostStuff.class);
         h.add(UserRequests.class);
         h.add(WebsiteRequests.class);
+        h.add(InventoryRequests.class);
         return h;
     }
 }
