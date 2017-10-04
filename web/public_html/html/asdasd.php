@@ -1,34 +1,33 @@
 <?php
 	$page_title = "Startsida";
+	include("includes/header.php");
 ?>
 
-	<h1> 
-		Här kan du boka ditt bord.
-	</h1> 
 
-	<p> 
-		Nedan kan du välja vilket bord du vill sitta på.
-	</p>
 	
 	<p>
-		Spara ditt bordsnummer ifall att du vill avboka. 
+		Spara ditt bokningsnummer för att kontrollera vilket bord det är du har bokat och om du vill avboka senare. 
 	</p> 
 	
 	</br> 
 
 
+
+<?php
+	include("includes/tid.php");
+?>
 <?php
 	$page_title = "Del A";
 	
 	// Report all errors
 	error_reporting( E_ALL );
 
-	//include 'bokning/registrera.class.php';
-	//include 'bokning/cyklar.class.php';
+	include 'bokning/registrera.class.php';
+	include 'bokning/cyklar.class.php';
 	
 	// Create a global variable to the instansiated object that can be used all over
 	global $bookings;
-	//$bookings = new Bookings("bookingsList");
+	$bookings = new Bookings("bookingsList");
 
 	// If add "booking" button pressed?
 	if(isset($_REQUEST["bokaKnapp"])){
@@ -110,7 +109,7 @@
 	<div id="content2">
 			
 		<h2>
-			Välj ditt bord här
+			Välj ditt pass här!
 		</h2>
 				
 			
@@ -121,20 +120,22 @@
 		</select>
 				
 		</br>
-                <h1> välj antalet personer här </h1> 
+		<h2> 
+			Välj ditt bord här:
+		</h2>
 				
 		<select name="cykel" id="cykel">
-			<option selected="selected" disabled="disabled">Välj antalet personer som ska med</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel">1 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 2">2 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 3">3 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 4">4 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 5">5 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 6">6 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 7">7 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 8">8 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 9">9 Person</option>
-			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 10">10 Person</option>
+			<option selected="selected" disabled="disabled">Välj antalet personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 1">1 person </option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 2">2 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 3">3 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 4">4 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 5">5 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 6">6 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 7">7 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 8">8 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 9">9 personer</option>
+			<option <?php if($current_event == 2) echo 'selected="selected"' ?> value="Cykel 10">10 personer</option>
 		</select>
 			
 		</br> 
@@ -170,3 +171,9 @@
 			echo 'Det är stängt på söndagar!';
 		}
 	?>
+		
+	
+	<?php
+		include("includes/sidebar.php");
+		include("includes/footer.php");
+
