@@ -146,6 +146,7 @@
             <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
             
             <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
+            <p> asd </p>
             
         </div>
 
