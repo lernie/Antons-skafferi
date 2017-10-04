@@ -19,9 +19,9 @@
             #section3 {padding-top:0px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
             #section41 {padding-top:50px;height:650px;color: #fff; background-color: #bfbfbf;}
             #section42 {padding-top:50px;height:650px;color: #fff; background-color: #b3b3b3}
+            #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #595959}
         </style>
     </head>
-
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -44,6 +44,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#section41">Admin</a></li>
                                     <li><a href="#section42">Placeholder</a></li>
+                                    <li><a href="#section5">Placeholder</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -93,6 +94,8 @@
             <h2>Fredag</h2>
                 <p>Fisklasagne med spenat</p>
                 <p>Timiankryddad kyckling med chili, samt broccoli och potatisgratäng</p>
+       
+                
         </div>
         <div id="section3" class="container-fluid">
             <img src="../bilder/delorian.jpg" alt="mat" style="width:100%;height:70%;">
@@ -120,10 +123,10 @@
             <h1>Vill du boka bord?</h1>
             <p>
                 För att boka bok ikväll, eller för en kommande spelning, klicka
-                på länken nedan!
+                på länken nedan! asd asd
             </p>
             
-            <li> <a href="index.html">Boka Bord!</a></li>
+            <a href="bokning.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
             
         </div>
         <div id="section42" class="container-fluid">
@@ -132,16 +135,19 @@
             
             <h1> PLACEHOLDER - BILDSPEL SKA LIGGA HÄR </H1>
             <p>Varför fungerar inte detta</p>
+            <p> Testar så att mitt fortfarande fungerar. </p>
             
             
             <p> Sida där jag testar olika funktioner. </p>
-             <li><a href="administration.php">Utvecklar en funktion för att boka bord!</a></li>
         </div>
-
-
-    
-    <body>
-        <div>Hello world</div>
+        
+        <div id="section5" class="container-fluid">
+            
+            <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
+            
+            <p> Detta är en footer - här kan anders lägga in lite vad han vill asd</p>
+            
+        </div>
 
     </body>
 </html>
