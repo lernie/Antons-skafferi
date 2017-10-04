@@ -113,7 +113,7 @@
   `POST`
 
 * **Data Params**
-  **Content:** `[{"created":"2017-10-03T14:04:20Z[UTC]","delivered":"2017-10-03T14:05:20Z[UTC]","diningTableOrderId":0,"foodId":0,"id":0,"modification":"extra ice","orderStatusId":2,"ready":"2017-10-03T14:03:20Z[UTC]"},{"created":"2017-10-03T14:04:20Z[UTC]","delivered":"2017-10-03T14:05:20Z[UTC]","diningTableOrderId":0,"foodId":1,"id":1,"modification":"extra meat","orderStatusId":2,"ready":"2017-10-03T14:03:20Z[UTC]"}]`
+  * **Content:** `{"name": "kilogram", "prefix": "kg"}`
 
 * **Success Response:**
 
