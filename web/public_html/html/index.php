@@ -126,7 +126,7 @@
                 på länken nedan! asd asd
             </p>
             
-            <a href="bokning.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
+            <a href="booking.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
             
         </div>
         <div id="section42" class="container-fluid">
@@ -146,11 +146,7 @@
             <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
             
             <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
-            <p> asd </p>
-            <p> asd </p> 
-            <p> asd </p> 
-            
-            <p> asd </p>
+
             
         </div>
 
