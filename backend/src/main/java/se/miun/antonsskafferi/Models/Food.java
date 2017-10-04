@@ -2,6 +2,7 @@ package se.miun.antonsskafferi.Models;
 
 public class Food {
     private int id; //PK
+    private String name;
     private int foodTypeId; //FK
     private int timeToCook;
     private int price;
@@ -36,5 +37,13 @@ public class Food {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

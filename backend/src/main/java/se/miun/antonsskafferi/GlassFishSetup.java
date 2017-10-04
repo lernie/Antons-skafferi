@@ -26,6 +26,7 @@ public class GlassFishSetup extends Application {
         h.add(PostStuff.class);
         h.add(UserRequests.class);
         h.add(WebsiteRequests.class);
+        h.add(MyResource.class);
         h.add(ApplicationRequests.class);
         h.add(Requests.class);
         h.add(InventoryRequests.class);
