@@ -37,7 +37,7 @@
                 <div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav">
-                            <li><a href="#section1">Dagens Lunch</a></li>
+                            <li><a href="#section1">Dagens Lunch!</a></li>
                             <li><a href="#section2">Meny</a></li>
                             <li><a href="#section3">Spelningar</a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Övrigt<span class="caret"></span></a>
@@ -54,8 +54,12 @@
         </nav>    
 
         <div id="section1" class="container-fluid">
-
-            <img src="../bilder/matbild.jpg" alt="mat" style="width:100%;height:100%; float:right;">
+            <h3> Här kan man ha en meny </h3>
+            <br>
+            <br>
+            <br>
+            <h1> DAGENS LUNCH </h1>
+            <img src="../bilder/matbild.jpg" alt="mat" style="width:50%;height:50%; float:right;">
          
         </div>
         <div id="section2" class="container-fluid">
