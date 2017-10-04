@@ -11,14 +11,25 @@ public class IngredientDB {
     private static String tableName = "ingredient";
     private static Statement stmt = null;
 
-    public static java.util.List<Ingredient> getAllIngredients() {
+
+
+    public static java.util.List<Ingredient> getAllIngredients(int measurementId) {
         java.util.List<Ingredient> ingredients = new java.util.ArrayList();
 
         try
         {
+            String sqlQuery = "select Id, Name, measurementId from " + tableName;
+            if (measurementId >= 0) {
+                sqlQuery += " WHERE measurementId = ?";
+            }
 
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select Id, Name, measurementId from " + tableName);
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            if (measurementId >= 0) {
+                ps.setInt(1,measurementId);
+            }
+
+            ResultSet results = ps.executeQuery();
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
@@ -30,7 +41,7 @@ public class IngredientDB {
                 ingredients.add(tempIngredient);
             }
             results.close();
-            stmt.close();
+            ps.close();
         }
         catch (SQLException sqlExcept)
         {

@@ -1,9 +1,6 @@
 package se.miun.antonsskafferi.HTTP;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import se.miun.antonsskafferi.Database.IngredientDB;
@@ -34,8 +31,8 @@ public class InventoryRequests {
 
     @GET
     @Path("/ingredient/getall")
-    public Response getAllIngredients() {
-        return Response.ok(IngredientDB.getAllIngredients()).build();
+    public Response getAllIngredients(@DefaultValue("-1")@QueryParam("measurementId") int measurementId) {
+        return Response.ok(IngredientDB.getAllIngredients(measurementId)).build();
     }
 
     @POST
