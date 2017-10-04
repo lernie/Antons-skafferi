@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.view.View.OnClickListener;
 
-public class InventoryActivity extends Activity {
+public class InventoryActivity extends NavigationActivity {
 
     private ArrayList<Ingredient> inventoryList;
     private InventoryListAdapter adapter;
