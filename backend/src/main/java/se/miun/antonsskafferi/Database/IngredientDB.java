@@ -18,13 +18,14 @@ public class IngredientDB {
         {
 
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + tableName);
+            ResultSet results = stmt.executeQuery("select Id, Name, measurementId from " + tableName);
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
                 Ingredient tempIngredient = new Ingredient();
                 tempIngredient.setId(results.getInt(1));
                 tempIngredient.setName(results.getString(2));
+                tempIngredient.setMeasurementId(results.getInt(3));
 
                 ingredients.add(tempIngredient);
             }
@@ -44,9 +45,9 @@ public class IngredientDB {
         boolean status = true;
         try
         {
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name) VALUES (?)");
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name, measurementId) VALUES (?, ?)");
             ps.setString(1, ingredient.getName());
-
+            ps.setInt(2, ingredient.getMeasurementId());
             ps.execute();
             ConnectionSetup.conn.commit();
         }

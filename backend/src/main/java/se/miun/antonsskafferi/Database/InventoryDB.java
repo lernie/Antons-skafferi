@@ -24,14 +24,13 @@ public class InventoryDB {
         {
 
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select ingredientId, amount, measurementId from " + tableName);
+            ResultSet results = stmt.executeQuery("select ingredientId, amount from " + tableName);
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
                 InventoryItem tempItem = new InventoryItem();
                 tempItem.setIngredientId(results.getInt(1));
                 tempItem.setAmount(results.getInt(2));
-                tempItem.setMeasurementId(results.getInt(3));
                 inventoryList.add(tempItem);
             }
             results.close();
@@ -51,10 +50,9 @@ public class InventoryDB {
         try
         {
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName +
-                    "(ingredientId, amount, measurementId) VALUES (?, ?, ?)");
+                    "(ingredientId, amount) VALUES (?, ?)");
             ps.setInt(1, item.getIngredientId());
             ps.setInt(2, item.getAmount());
-            ps.setInt(3, item.getMeasurementId());
 
             ps.execute();
             ConnectionSetup.conn.commit();
@@ -69,13 +67,12 @@ public class InventoryDB {
 
     public static boolean updateInventoryItem(InventoryItem item) {
         boolean status = true;
-        if (item.getAmount() >= 0 || item.getMeasurementId() >= 0) {
+        if (item.getAmount() >= 0) {
             try {
                 StringBuilder sqlString = new StringBuilder("UPDATE " + tableName + " SET ");
 
                 List<String> sqlUpdatesList = new java.util.ArrayList();
                 if (item.getAmount() >= 0) sqlUpdatesList.add("amount=?");
-                if (item.getMeasurementId() >= 0) sqlUpdatesList.add("measurementId=?");
 
                 sqlString.append(String.join(",", sqlUpdatesList));
                 sqlString.append(" WHERE ingredientId=?");
@@ -87,11 +84,6 @@ public class InventoryDB {
                 if (item.getAmount() >=0) {
                     ps.setInt(count, item.getAmount());
                     count +=1;
-                }
-
-                if (item.getMeasurementId() >= 0) {
-                    ps.setInt(count, item.getMeasurementId());
-                    count += 1;
                 }
 
                 ps.setInt(count, item.getIngredientId());

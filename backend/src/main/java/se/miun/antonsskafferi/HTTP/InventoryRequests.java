@@ -9,9 +9,12 @@ import javax.ws.rs.core.Response;
 import se.miun.antonsskafferi.Database.IngredientDB;
 import se.miun.antonsskafferi.Database.InventoryDB;
 import se.miun.antonsskafferi.Database.MeasurementDB;
+import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.Ingredient;
 import se.miun.antonsskafferi.Models.InventoryItem;
 import se.miun.antonsskafferi.Models.Measurement;
+
+
 
 @Path("/api")
 public class InventoryRequests {
@@ -45,8 +48,11 @@ public class InventoryRequests {
     @POST
     @Path("/inventory/add")
     public Response addInventoryItem(InventoryItem item) {
-        InventoryDB.insertInventoryItem(item);
-        return Response.ok().build();
+        if (InventoryDB.insertInventoryItem(item)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(403).entity(new ErrorResponse(403,"unable to add item.")).build();
+        }
     }
 
     @GET
