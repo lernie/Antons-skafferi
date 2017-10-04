@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class KitchenActivity extends Activity {
+public class KitchenActivity extends NavigationActivity {
 
     private ArrayList<Order> orderList;
     private KitchenOrdersAdapter adapter;

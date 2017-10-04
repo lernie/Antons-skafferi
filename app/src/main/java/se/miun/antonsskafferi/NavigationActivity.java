@@ -57,8 +57,11 @@ public class NavigationActivity extends Activity {
 
         navigationMenuList.setAdapter(adapter);
 
-        adapter.add("Test 1");
-        adapter.add("Test 2");
+        adapter.add("Bord");
+        adapter.add("Kök");
+        adapter.add("Schema");
+        adapter.add("Inventering");
+        adapter.add("Inställningar");
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);

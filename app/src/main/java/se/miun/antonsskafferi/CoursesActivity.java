@@ -10,7 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class CoursesActivity extends Activity{
+public class CoursesActivity extends Activity {
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
     CourseAdapter userAdapter;
