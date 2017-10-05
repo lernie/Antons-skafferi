@@ -24,12 +24,16 @@ public class ApplicationRequests {
         return Response.ok(ApplicationDB.getAllEmployees()).build();
     }
 
-    @Path("/employee")
+    @Path("/employee/add")
     @POST
     public Response addEmployee(Employee emp) {
         if (ApplicationDB.addEmployee(emp)){
             return Response.ok().build();
         }
+        /*
+         * https://docs.microsoft.com/en-us/rest/api/storageservices/common-rest-api-error-codes
+         * http://www.restapitutorial.com/lessons/httpmethods.html
+         */
         return Response.status(409).entity(new ErrorResponse(409, "Email and user must be unique.")).build();
     }
 
@@ -40,6 +44,16 @@ public class ApplicationRequests {
     public Response updateEmployee(Employee emp, @PathParam("id") int id) {
         emp.setId(id);
         if (ApplicationDB.updateEmployee(emp)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
+        }
+    }
+
+    @DELETE
+    @Path("/employee/{id}")
+    public Response deleteEmployee(@PathParam("id") int id) {
+        if (ApplicationDB.deleteEmployee(id)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();

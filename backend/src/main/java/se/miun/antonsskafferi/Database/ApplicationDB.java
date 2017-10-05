@@ -107,6 +107,24 @@ public class ApplicationDB {
         return status;
     }
 
+    public static boolean deleteEmployee(int id) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "DELETE FROM EMPLOYEE WHERE Id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setInt(1,id);
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
     public static java.util.List<DiningTable> getAllDiningTables() {
         java.util.List<DiningTable> diningTables = new java.util.ArrayList();
 
