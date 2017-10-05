@@ -24,7 +24,7 @@ public class GlassFishSetup extends Application {
     @Override
     public Set<Class<?>> getClasses() {
         HashSet h = new HashSet<Class<?>>();
-        h.add(JacksonFeature.class); // jackson instead of moxy
+        h.add(JacksonFeature.class); // jackson instead of moxy for json-binding
         //h.add(changeDeps.class);
         h.add(ParamTest.class);
         h.add(HelloWorld.class);

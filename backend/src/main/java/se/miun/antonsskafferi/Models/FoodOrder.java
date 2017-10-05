@@ -6,7 +6,7 @@ public class FoodOrder {
     private int id; //PK
     private String modification;
     private int foodId; //FK
-    private int diningTableOrderId; //FK
+    private int diningTableId; //FK
     private int orderStatusId; //FK
     private Timestamp ready;
     private Timestamp created;
@@ -33,14 +33,6 @@ public class FoodOrder {
 
     public void setFoodId(int foodId) {
         this.foodId = foodId;
-    }
-
-    public int getDiningTableOrderId() {
-        return diningTableOrderId;
-    }
-
-    public void setDiningTableOrderId(int diningTableOrderId) {
-        this.diningTableOrderId = diningTableOrderId;
     }
 
     public int getOrderStatusId() {
@@ -73,5 +65,13 @@ public class FoodOrder {
 
     public void setDelivered(Timestamp delivered) {
         this.delivered = delivered;
+    }
+
+    public int getDiningTableId() {
+        return diningTableId;
+    }
+
+    public void setDiningTableId(int diningTableId) {
+        this.diningTableId = diningTableId;
     }
 }

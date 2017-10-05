@@ -157,7 +157,7 @@ public class ApplicationDB {
                 tempFoodOrder.setId(results.getInt(1));
                 tempFoodOrder.setFoodId(results.getInt(2));
                 tempFoodOrder.setModification(results.getString(3));
-                tempFoodOrder.setDiningTableOrderId(results.getInt(4));
+                tempFoodOrder.setDiningTableId(results.getInt(4));
                 tempFoodOrder.setOrderStatusId(results.getInt(5));
                 tempFoodOrder.setReady(results.getTimestamp(6));
                 tempFoodOrder.setCreated(results.getTimestamp(7));
@@ -171,5 +171,36 @@ public class ApplicationDB {
             sqlExcept.printStackTrace();
         }
         return foodOrders;
+    }
+
+    public static boolean addFoodOrders(List<FoodOrder> foList) {
+        boolean status = true;
+        try {
+            ConnectionSetup.conn.setAutoCommit(false);
+            String sqlQuery = "INSERT INTO FOODORDER(FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUSID) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            for (FoodOrder fo : foList) {
+                ps.setInt(1,fo.getFoodId());
+                ps.setString(2, fo.getModification());
+                ps.setInt(3, fo.getDiningTableId());
+                ps.setInt(4,fo.getOrderStatusId());
+                ps.addBatch();
+            }
+
+            ps.executeBatch();
+            ConnectionSetup.conn.commit();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            status = false;
+        } finally {
+            try {
+                ConnectionSetup.conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return status;
     }
 }
