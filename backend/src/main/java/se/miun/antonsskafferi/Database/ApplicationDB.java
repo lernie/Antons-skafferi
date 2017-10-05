@@ -18,13 +18,11 @@ public class ApplicationDB {
     public static java.util.List<Employee> getAllEmployees() {
         java.util.List<Employee> employees = new java.util.ArrayList();
 
-        try
-        {
+        try {
             stmt = ConnectionSetup.conn.createStatement();
             ResultSet results = stmt.executeQuery("select ID,FIRSTNAME,LASTNAME,POSITIONID,USERNAME,PASSWORD,EMAIL,STARTDATE from " + employeeTableName);
-            java.sql.ResultSetMetaData rsmd = results.getMetaData();
-            while (results.next())
-            {
+
+            while (results.next()) {
                 Employee tempEmployee = new Employee();
                 tempEmployee.setId(results.getInt(1));
                 tempEmployee.setFirstName(results.getString(2));
@@ -39,9 +37,7 @@ public class ApplicationDB {
             }
             results.close();
             stmt.close();
-        }
-        catch (SQLException sqlExcept)
-        {
+        } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
         return employees;
@@ -74,13 +70,11 @@ public class ApplicationDB {
     public static java.util.List<DiningTable> getAllDiningTables() {
         java.util.List<DiningTable> diningTables = new java.util.ArrayList();
 
-        try
-        {
+        try {
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + diningTableTableName);
+            ResultSet results = stmt.executeQuery("SELECT ID, NAME FROM " + diningTableTableName);
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
-            while (results.next())
-            {
+            while (results.next()) {
                 DiningTable tempDiningTable = new DiningTable();
                 tempDiningTable.setId(results.getInt(1));
                 tempDiningTable.setName(results.getString(2));
@@ -89,9 +83,7 @@ public class ApplicationDB {
             }
             results.close();
             stmt.close();
-        }
-        catch (SQLException sqlExcept)
-        {
+        } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
         return diningTables;
@@ -100,11 +92,9 @@ public class ApplicationDB {
     public static java.util.List<FoodOrder> getAllFoodOrders() {
         java.util.List<FoodOrder> foodOrders = new java.util.ArrayList();
 
-        try
-        {
+        try {
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + foodOrderTableName);
-            java.sql.ResultSetMetaData rsmd = results.getMetaData();
+            ResultSet results = stmt.executeQuery("SELECT ID, FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUS, CREATED, READY, DELIVERED FROM " + foodOrderTableName);
             while (results.next())
             {
                 FoodOrder tempFoodOrder = new FoodOrder();
@@ -121,9 +111,7 @@ public class ApplicationDB {
             }
             results.close();
             stmt.close();
-        }
-        catch (SQLException sqlExcept)
-        {
+        } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
         return foodOrders;
