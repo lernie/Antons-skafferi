@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class InventoryActivity extends NavigationActivity {
 
@@ -69,5 +70,9 @@ public class InventoryActivity extends NavigationActivity {
     }
     public void removePopupOnClick(View view){
         popupWindow.dismiss();
+    }
+    public void saveChangeInventory(View v){
+        Toast.makeText(InventoryActivity.this,
+                "Ändring sparad", Toast.LENGTH_LONG).show();
     }
 }
