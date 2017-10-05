@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
 
 public class ApplicationDB {
     private static String employeeTableName = "employee";
@@ -60,7 +63,44 @@ public class ApplicationDB {
             ps.execute();
             ConnectionSetup.conn.commit();
         } catch (SQLException sqlExcept) {
-            sqlExcept.printStackTrace();
+            //sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+    public static boolean updateEmployee(Employee emp) {
+        boolean status = true;
+
+        if (emp.isValidFirstName()) {
+            try {
+                StringBuilder sqlString = new StringBuilder("UPDATE EMPLOYEE SET ");
+                List<String> sqlUpdateList = new java.util.ArrayList();
+
+                if (emp.isValidFirstName()) sqlUpdateList.add("FIRSTNAME=?");
+
+                sqlString.append(String.join(",", sqlUpdateList));
+                sqlString.append(" WHERE id=?");
+
+                PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlString.toString());
+
+                int count = 1;
+
+                if (emp.isValidFirstName()) {
+                    ps.setString(count, emp.getFirstName());
+                    count++;
+                }
+
+                ps.setInt(count,emp.getId());
+                ps.execute();
+                ConnectionSetup.conn.commit();
+
+            } catch (SQLException sqlExcept) {
+                sqlExcept.printStackTrace();
+                status = false;
+            }
+        } else {
             status = false;
         }
 
@@ -73,7 +113,6 @@ public class ApplicationDB {
         try {
             stmt = ConnectionSetup.conn.createStatement();
             ResultSet results = stmt.executeQuery("SELECT ID, NAME FROM " + diningTableTableName);
-            java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next()) {
                 DiningTable tempDiningTable = new DiningTable();
                 tempDiningTable.setId(results.getInt(1));
