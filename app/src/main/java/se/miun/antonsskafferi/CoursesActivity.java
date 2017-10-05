@@ -1,12 +1,10 @@
 package se.miun.antonsskafferi;
 
-import android.graphics.Point;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import android.widget.PopupWindow;
@@ -15,15 +13,10 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 
-import se.miun.antonsskafferi.Courses.CourseListItem;
-import se.miun.antonsskafferi.Courses.Course;
-
 public class CoursesActivity extends Activity {
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
     CourseAdapter userAdapter;
-    Point p;
-    Button spec;
     PopupWindow popupWindow;
 
 
@@ -41,13 +34,13 @@ public class CoursesActivity extends Activity {
 
         userAdapter = new CourseAdapter(CoursesActivity.this,
                 R.layout.courses_list_item, list);
-        listView = (ListView) findViewById(R.id.list_View);
+        listView = (ListView) findViewById(R.id.courses_list);
         listView.setItemsCanFocus(false);
         listView.setAdapter(userAdapter);
 
     }
 
-    public void Specpopup (View v){
+    public void showSpecPopup(View v) {
 
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.course_layout);
 
@@ -60,31 +53,9 @@ public class CoursesActivity extends Activity {
         popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-
-      /*  popupView.setOnTouchListener(new View.OnTouchListener(){
-           @Override
-            public boolean onTouch(View v, MotionEvent event){
-               popupWindow.dismiss();
-               return true;
-           }
-        });*/
-
-
-
     }
 
-
-    public void closePopup(View v){
+    public void closePopup(View v) {
         popupWindow.dismiss();
     }
 }
-
-    /*
-
-        public void toast(View v){
-            Toast.makeText(CoursesActivity.this,
-                    "Special Added", Toast.LENGTH_LONG).show();
-        }
-    }
-
-*/
