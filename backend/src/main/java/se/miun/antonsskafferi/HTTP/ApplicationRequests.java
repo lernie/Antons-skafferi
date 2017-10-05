@@ -24,7 +24,7 @@ public class ApplicationRequests {
         return Response.ok(ApplicationDB.getAllEmployees()).build();
     }
 
-    @Path("/employee/add")
+    @Path("/employee")
     @POST
     public Response addEmployee(Employee emp) {
         if (ApplicationDB.addEmployee(emp)){
