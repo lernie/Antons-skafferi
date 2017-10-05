@@ -3,10 +3,13 @@ package se.miun.antonsskafferi.HTTP;
 import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
+import se.miun.antonsskafferi.Models.FoodOrder;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/api")
 public class ApplicationRequests {
@@ -17,6 +20,14 @@ public class ApplicationRequests {
         return Response.ok(ApplicationDB.getAllFoodOrders()).build();
     }
 
+    @Path("/foodorder")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addOrders(List<FoodOrder> foodOrderList) {
+        return Response.ok(foodOrderList).build();
+    }
+    
     @Path("/employee")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
