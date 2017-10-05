@@ -32,17 +32,19 @@
         android:text="-" />
 
     <Button
-        android:id="@+id/Special"
+        android:id="@+id/Show_pop"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/counter"
         android:layout_toStartOf="@+id/counter"
+        android:text="*"
         android:background="@null"
         android:focusable="false"
+        android:onClick="Specpopup"
         android:focusableInTouchMode="false"
-        android:onClick="toast"
-        android:text="*" />
+        />
+
 
     <TextView
         android:id="@+id/textView2"

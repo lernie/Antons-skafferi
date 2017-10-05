@@ -32,8 +32,6 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
             this.list = list;
 
         }
-
-
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -85,8 +83,6 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
             CourseListItem courses = list.get(position);
             holder.meal.setText(courses.getCourse().getName());
 
-
-
             return row;
         }
 
@@ -97,8 +93,6 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
             Button btnAdd;
             Button btnSubb;
         }
-
-
     }
 
 
