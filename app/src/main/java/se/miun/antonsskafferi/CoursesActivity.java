@@ -1,22 +1,16 @@
 package se.miun.antonsskafferi;
 
-import android.app.AlertDialog;
-
-import android.content.DialogInterface;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -37,7 +31,7 @@ public class CoursesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.course_main);
+        setContentView(R.layout.activity_courses);
 
         list.add(new CourseListItem(new Course("Räkcocktail")));
         list.add(new CourseListItem(new Course("Caprese")));
@@ -47,7 +41,7 @@ public class CoursesActivity extends Activity {
         list.add(new CourseListItem(new Course("Wine")));
 
         userAdapter = new CourseAdapter(CoursesActivity.this,
-                R.layout.row, list);
+                R.layout.courses_list_item, list);
         listView = (ListView) findViewById(R.id.list_View);
         listView.setItemsCanFocus(false);
         listView.setAdapter(userAdapter);
@@ -59,7 +53,7 @@ public class CoursesActivity extends Activity {
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.course_layout);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup, null);
+        View popupView = inflater.inflate(R.layout.courses_spec_popup, null);
 
         int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
         int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
