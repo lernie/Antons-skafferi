@@ -24,8 +24,10 @@ public class ApplicationRequests {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addOrders(List<FoodOrder> foodOrderList) {
-        return Response.ok(foodOrderList).build();
+    public Response addOrders(List<FoodOrder> foList) {
+        ApplicationDB.addFoodOrders(foList);
+
+        return Response.ok(ApplicationDB.getAllFoodOrders()).build();
     }
     
     @Path("/employee")
