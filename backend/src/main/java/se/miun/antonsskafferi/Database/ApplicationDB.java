@@ -20,7 +20,7 @@ public class ApplicationDB {
         try
         {
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + employeeTableName);
+            ResultSet results = stmt.executeQuery("select ID,FIRSTNAME,LASTNAME,POSITIONID,USERNAME,PASSWORD,EMAIL,STARTDATE from " + employeeTableName);
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
@@ -29,6 +29,10 @@ public class ApplicationDB {
                 tempEmployee.setFirstName(results.getString(2));
                 tempEmployee.setLastName(results.getString(3));
                 tempEmployee.setPositionId(results.getInt(4));
+                tempEmployee.setUserName(results.getString(5));
+                tempEmployee.setPassword(results.getString(6));
+                tempEmployee.setEmail(results.getString(7));
+                tempEmployee.setStartDate(results.getDate(8));
 
                 employees.add(tempEmployee);
             }
