@@ -94,9 +94,8 @@ public class ApplicationDB {
 
         try {
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT ID, FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUS, CREATED, READY, DELIVERED FROM " + foodOrderTableName);
-            while (results.next())
-            {
+            ResultSet results = stmt.executeQuery("SELECT ID, FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUSID, CREATED, READY, DELIVERED FROM " + foodOrderTableName);
+            while (results.next()) {
                 FoodOrder tempFoodOrder = new FoodOrder();
                 tempFoodOrder.setId(results.getInt(1));
                 tempFoodOrder.setFoodId(results.getInt(2));
