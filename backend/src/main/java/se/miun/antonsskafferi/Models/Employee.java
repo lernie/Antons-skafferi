@@ -1,9 +1,14 @@
 package se.miun.antonsskafferi.Models;
 
+import jdk.nashorn.internal.runtime.regexp.RegExp;
+
 import javax.json.bind.annotation.JsonbDateFormat;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.sql.Date;
 
 import java.lang.annotation.Target;
+import java.util.regex.Pattern;
 
 
 public class Employee {
@@ -82,5 +87,24 @@ public class Employee {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    private boolean isValidEmail() {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+
+    private boolean isOnlyChars(String value) {
+        Pattern pChars = Pattern.compile("[a-zA-Z]");
+        return pChars.matcher(value).matches();
+    }
+
+    public boolean checkValidity() {
+        return isOnlyChars(firstName);
     }
 }

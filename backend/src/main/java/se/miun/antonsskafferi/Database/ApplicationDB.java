@@ -4,6 +4,7 @@ import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.DiningTable;
 import se.miun.antonsskafferi.Models.FoodOrder;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,6 +45,30 @@ public class ApplicationDB {
             sqlExcept.printStackTrace();
         }
         return employees;
+    }
+
+    public static boolean addEmployee(Employee emp) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "INSERT INTO Employee (FIRSTNAME, LASTNAME, POSITIONID, USERNAME, PASSWORD, EMAIL) "
+                            + "VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+            ps.setString(1, emp.getFirstName());
+            ps.setString(2, emp.getLastName());
+            ps.setInt(3, emp.getPositionId());
+            ps.setString(4, emp.getUserName());
+            ps.setString(5, emp.getPassword());
+            ps.setString(6, emp.getEmail());
+
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
     }
 
     public static java.util.List<DiningTable> getAllDiningTables() {

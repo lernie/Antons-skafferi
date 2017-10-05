@@ -1,11 +1,9 @@
 package se.miun.antonsskafferi.HTTP;
 
 import se.miun.antonsskafferi.Database.ApplicationDB;
+import se.miun.antonsskafferi.Models.Employee;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,5 +23,12 @@ public class ApplicationRequests {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees(){
         return Response.ok(ApplicationDB.getAllEmployees()).build();
+    }
+
+    @Path("/employee")
+    @POST
+    public Response addEmployee(Employee emp) {
+        ApplicationDB.addEmployee(emp);
+        return Response.ok().build();
     }
 }
