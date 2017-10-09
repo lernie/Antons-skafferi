@@ -160,16 +160,18 @@
 <a name="addEmployee"/>
 
 **Add Employee**
+----
 
 <a name="updateEmployee"/>
 
 **Update Employee**
+----
 
 
 <a name="deleteEmployee"/>
 
 **Delete Employee**
-
+----
 
 <!-- 
 =======================================================
@@ -180,10 +182,12 @@
 <a name="getAllFood"/>
 
 **Get All Food**
+----
 
 <a name="addFood"/>
 
 **Get All FoodOrder**
+----
 
 
 <!-- 
@@ -195,6 +199,7 @@
 <a name="getFoodType"/>
 
 **Get All FoodOrder**
+----
 
 
 <!-- 
@@ -245,7 +250,7 @@
 <a name="addMultipleFoodOrders"/>
 
 **Add multiple food orders**
-
+----
 
 <!-- 
 =======================================================
@@ -334,12 +339,12 @@ Ingrdients
 <a name="getAllIngredients"/>
 
 **Get All All Ingredients**
-
+----
 
 <a name="addIngredient"/>
 
 **Get Add Ingredient**
-
+----
 
 
 
@@ -352,14 +357,17 @@ Ingrdients
 <a name="addInventoryItem"/>
 
 **Add inventory items**
+----
 
 <a name="getInventoryItems"/>
 
 **Get Inventory Item**
+----
 
 <a name="updateInventoryItems"/>
 
 **Update Inventory Item**
+----
 
 
 
@@ -372,7 +380,7 @@ Ingrdients
 <a name="getDiningTables"/>
 
 **Get Dining Table**
-
+----
 
 
 <!-- 
@@ -384,3 +392,4 @@ Ingrdients
 <a name="getOpeningHours"/>
 
 **Get Opening Hours**
+----
