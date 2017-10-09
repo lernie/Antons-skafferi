@@ -2,6 +2,7 @@ package se.miun.antonsskafferi;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 
-public class CoursesActivity extends Activity {
+public class CoursesActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
     CourseAdapter userAdapter;
