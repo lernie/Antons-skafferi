@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class KitchenActivity extends Activity {
+public class KitchenActivity extends NavigationActivity {
 
     private ArrayList<Order> orderList;
     private KitchenOrdersAdapter adapter;
@@ -38,7 +38,7 @@ public class KitchenActivity extends Activity {
     }
 
     public void removeOrder(View view) {
-        ListView listView = findViewById(R.id.kitchen_list);
+        ListView listView = (ListView) findViewById(R.id.kitchen_list);
         orderList.remove(listView.getPositionForView((View) view.getParent().getParent()));
         adapter.notifyDataSetChanged();
     }

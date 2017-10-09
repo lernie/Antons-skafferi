@@ -1,4 +1,6 @@
-package se.miun.antonsskafferi.Courses;
+package se.miun.antonsskafferi;
+
+import se.miun.antonsskafferi.Course;
 
 /**
  * Created by My on 9/30/2017.

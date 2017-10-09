@@ -12,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import se.miun.antonsskafferi.Courses.CourseListItem;
+import android.widget.ImageButton;
 
 public class CourseAdapter extends ArrayAdapter<CourseListItem> {
 
@@ -23,83 +21,87 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
     Context context;
     int layoutResourceld;
 
-
-        public CourseAdapter(Context context, int layoutResourceld,
-                                 ArrayList<CourseListItem> list){
-            super(context, layoutResourceld, list);
-            this.layoutResourceld = layoutResourceld;
-            this.context = context;
-            this.list = list;
-
-        }
-
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-
-            View row = convertView;
-            UserHolder holder = null;
-                    if (row == null) {
-                        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-                        row = inflater.inflate(layoutResourceld, parent, false);
-                        holder = new UserHolder();
-                        holder.meal = (TextView) row.findViewById(R.id.textView2);
-                        holder.btnAdd = (Button) row.findViewById(R.id.ButtonAdd);
-                        holder.btnSubb = (Button) row.findViewById(R.id.ButtonSubb);
-                        holder.quantity = (TextView) row.findViewById(R.id.counter);
-                        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                CourseListItem item = list.get(position);
-                                item.setCount(item.getCount() +1 );
-                                ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
-                                        .setText(Integer.toString(item.getCount()));
-                        }
-                        });
-                        holder.btnSubb.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                CourseListItem item = list.get(position);
-                                if (item.getCount() > 0) {
-                                    item.setCount(item.getCount() - 1);
-                                    if (item.getCount() == 0) {
-                                        ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
-                                                .setText("");
-                                    } else {
-
-                                        ((TextView) ((View) v.getParent()).findViewById(R.id.counter))
-                                                .setText(Integer.toString(item.getCount()));
-                                    }
-                                }
-                            }
-                        });
-                        row.setTag(holder);
-
-                    }else{
-                        holder = (UserHolder) row.getTag();
-                    }
-            CourseListItem courses = list.get(position);
-            holder.meal.setText(courses.getCourse().getName());
-
-
-
-            return row;
-        }
-
-        static class UserHolder{
-
-            TextView quantity;
-            TextView meal;
-            Button btnAdd;
-            Button btnSubb;
-        }
-
-
+    public CourseAdapter(Context context, int layoutResourceld,
+                             ArrayList<CourseListItem> list){
+        super(context, layoutResourceld, list);
+        this.layoutResourceld = layoutResourceld;
+        this.context = context;
+        this.list = list;
     }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        View row = convertView;
+        ListItem item = null;
+
+        if (row == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            row = inflater.inflate(layoutResourceld, parent, false);
+            ImageButton addBtn = (ImageButton) row.findViewById(R.id.courses_item_add_button);
+            ImageButton subBtn = (ImageButton) row.findViewById(R.id.courses_item_sub_button);
+
+            addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CourseListItem item = list.get(position);
+                    item.setCount(item.getCount() + 1);
+
+                    ((TextView) ((View) v.getParent()).findViewById(R.id.courses_item_quantity))
+                            .setText(Integer.toString(item.getCount()));
+                }
+            });
+
+            subBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CourseListItem item = list.get(position);
+
+                    if (item.getCount() > 0) {
+                        item.setCount(item.getCount() - 1);
+
+                        if (item.getCount() == 0) {
+                            ((TextView) ((View) v.getParent()).findViewById(R.id.courses_item_quantity))
+                                    .setText("");
+                        } else {
+                            ((TextView) ((View) v.getParent()).findViewById(R.id.courses_item_quantity))
+                                    .setText(Integer.toString(item.getCount()));
+                        }
+                    }
+                }
+            });
+
+            item = new ListItem((TextView) row.findViewById(R.id.courses_item_quantity),
+                    (TextView) row.findViewById(R.id.courses_item_course_name),
+                    addBtn,
+                    subBtn);
+
+            row.setTag(item);
+
+        } else {
+            item = (ListItem) row.getTag();
+        }
+
+        CourseListItem courses = list.get(position);
+        item.courseView.setText(courses.getCourse().getName());
+
+        return row;
+    }
+
+    private static class ListItem {
+        private TextView quantityView;
+        private TextView courseView;
+        private ImageButton addBtn;
+        private ImageButton subBtn;
+
+        public ListItem(TextView quantityView, TextView courseView, ImageButton addBtn, ImageButton subBtn) {
+            this.quantityView = quantityView;
+            this.courseView = courseView;
+            this.addBtn = addBtn;
+            this.subBtn = subBtn;
+        }
+    }
+}
 
 
 

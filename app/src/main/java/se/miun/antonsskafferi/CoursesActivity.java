@@ -1,30 +1,31 @@
 package se.miun.antonsskafferi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
 
-import se.miun.antonsskafferi.Courses.CourseListItem;
-import se.miun.antonsskafferi.Courses.Course;
-
-
-public class CoursesActivity extends Activity{
+public class CoursesActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
     CourseAdapter userAdapter;
-   Button spec;
+    PopupWindow popupWindow;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.course_main);
+        setContentView(R.layout.activity_courses);
 
         list.add(new CourseListItem(new Course("Räkcocktail")));
         list.add(new CourseListItem(new Course("Caprese")));
@@ -34,17 +35,33 @@ public class CoursesActivity extends Activity{
         list.add(new CourseListItem(new Course("Wine")));
 
         userAdapter = new CourseAdapter(CoursesActivity.this,
-                R.layout.row, list);
-        listView = (ListView) findViewById(R.id.list_View);
+                R.layout.courses_list_item, list);
+        listView = (ListView) findViewById(R.id.courses_list);
         listView.setItemsCanFocus(false);
         listView.setAdapter(userAdapter);
-        spec = (Button)findViewById(R.id.Special);
-            }
 
-        public void toast(View v){
-            Toast.makeText(CoursesActivity.this,
-                    "Special Added", Toast.LENGTH_LONG).show();
-        }
     }
 
+    public void showSpecPopup(View v) {
 
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.course_layout);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.courses_spec_popup, null);
+
+        int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
+    }
+
+    public void closePopup(View v) {
+        popupWindow.dismiss();
+    }
+    public void goToOrder (View view){
+        Intent intent = new Intent(this, OrdersActivity.class);
+        startActivity(intent);
+    }
+}

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class TablesActivity extends Activity {
+public class TablesActivity extends NavigationActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,11 @@ public class TablesActivity extends Activity {
 
     public void goToKitchen (View view){
         Intent intent = new Intent(this, KitchenActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToInventory (View view){
+        Intent intent = new Intent(this, InventoryActivity.class);
         startActivity(intent);
     }
 }
