@@ -17,7 +17,7 @@ import javax.xml.bind.DatatypeConverter;
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-public class AuthFilter implements ContainerRequestFilter {
+public class AuthenticationFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) {

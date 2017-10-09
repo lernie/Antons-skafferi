@@ -7,7 +7,7 @@ import java.security.Key;
 import io.jsonwebtoken.*;
 import java.util.Date;
 
-public class createJWT {
+public class AuthenticationProvider {
 
     //Sample method to construct a JWT
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
