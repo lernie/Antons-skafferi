@@ -40,7 +40,7 @@ public class GlassFishSetup extends Application {
         h.add(InventoryRequests.class);
         /*http://jmchung.github.io/blog/2014/06/18/how-to-customise-the-jackson-json-objectmapper-in-java-ee-enterprise-application/*/
         h.add(JacksonObjectMapperProvider.class);
-        h.add(AuthFilter.class);
+        //h.add(AuthFilter.class);
         return h;
     }
 }
