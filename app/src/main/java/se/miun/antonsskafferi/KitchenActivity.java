@@ -38,7 +38,7 @@ public class KitchenActivity extends NavigationActivity {
     }
 
     public void removeOrder(View view) {
-        ListView listView = findViewById(R.id.kitchen_list);
+        ListView listView = (ListView) findViewById(R.id.kitchen_list);
         orderList.remove(listView.getPositionForView((View) view.getParent().getParent()));
         adapter.notifyDataSetChanged();
     }

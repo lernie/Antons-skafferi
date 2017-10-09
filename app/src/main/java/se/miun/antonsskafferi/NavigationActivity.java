@@ -1,12 +1,15 @@
 package se.miun.antonsskafferi;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +22,7 @@ import android.widget.ListView;
  */
 
 
-public class NavigationActivity extends Activity {
+public class NavigationActivity extends AppCompatActivity {
 
     private DrawerLayout navigationMenuLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -32,39 +35,70 @@ public class NavigationActivity extends Activity {
 
         activityTitle = getTitle();
 
-        navigationMenuLayout = findViewById(R.id.navigation_drawer_layout);
+        navigationMenuLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
 
         // TODO: Change R.string.app_name to something proper
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, navigationMenuLayout, R.string.app_name, R.string.app_name) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getActionBar().setTitle("Navigation");
+                getSupportActionBar().setTitle("Navigation");
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                getActionBar().setTitle(activityTitle);
+                getSupportActionBar().setTitle(activityTitle);
             }
         };
 
         navigationMenuLayout.addDrawerListener(actionBarDrawerToggle);
 
-        ListView navigationMenuList = (ListView) findViewById(R.id.navigation_drawer);
+        final NavigationView navView = (NavigationView) findViewById(R.id.navigation_drawer);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        int itemId = getIntent().getIntExtra("item_id", -1);
 
-        navigationMenuList.setAdapter(adapter);
+        if (itemId >= 0) {
+            navView.setCheckedItem(itemId);
+        } else {
+            navView.setCheckedItem(R.id.nav_table_button);
+        }
 
-        adapter.add("Bord");
-        adapter.add("Kök");
-        adapter.add("Schema");
-        adapter.add("Inventering");
-        adapter.add("Inställningar");
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
+                navigationMenuLayout.closeDrawers();
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+                Intent intent = null;
+
+                switch (item.getItemId()) {
+                    case R.id.nav_table_button:
+                        intent = new Intent(NavigationActivity.this, TablesActivity.class);
+                        break;
+                    case R.id.nav_kitchen_button:
+                        intent = new Intent(NavigationActivity.this, KitchenActivity.class);
+                        break;
+                    case R.id.nav_inventory_button:
+                        intent = new Intent(NavigationActivity.this, InventoryActivity.class);
+                        break;
+                    case R.id.nav_schedule_button:
+//                        intent = new Intent(NavigationActivity.this, ScheduleActivity.class);
+                        break;
+                }
+
+                if (intent != null) {
+                    intent.putExtra("item_id", item.getItemId());
+                    startActivity(intent);
+                    finish();
+                }
+
+                return false;
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
