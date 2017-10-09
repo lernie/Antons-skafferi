@@ -3,6 +3,7 @@ package se.miun.antonsskafferi;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class KitchenActivity extends NavigationActivity {
         orderList = new ArrayList<>();
         adapter = new KitchenOrdersAdapter(this, orderList);
         
-        ((ListView) findViewById(R.id.kitchen_list)).setAdapter(adapter);
+        ((GridView) findViewById(R.id.kitchen_list)).setAdapter(adapter);
 
         ArrayList<Order.OrderItem> list = new ArrayList<Order.OrderItem>(2);
         list.add(new Order.OrderItem("PonnyP-patch-plättar", 3));
@@ -38,8 +39,8 @@ public class KitchenActivity extends NavigationActivity {
     }
 
     public void removeOrder(View view) {
-        ListView listView = (ListView) findViewById(R.id.kitchen_list);
-        orderList.remove(listView.getPositionForView((View) view.getParent().getParent()));
+        GridView gridView = (GridView) findViewById(R.id.kitchen_list);
+        orderList.remove(gridView.getPositionForView((View) view.getParent().getParent()));
         adapter.notifyDataSetChanged();
     }
 }
