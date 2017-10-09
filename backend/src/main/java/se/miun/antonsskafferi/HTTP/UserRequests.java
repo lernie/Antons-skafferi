@@ -1,17 +1,21 @@
 package se.miun.antonsskafferi.HTTP;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("/users")
+import javax.ws.rs.*;
+import javax.ws.rs.ext.Provider;
+
+@RestController
+@Path("/api")
 public class UserRequests {
 
-    @Path("/add")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add() {
-        return Response.ok("PAJAS").build();
+    @GET
+    @Path("/users")
+    public @ResponseBody
+    String getUsers() {
+        return "{\"users\":[{\"firstname\":\"Richard\", \"lastname\":\"Feynman\"}," +
+                "{\"firstname\":\"Marie\",\"lastname\":\"Curie\"}]}";
     }
 }

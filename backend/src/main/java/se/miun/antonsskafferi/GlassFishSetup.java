@@ -7,6 +7,7 @@ import se.miun.antonsskafferi.HTTP.InventoryRequests;
 import se.miun.antonsskafferi.HTTP.UserRequests;
 import se.miun.antonsskafferi.HTTP.WebsiteRequests;
 import se.miun.antonsskafferi.Models.Utility.JacksonObjectMapperProvider;
+import se.miun.antonsskafferi.Security.AuthFilter;
 import se.miun.antonsskafferi.Test.*;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -35,10 +36,11 @@ public class GlassFishSetup extends Application {
         h.add(MyResource.class);
         h.add(ApplicationRequests.class);
         h.add(Requests.class);
+        h.add(UserRequests.class);
         h.add(InventoryRequests.class);
-
         /*http://jmchung.github.io/blog/2014/06/18/how-to-customise-the-jackson-json-objectmapper-in-java-ee-enterprise-application/*/
         h.add(JacksonObjectMapperProvider.class);
+        h.add(AuthFilter.class);
         return h;
     }
 }
