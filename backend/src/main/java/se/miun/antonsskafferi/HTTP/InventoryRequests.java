@@ -74,8 +74,11 @@ public class InventoryRequests {
     @GET
     @Path("/food")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllFood() {
-        return Response.ok(InventoryDB.getAllFood()).build();
+    public Response getFood(
+        @DefaultValue("-1")@QueryParam("type") int type,
+        @DefaultValue("-1")@QueryParam("id") int id
+    ) {
+        return Response.ok(InventoryDB.getFood(type, id)).build();
     }
 
     @POST
@@ -89,4 +92,10 @@ public class InventoryRequests {
         }
     }
 
+    @GET
+    @Path("/foodtype")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFoodTypes(){
+        return Response.ok(InventoryDB.getFoodTypes()).build();
+    }
 }
