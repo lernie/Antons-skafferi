@@ -2,18 +2,33 @@ package se.miun.antonsskafferi.Security;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 import javax.annotation.Priority;
+import javax.ws.rs.NameBinding;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
+@Secured
+@Provider
+@Priority(Priorities.AUTHENTICATION)
 public class AuthFilter implements ContainerRequestFilter {
 
+    @Override
     public void filter(ContainerRequestContext requestContext) {
         try {
             String authHeaderVal = requestContext.getHeaderString("Authorization");
@@ -21,9 +36,14 @@ public class AuthFilter implements ContainerRequestFilter {
             //consume JWT i.e. execute signature validation
             if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
                 //authorisation
-                Claims userObject = createJWT.parseJWT("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwiaWF0IjoxNTA3MjM1MTAwLCJzdWIiOiJIQUhBIiwiaXNzIjoiQW50b25za2FmZmVyaSIsImV4cCI6MTUwNzIzNTIwMH0.MVA39fXyX9RYJd4lz5wokZSMhAdY_T9G4iAuEwrUQPA");
-                requestContext.abortWith(Response.accepted().build());
+                String[] token_string = authHeaderVal.split(" ");
+                String jwt_token = token_string[1];
 
+                try {
+                    Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("qwertyuiopasdfghjklzxcvbnm123456")).parseClaimsJws(jwt_token).getSignature();
+                } catch (Exception e) {
+                    requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build()); // no signing key on client. We trust that this JWT came from the server and has been verified there
+                }
             } else {
                 requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
             }

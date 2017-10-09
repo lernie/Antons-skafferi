@@ -11,25 +11,37 @@ public class IngredientDB {
     private static String tableName = "ingredient";
     private static Statement stmt = null;
 
-    public static java.util.List<Ingredient> getAllIngredients() {
+
+
+    public static java.util.List<Ingredient> getAllIngredients(int measurementId) {
         java.util.List<Ingredient> ingredients = new java.util.ArrayList();
 
         try
         {
+            String sqlQuery = "select Id, Name, measurementId from " + tableName;
+            if (measurementId >= 0) {
+                sqlQuery += " WHERE measurementId = ?";
+            }
 
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + tableName);
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            if (measurementId >= 0) {
+                ps.setInt(1,measurementId);
+            }
+
+            ResultSet results = ps.executeQuery();
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
                 Ingredient tempIngredient = new Ingredient();
                 tempIngredient.setId(results.getInt(1));
                 tempIngredient.setName(results.getString(2));
+                tempIngredient.setMeasurementId(results.getInt(3));
 
                 ingredients.add(tempIngredient);
             }
             results.close();
-            stmt.close();
+            ps.close();
         }
         catch (SQLException sqlExcept)
         {
@@ -44,9 +56,9 @@ public class IngredientDB {
         boolean status = true;
         try
         {
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name) VALUES (?)");
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name, measurementId) VALUES (?, ?)");
             ps.setString(1, ingredient.getName());
-
+            ps.setInt(2, ingredient.getMeasurementId());
             ps.execute();
             ConnectionSetup.conn.commit();
         }

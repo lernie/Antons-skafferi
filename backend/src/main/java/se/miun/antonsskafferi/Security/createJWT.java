@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi.Security;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import io.jsonwebtoken.*;
@@ -22,11 +23,7 @@ public class createJWT {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         //Let's set the JWT Claims
-        JwtBuilder builder = Jwts.builder().setId(id)
-                .setIssuedAt(now)
-                .setSubject(subject)
-                .setIssuer(issuer)
-                .signWith(signatureAlgorithm, signingKey);
+        JwtBuilder builder = Jwts.builder().setId(id).setIssuedAt(now).setSubject(subject).setIssuer(issuer).signWith(signatureAlgorithm, signingKey);
 
         //if it has been specified, let's add the expiration
         if (ttlMillis >= 0) {
@@ -40,14 +37,20 @@ public class createJWT {
     }
 
     //Sample method to validate and read the JWT
-    public static Claims parseJWT(String jwt) {
+    public static String parseJWT(String jwt) {
 
         //This line will throw an exception if it is not a signed JWS (as expected)
-        Claims claims = Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary("qwertyuiopasdfghjklzxcvbnm123456"))
-                .parseClaimsJws(jwt).getBody();
+        try {
 
-        return claims;
+            String signature = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary("qwertyuiopasdfghjklzxcvbnm123456"))
+                    .parseClaimsJws(jwt).getSignature();
+
+            return signature;
+        }catch (JwtException e){
+            throw e;
+        }
+
     }
 }
 

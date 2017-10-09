@@ -1,65 +1,92 @@
 package se.miun.antonsskafferi.HTTP;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import se.miun.antonsskafferi.Database.IngredientDB;
 import se.miun.antonsskafferi.Database.InventoryDB;
 import se.miun.antonsskafferi.Database.MeasurementDB;
-import se.miun.antonsskafferi.Models.Ingredient;
-import se.miun.antonsskafferi.Models.InventoryItem;
-import se.miun.antonsskafferi.Models.Measurement;
+import se.miun.antonsskafferi.Models.*;
+
 
 @Path("/api")
 public class InventoryRequests {
 
     @GET
-    @Path("/measurement/getall")
+    @Path("/measurement")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMeasurements() {
         return Response.ok(MeasurementDB.getAllMeasurements()).build();
     }
 
     @POST
-    @Path("/measurement/add")
+    @Path("/measurement")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response add(Measurement measurement) {
         MeasurementDB.insertMeasurement(measurement);
         return Response.ok().build();
     }
 
     @GET
-    @Path("/ingredient/getall")
-    public Response getAllIngredients() {
-        return Response.ok(IngredientDB.getAllIngredients()).build();
+    @Path("/ingredient")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllIngredients(@DefaultValue("-1")@QueryParam("measurementId") int measurementId) {
+        return Response.ok(IngredientDB.getAllIngredients(measurementId)).build();
     }
 
     @POST
-    @Path("/ingredient/add")
+    @Path("/ingredient")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response addIngredient(Ingredient ingredient) {
         IngredientDB.insertIngredient(ingredient);
         return Response.ok().build();
     }
 
     @POST
-    @Path("/inventory/add")
+    @Path("/inventory")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response addInventoryItem(InventoryItem item) {
-        InventoryDB.insertInventoryItem(item);
-        return Response.ok().build();
+        if (InventoryDB.insertInventoryItem(item)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(403).entity(new ErrorResponse(403,"unable to add item.")).build();
+        }
     }
 
     @GET
-    @Path("/inventory/get")
+    @Path("/inventory")
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response getInventory() {
         return Response.ok(InventoryDB.getInventory()).build();
     }
 
     @POST
-    @Path("/inventory/update/{id}")
+    @Path("/inventory/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response updateInventoryItem(InventoryItem item, @PathParam("id") int id) {
         item.setIngredientId(id);
         InventoryDB.updateInventoryItem(item);
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/food")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllFood() {
+        return Response.ok(InventoryDB.getAllFood()).build();
+    }
+
+    @POST
+    @Path("/food")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addFood(Food item) {
+        if (InventoryDB.insertFood(item)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(403).entity(new ErrorResponse(403,"unable to add item.")).build();
+        }
+    }
+
 }
