@@ -13,7 +13,7 @@
         android:paddingLeft="5dp"
         android:paddingStart="5dp"
         android:paddingBottom="10dp"
-        android:layout_weight="3"
+        android:layout_weight="3.5"
         android:textColor="@color/colorBlack"
         />
 
@@ -36,16 +36,17 @@
     <ImageButton
         android:id="@+id/confrim_edit_ingredient"
         android:layout_width="20dp"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_weight="0.6"
+        android:layout_marginTop="15dp"
         android:background="@drawable/ic_mode_edit_black_24dp"
-        android:onClick="saveChangeInventory"/>
+        android:onClick="saveChangeInventory" />
 
     <Button
         android:id="@+id/edit_ingredient"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:text="Edit"
         android:onClick="showIngredientPopupWindow"/>
 
