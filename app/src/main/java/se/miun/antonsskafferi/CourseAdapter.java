@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ImageButton;
 
 public class CourseAdapter extends ArrayAdapter<CourseListItem> {
 
@@ -37,8 +38,8 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceld, parent, false);
-            Button addBtn = (Button) row.findViewById(R.id.courses_item_add_button);
-            Button subBtn = (Button) row.findViewById(R.id.courses_item_sub_button);
+            ImageButton addBtn = (ImageButton) row.findViewById(R.id.courses_item_add_button);
+            ImageButton subBtn = (ImageButton) row.findViewById(R.id.courses_item_sub_button);
 
             addBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,10 +91,10 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
     private static class ListItem {
         private TextView quantityView;
         private TextView courseView;
-        private Button addBtn;
-        private Button subBtn;
+        private ImageButton addBtn;
+        private ImageButton subBtn;
 
-        public ListItem(TextView quantityView, TextView courseView, Button addBtn, Button subBtn) {
+        public ListItem(TextView quantityView, TextView courseView, ImageButton addBtn, ImageButton subBtn) {
             this.quantityView = quantityView;
             this.courseView = courseView;
             this.addBtn = addBtn;

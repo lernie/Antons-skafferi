@@ -4,7 +4,7 @@
     android:id="@+id/popup"
     android:layout_width="300dp"
     android:layout_height="150dp"
-    android:background="@color/colorAccent"
+    android:background="@color/colorGrey"
     android:orientation="vertical"
     tools:context =".CoursesActivity" >
 

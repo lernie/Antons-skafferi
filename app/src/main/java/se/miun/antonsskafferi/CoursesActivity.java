@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -58,5 +59,9 @@ public class CoursesActivity extends AppCompatActivity {
 
     public void closePopup(View v) {
         popupWindow.dismiss();
+    }
+    public void goToOrder (View view){
+        Intent intent = new Intent(this, OrdersActivity.class);
+        startActivity(intent);
     }
 }
