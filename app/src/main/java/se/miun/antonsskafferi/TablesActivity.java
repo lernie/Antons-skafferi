@@ -1,11 +1,8 @@
 package se.miun.antonsskafferi;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 public class TablesActivity extends NavigationActivity {
 
@@ -17,16 +14,31 @@ public class TablesActivity extends NavigationActivity {
 
     public void goToOrder (View view){
         Intent intent = new Intent(this, OrdersActivity.class);
-        startActivity(intent);
-    }
 
-    public void goToKitchen (View view){
-        Intent intent = new Intent(this, KitchenActivity.class);
-        startActivity(intent);
-    }
+        switch (view.getId()){
+            case R.id.table1_button:
+                intent.putExtra("table_number", 1);
+                break;
+            case R.id.table2_button:
+                intent.putExtra("table_number", 2);
+                break;
+            case R.id.table3_button:
+                intent.putExtra("table_number", 3);
+                break;
+            case R.id.table4_button:
+                intent.putExtra("table_number", 4);
+                break;
+            case R.id.table5_button:
+                intent.putExtra("table_number", 5);
+                break;
+            case R.id.table6_button:
+                intent.putExtra("table_number", 6);
+                break;
+            case R.id.table7_button:
+                intent.putExtra("table_number", 7);
+                break;
+        }
 
-    public void goToInventory (View view){
-        Intent intent = new Intent(this, InventoryActivity.class);
         startActivity(intent);
     }
 }

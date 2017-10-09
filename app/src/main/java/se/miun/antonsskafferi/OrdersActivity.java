@@ -17,6 +17,10 @@ public class OrdersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
+
+        getSupportActionBar()
+            .setTitle("Bord " + getIntent()
+                .getIntExtra("table_number", 44));
         //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         orderItems = new ArrayList<Order.OrderItem>();
