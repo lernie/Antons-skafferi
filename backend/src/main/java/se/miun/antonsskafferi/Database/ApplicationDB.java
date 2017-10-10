@@ -160,8 +160,9 @@ public class ApplicationDB {
                 tempFoodOrder.setModification(results.getString(3));
                 tempFoodOrder.setDiningTableId(results.getInt(4));
                 tempFoodOrder.setOrderStatusId(results.getInt(5));
-                tempFoodOrder.setReady(results.getTimestamp(6));
-                tempFoodOrder.setCreated(results.getTimestamp(7));
+                tempFoodOrder.setCreated(results.getTimestamp(6));
+                tempFoodOrder.setReady(results.getTimestamp(7));
+
                 tempFoodOrder.setDelivered(results.getTimestamp(8));
 
                 foodOrders.add(tempFoodOrder);
