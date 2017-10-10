@@ -5,6 +5,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sun.istack.internal.logging.Logger;
 import se.miun.antonsskafferi.Database.IngredientDB;
 import se.miun.antonsskafferi.Database.InventoryDB;
 import se.miun.antonsskafferi.Database.MeasurementDB;
@@ -27,6 +28,16 @@ public class InventoryRequests {
     public Response add(Measurement measurement) {
         MeasurementDB.insertMeasurement(measurement);
         return Response.ok().build();
+    }
+
+
+    @DELETE
+    @Path("/measurement/{id}")
+    public Response delMeasurement(@PathParam("id") int id) {
+        if (MeasurementDB.delMeasurement(id)) {
+            return Response.ok().build();
+        }
+        return Response.status(500).build();
     }
 
     @GET
@@ -57,7 +68,7 @@ public class InventoryRequests {
 
     @GET
     @Path("/inventory")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getInventory() {
         return Response.ok(InventoryDB.getInventory()).build();
     }

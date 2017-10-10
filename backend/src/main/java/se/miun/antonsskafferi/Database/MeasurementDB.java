@@ -59,4 +59,21 @@ public class MeasurementDB {
         }
         return status;
     }
+
+    public static boolean delMeasurement(int id) {
+        boolean status = true;
+
+        try {
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("DELETE FROM Measurement WHERE id=?");
+            ps.setInt(1, id);
+
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status=false;
+        }
+
+        return status;
+    }
 }
