@@ -20,3 +20,4 @@ public class FoodType {
         this.name = name;
     }
 }
+
