@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,7 +38,7 @@ public class OrdersActivity extends AppCompatActivity {
 //        orderItems.add(new Order.OrderItem("Cola", 1));
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://37.139.13.250:8080/api/")
+                .baseUrl(getResources().getString(R.string.ip_address))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
