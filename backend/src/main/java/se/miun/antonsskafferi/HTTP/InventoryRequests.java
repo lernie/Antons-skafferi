@@ -68,7 +68,7 @@ public class InventoryRequests {
 
     @GET
     @Path("/inventory")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getInventory() {
         return Response.ok(InventoryDB.getInventory()).build();
     }
