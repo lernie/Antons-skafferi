@@ -72,4 +72,11 @@ public class ApplicationRequests {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
         }
     }
-}
+
+    @GET
+    @Path("/orderstatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOrderStatus() {
+        return Response.ok(ApplicationDB.getAllOrderStatus()).build();
+    }
+ }

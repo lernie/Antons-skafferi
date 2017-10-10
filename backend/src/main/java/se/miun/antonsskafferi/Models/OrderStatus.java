@@ -1,6 +1,6 @@
 package se.miun.antonsskafferi.Models;
 
-public class FoodType {
+public class OrderStatus {
     private int id;
     private String name;
 
@@ -20,4 +20,3 @@ public class FoodType {
         this.name = name;
     }
 }
-

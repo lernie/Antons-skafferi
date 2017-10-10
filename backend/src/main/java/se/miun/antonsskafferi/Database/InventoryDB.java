@@ -168,14 +168,11 @@ public class InventoryDB {
     public static java.util.List<FoodType> getFoodTypes() {
         java.util.List<FoodType> foodTypeList = new java.util.ArrayList();
 
-
         try  {
 
             stmt = ConnectionSetup.conn.createStatement();
-            String sqlQuery = "select ID, NAME from FOODTYPE";
+            ResultSet results = stmt.executeQuery("select ID, NAME FROM foodtype");
 
-            ResultSet results = stmt.executeQuery(sqlQuery);
-            //java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
                 FoodType tempFoodType = new FoodType();
