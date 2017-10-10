@@ -31,10 +31,13 @@
         <GridView
             android:id="@+id/inventory_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"
-            android:numColumns="2"></GridView>
+            android:numColumns="2"
+            android:horizontalSpacing="30dp"
+            android:verticalSpacing="0dp">
+        </GridView>
 
     </LinearLayout>
 
