@@ -30,7 +30,6 @@ public class InventoryActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         inventoryList = new ArrayList<Ingredient>();
         adapter = new InventoryListAdapter(this, inventoryList);
@@ -47,21 +46,20 @@ public class InventoryActivity extends NavigationActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        InventoryService inventoryService = retrofit.create(InventoryService.class);
+        IngredientService ingredientService = retrofit.create(IngredientService.class);
+        Call<List<IngredientServiceItem>> ingredientCall = ingredientService.getIngredients();
 
-        Call<List<InventoryServiceItem>> call = inventoryService.getInventory();
-
-        call.enqueue(new Callback<List<InventoryServiceItem>>() {
+        ingredientCall.enqueue(new Callback<List<IngredientServiceItem>>() {
             @Override
-            public void onResponse(Call<List<InventoryServiceItem>> call, Response<List<InventoryServiceItem>> response) {
+            public void onResponse(Call<List<IngredientServiceItem>> call, Response<List<IngredientServiceItem>> response) {
                 if (response == null || response.body() == null) {
                     inventoryList.clear();
                     adapter.notifyDataSetChanged();
                     return;
                 }
 
-                for (InventoryServiceItem item : response.body()) {
-                    Ingredient ingredient = new Ingredient("" + item.getIngredientId(), item.getAmount(), "kg");
+                for (IngredientServiceItem item : response.body()) {
+                    Ingredient ingredient = new Ingredient(item.getName(), 1, "" + item.getMeasurementId());
                     inventoryList.add(ingredient);
                 }
 
@@ -69,11 +67,39 @@ public class InventoryActivity extends NavigationActivity {
             }
 
             @Override
-            public void onFailure(Call<List<InventoryServiceItem>> call, Throwable t) {
+            public void onFailure(Call<List<IngredientServiceItem>> call, Throwable t) {
                 inventoryList.clear();
                 adapter.notifyDataSetChanged();
             }
         });
+
+        InventoryService inventoryService = retrofit.create(InventoryService.class);
+
+        Call<List<InventoryServiceItem>> call = inventoryService.getInventory();
+
+//        call.enqueue(new Callback<List<InventoryServiceItem>>() {
+//            @Override
+//            public void onResponse(Call<List<InventoryServiceItem>> call, Response<List<InventoryServiceItem>> response) {
+//                if (response == null || response.body() == null) {
+//                    inventoryList.clear();
+//                    adapter.notifyDataSetChanged();
+//                    return;
+//                }
+//
+//                for (InventoryServiceItem item : response.body()) {
+//                    Ingredient ingredient = new Ingredient("" + item.getIngredientId(), item.getAmount(), "kg");
+//                    inventoryList.add(ingredient);
+//                }
+//
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<InventoryServiceItem>> call, Throwable t) {
+//                inventoryList.clear();
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
 
         adapter.notifyDataSetChanged();
     }
