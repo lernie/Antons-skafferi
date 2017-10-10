@@ -3,6 +3,7 @@ package se.miun.antonsskafferi.Database;
 
 import javafx.util.Pair;
 import se.miun.antonsskafferi.Models.Food;
+import se.miun.antonsskafferi.Models.FoodType;
 import se.miun.antonsskafferi.Models.InventoryItem;
 
 import java.sql.PreparedStatement;
@@ -156,4 +157,32 @@ public class InventoryDB {
         return status;
     }
 
+
+
+    public static java.util.List<FoodType> getAllFoodTypes() {
+        java.util.List<FoodType> foodTypeList = new java.util.ArrayList();
+
+
+        try  {
+
+            stmt = ConnectionSetup.conn.createStatement();
+            ResultSet results = stmt.executeQuery("select ID, NAME FROM foodtype");
+
+            while (results.next())
+            {
+                FoodType tempFoodType = new FoodType();
+                tempFoodType.setId(results.getInt(1));
+                tempFoodType.setName(results.getString(2));
+
+                foodTypeList.add(tempFoodType);
+            }
+            results.close();
+            stmt.close();
+        }
+        catch (SQLException sqlExcept)
+        {
+            sqlExcept.printStackTrace();
+        }
+        return foodTypeList;
+    }
 }

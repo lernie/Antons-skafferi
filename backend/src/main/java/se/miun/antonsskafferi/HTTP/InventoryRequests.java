@@ -89,4 +89,10 @@ public class InventoryRequests {
         }
     }
 
+    @GET
+    @Path("/foodtype")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFoodTypes() {
+        return Response.ok(InventoryDB.getAllFoodTypes()).build();
+    }
 }
