@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title> Get och post </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/design.css"/>
+    </head>
+    <body>
+        
+        <form>
+            Rättens namn: <input type="text" name="fname" id="name"/><br/>
+            Tillagningstid: <input type="text" name="fname" id="tid"/><br/>
+            Pris: <input type="text" name="fname" id="pris"/><br/>
+           
+
+            <input type="button" value="button" id="button"/>
+        </form>
+        <script>
+        $(document).ready(function(){
+            console.log("hej");
+            $("#button").click(function() {
+                $.ajax({
+                    url: "http://37.139.13.250:8080/api/food",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
+                    success : function(r) {
+                        console.log(r);
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+            });
+                    $.ajax({
+                    url: "http://37.139.13.250:8080/api/food",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+        });
+        
+        </script>
+    
+ 
+    </body>
+</html>
