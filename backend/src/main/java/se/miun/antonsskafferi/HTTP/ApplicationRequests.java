@@ -7,6 +7,7 @@ import se.miun.antonsskafferi.Models.FoodOrder;
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -28,6 +29,23 @@ public class ApplicationRequests {
         ApplicationDB.addFoodOrders(foList);
 
         return Response.ok(ApplicationDB.getAllFoodOrders()).build();
+    }
+
+    @Path("/login")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(Employee emp) {
+
+        if (emp.isValidEmail()) {
+           String jwt_token =  ApplicationDB.validateEmployee(emp);
+
+           if (jwt_token == "error") {
+               return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
+           }
+           return Response.ok(jwt_token).build();
+        }
+
+        return Response.ok().build();
     }
     
     @Path("/employee")

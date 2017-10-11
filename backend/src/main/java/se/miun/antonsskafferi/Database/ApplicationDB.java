@@ -3,6 +3,7 @@ package se.miun.antonsskafferi.Database;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.DiningTable;
 import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.Security.AuthenticationProvider;
 import se.miun.antonsskafferi.Models.OrderStatus;
 
 import java.sql.PreparedStatement;
@@ -69,6 +70,43 @@ public class ApplicationDB {
         }
 
         return status;
+    }
+
+    public static String validateEmployee(Employee emp) {
+        try {
+            String sqlQuery = "SELECT FIRSTNAME, LASTNAME, EMAIL, ID FROM EMPLOYEE WHERE email = ? AND password = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setString(1, emp.getEmail());
+            ps.setString(2, emp.getPassword());
+
+            ResultSet result = ps.executeQuery();
+
+            int count = 0;
+            String jwt_token = "";
+
+            if (!result.isBeforeFirst() ) {
+                return "No user found";
+            }
+
+            while(result.next()) {
+                count++;
+
+                Employee user = new Employee();
+                user.setFirstName(result.getString(1));
+                user.setLastName(result.getString(2));
+                user.setEmail(result.getString(3));
+                user.setId(result.getInt(4));
+
+                jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
+                break;
+            }
+
+            return jwt_token;
+
+        }catch(SQLException ex) {
+            return "error";
+        }
     }
 
     public static boolean updateEmployee(Employee emp) {
