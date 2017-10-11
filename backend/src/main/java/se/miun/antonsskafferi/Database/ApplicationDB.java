@@ -82,12 +82,9 @@ public class ApplicationDB {
 
             ResultSet result = ps.executeQuery();
 
-            int count = 0;
             String jwt_token = "";
 
             while(result.next()) {
-                count++;
-
                 Employee user = new Employee();
                 user.setFirstName(result.getString(1));
                 user.setLastName(result.getString(2));
