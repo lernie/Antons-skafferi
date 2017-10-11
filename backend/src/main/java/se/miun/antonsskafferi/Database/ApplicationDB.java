@@ -4,6 +4,7 @@ import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.DiningTable;
 import se.miun.antonsskafferi.Models.FoodOrder;
 import se.miun.antonsskafferi.Security.AuthenticationProvider;
+import se.miun.antonsskafferi.Models.OrderStatus;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -197,8 +198,9 @@ public class ApplicationDB {
                 tempFoodOrder.setModification(results.getString(3));
                 tempFoodOrder.setDiningTableId(results.getInt(4));
                 tempFoodOrder.setOrderStatusId(results.getInt(5));
-                tempFoodOrder.setReady(results.getTimestamp(6));
-                tempFoodOrder.setCreated(results.getTimestamp(7));
+                tempFoodOrder.setCreated(results.getTimestamp(6));
+                tempFoodOrder.setReady(results.getTimestamp(7));
+
                 tempFoodOrder.setDelivered(results.getTimestamp(8));
 
                 foodOrders.add(tempFoodOrder);
@@ -240,5 +242,29 @@ public class ApplicationDB {
             }
         }
         return status;
+    }
+
+
+
+    public static java.util.List<OrderStatus> getAllOrderStatus() {
+        java.util.List<OrderStatus> orderStatusList = new java.util.ArrayList();
+
+        try {
+            stmt = ConnectionSetup.conn.createStatement();
+            ResultSet results = stmt.executeQuery("SELECT ID, NAME FROM ORDERSTATUS ");
+            while (results.next()) {
+                OrderStatus tempOrderStatus = new OrderStatus();
+                tempOrderStatus.setId(results.getInt(1));
+                tempOrderStatus.setName(results.getString(2));
+
+
+                orderStatusList.add(tempOrderStatus);
+            }
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+        }
+        return orderStatusList;
     }
 }

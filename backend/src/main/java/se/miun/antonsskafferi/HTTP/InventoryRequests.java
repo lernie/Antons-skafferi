@@ -5,6 +5,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sun.istack.internal.logging.Logger;
 import se.miun.antonsskafferi.Database.IngredientDB;
 import se.miun.antonsskafferi.Database.InventoryDB;
 import se.miun.antonsskafferi.Database.MeasurementDB;
@@ -27,6 +28,16 @@ public class InventoryRequests {
     public Response add(Measurement measurement) {
         MeasurementDB.insertMeasurement(measurement);
         return Response.ok().build();
+    }
+
+
+    @DELETE
+    @Path("/measurement/{id}")
+    public Response delMeasurement(@PathParam("id") int id) {
+        if (MeasurementDB.delMeasurement(id)) {
+            return Response.ok().build();
+        }
+        return Response.status(500).build();
     }
 
     @GET
@@ -57,7 +68,7 @@ public class InventoryRequests {
 
     @GET
     @Path("/inventory")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getInventory() {
         return Response.ok(InventoryDB.getInventory()).build();
     }
@@ -74,8 +85,11 @@ public class InventoryRequests {
     @GET
     @Path("/food")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllFood() {
-        return Response.ok(InventoryDB.getAllFood()).build();
+    public Response getFood(
+        @DefaultValue("-1")@QueryParam("type") int type,
+        @DefaultValue("-1")@QueryParam("id") int id
+    ) {
+        return Response.ok(InventoryDB.getFood(type, id)).build();
     }
 
     @POST
@@ -89,4 +103,10 @@ public class InventoryRequests {
         }
     }
 
+    @GET
+    @Path("/foodtype")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFoodTypes(){
+        return Response.ok(InventoryDB.getFoodTypes()).build();
+    }
 }
