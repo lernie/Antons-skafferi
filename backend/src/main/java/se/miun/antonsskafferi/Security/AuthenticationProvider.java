@@ -11,7 +11,6 @@ public class AuthenticationProvider {
 
     //Sample method to construct a JWT
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
-
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -37,14 +36,13 @@ public class AuthenticationProvider {
     }
 
     //Sample method to validate and read the JWT
-    public static String parseJWT(String jwt) {
+    public static Claims parseJWT(String jwt) {
 
         //This line will throw an exception if it is not a signed JWS (as expected)
         try {
-
-            String signature = Jwts.parser()
+            Claims signature = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary("qwertyuiopasdfghjklzxcvbnm123456"))
-                    .parseClaimsJws(jwt).getSignature();
+                    .parseClaimsJws(jwt).getBody();
 
             return signature;
         }catch (JwtException e){

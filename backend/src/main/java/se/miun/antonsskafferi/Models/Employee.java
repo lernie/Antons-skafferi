@@ -23,6 +23,7 @@ public class Employee {
     private String userName = "";
     private String password = "";
     private String email = "";
+
     @JsonbDateFormat("yyyy-MM-dd")
     private Date startDate;
 
@@ -82,7 +83,6 @@ public class Employee {
         this.email = email;
     }
 
-
     public Date getStartDate() {
         return startDate;
     }
@@ -92,7 +92,7 @@ public class Employee {
     }
 
     @JsonIgnore
-    private boolean isValidEmail() {
+    public boolean isValidEmail() {
         boolean result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email);
