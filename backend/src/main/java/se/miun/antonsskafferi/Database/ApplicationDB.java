@@ -85,10 +85,6 @@ public class ApplicationDB {
             int count = 0;
             String jwt_token = "";
 
-            if (!result.isBeforeFirst() ) {
-                return "No user found";
-            }
-
             while(result.next()) {
                 count++;
 
@@ -99,11 +95,10 @@ public class ApplicationDB {
                 user.setId(result.getInt(4));
 
                 jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
-                break;
+                return jwt_token;
             }
 
-            return jwt_token;
-
+            return "No user found";
         }catch(SQLException ex) {
             return "error";
         }

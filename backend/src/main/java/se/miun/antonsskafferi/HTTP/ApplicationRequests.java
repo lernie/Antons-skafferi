@@ -39,7 +39,7 @@ public class ApplicationRequests {
         if (emp.isValidEmail()) {
            String jwt_token =  ApplicationDB.validateEmployee(emp);
 
-           if (jwt_token == "error") {
+           if (jwt_token == "error" || jwt_token == "No user found") {
                return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
            }
            return Response.ok(jwt_token).build();
