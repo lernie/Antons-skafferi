@@ -53,6 +53,5 @@
         android:text="Logga in"
         android:layout_marginTop="21dp"
         android:layout_below="@+id/password_login"
-        android:layout_centerHorizontal="true"
-        android:onClick ="goToTables"/>
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

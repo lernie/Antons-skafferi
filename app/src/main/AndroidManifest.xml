@@ -14,14 +14,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-        <activity android:name=".TablesActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:label="Logga In" >
         <intent-filter>
             <action
                 android:name ="android.intent.action.MAIN"/>
             <category
                 android:name ="android.intent.category.LAUNCHER"/>
         </intent-filter>>
-
+        </activity>
+        <activity android:name=".TablesActivity" >
+            <intent-filter>
+            <action
+                android:name="se.miun.antonsskafferi.TablesActivity"/>
+            <category
+                android:name="android.intent.category.default"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".OrdersActivity"
@@ -54,11 +63,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="se.miun.antonsskafferi.TablesActivity" />
-
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="Logga In" >
 
         </activity>
     </application>

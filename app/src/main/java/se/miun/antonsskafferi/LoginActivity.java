@@ -3,6 +3,7 @@ package se.miun.antonsskafferi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,10 +22,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // LoginBtn();
+        LoginBtn();
+    }
 
-
-    /*public void LoginBtn(){
+    public void LoginBtn(){
         log_button = (Button) findViewById(R.id.login_button);
         mail = (EditText) findViewById(R.id.email_login);
         password = (EditText) findViewById(R.id.password_login);
@@ -34,23 +35,25 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                if (mail.getText().toString().equals("a") &&
                         password.getText().toString().equals("a")) {
-                        Toast.makeText(LoginActivity.this, "Username and password is correct",
-                                Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent("se.miun.antonsskafferi.TablesActivity");
+                    Intent intent = new Intent(getApplicationContext(), TablesActivity.class);
                     startActivity(intent);
 
+                } else {
+                   Toast.makeText(LoginActivity.this, "emailen eller lösenordet är fel",
+                           Toast.LENGTH_SHORT).show();
+               }
                 }
-                }
-        });*/
+        });
     }
-
+/*
     public void goToTables(View v) {
 
         Intent intent = new Intent(this, TablesActivity.class);
         startActivity(intent);
 
 
-    }
+    }*/
+
 }
 
 
