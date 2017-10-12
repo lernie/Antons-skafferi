@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-        <activity android:name=".TablesActivity"
-        android:parentActivityName=".LoginActivity">
+        <activity android:name=".TablesActivity">
         <intent-filter>
             <action
                 android:name ="android.intent.action.MAIN"/>

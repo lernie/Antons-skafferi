@@ -16,20 +16,26 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText mail, password;
     Button log_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // LoginBtn();
 
+
+    /*public void LoginBtn(){
         log_button = (Button) findViewById(R.id.login_button);
         mail = (EditText) findViewById(R.id.email_login);
         password = (EditText) findViewById(R.id.password_login);
 
-      /*  log_button.setOnClickListener(new View.OnClickListener() {
+      log_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (mail.getText().toString().equals("admin") &&
-                        password.getText().toString().equals("admin")) {
+               if (mail.getText().toString().equals("a") &&
+                        password.getText().toString().equals("a")) {
+                        Toast.makeText(LoginActivity.this, "Username and password is correct",
+                                Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("se.miun.antonsskafferi.TablesActivity");
                     startActivity(intent);
 
@@ -38,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         });*/
     }
 
-        public void goToTables (View v){
+    public void goToTables(View v) {
 
-            Intent intent = new Intent(this, TablesActivity.class);
-            startActivity(intent);
+        Intent intent = new Intent(this, TablesActivity.class);
+        startActivity(intent);
 
 
     }
