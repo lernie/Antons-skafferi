@@ -59,15 +59,17 @@ public class CoursesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<CoursesServiceItem>> call, Response<List<CoursesServiceItem>> response) {
 
-                if (response == null) {
+                if (response == null || response.body() == null) {
                     list.clear();
                     userAdapter.notifyDataSetChanged();
                     return;
                 }
+
                 for (CoursesServiceItem food : response.body()) {
                     list.add(new CourseListItem (new Course (food.getName())));
-                    userAdapter.notifyDataSetChanged();
                 }
+
+                userAdapter.notifyDataSetChanged();
             }
 
             @Override
