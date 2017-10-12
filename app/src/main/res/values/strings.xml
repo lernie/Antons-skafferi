@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Antons Skafferi</string>
 
+    <string name="ip_address">http://37.139.13.250:8080/api/</string>
+
     <string name="table1">Bord 1</string>
     <string name="table2">Bord 2</string>
     <string name="table3">Bord 3</string>
@@ -10,6 +12,16 @@
     <string name="table7">Bord 7</string>
 
     <string name="title_activity_tables">Bord X</string>
-    <string name="add">Lägg till</string>
+    <string name="edit">Redigera</string>
     <string name="clear_table">Rensa bord</string>
+
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Användarnamn</string>
+    <string name="prompt_password">Lösenord</string>
+    <string name="action_sign_in">Logga in eller registrera</string>
+    <string name="action_sign_in_short">Logga in</string>
+    <string name="loggIn">Logga in</string>
+
 </resources>
+

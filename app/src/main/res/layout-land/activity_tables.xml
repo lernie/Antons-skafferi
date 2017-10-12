@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="se.miun.antonsskafferi.TablesActivity"
-    tools:layout_editor_absoluteY="73dp"
-    tools:layout_editor_absoluteX="0dp">
-
-
+    android:layout_height="match_parent">
     <Button
         android:id="@+id/table1_button"
         android:layout_width="115dp"
@@ -18,7 +15,7 @@
         android:layout_marginLeft="39dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="16dp"
         android:onClick="goToOrder"/>
 
     <Button
@@ -26,11 +23,10 @@
         android:layout_width="115dp"
         android:layout_height="85dp"
         android:text="@string/table2"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="39dp"
+        android:layout_marginLeft="39dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
         android:onClick="goToOrder"/>
 
     <Button
@@ -39,10 +35,10 @@
         android:layout_height="85dp"
         android:text="@string/table3"
         android:layout_marginStart="39dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/table1_button"
         android:layout_marginLeft="39dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="31dp"
-        app:layout_constraintTop_toBottomOf="@+id/table1_button"
         android:onClick="goToOrder"/>
 
     <Button
@@ -50,11 +46,10 @@
         android:layout_width="115dp"
         android:layout_height="85dp"
         android:text="@string/table4"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="31dp"
-        app:layout_constraintTop_toBottomOf="@+id/table2_button"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/table2_button"
+        android:layout_marginLeft="39dp"
         android:onClick="goToOrder"/>
 
     <Button
@@ -63,10 +58,10 @@
         android:layout_height="85dp"
         android:text="@string/table5"
         android:layout_marginStart="39dp"
+        app:layout_constraintLeft_toRightOf="@+id/table3_button"
         android:layout_marginLeft="39dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="31dp"
-        app:layout_constraintTop_toBottomOf="@+id/table3_button"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
         android:onClick="goToOrder"/>
 
     <Button
@@ -74,11 +69,10 @@
         android:layout_width="115dp"
         android:layout_height="85dp"
         android:text="@string/table6"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="31dp"
-        app:layout_constraintTop_toBottomOf="@+id/table4_button"
+        app:layout_constraintLeft_toRightOf="@+id/table4_button"
+        android:layout_marginLeft="39dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
         android:onClick="goToOrder"/>
 
     <Button
@@ -86,11 +80,16 @@
         android:layout_width="115dp"
         android:layout_height="85dp"
         android:text="@string/table7"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/table5_button"
-        android:layout_marginLeft="135dp"
         android:layout_marginStart="135dp"
+        android:layout_marginRight="25dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.952"
         android:onClick="goToOrder"/>
 
 </android.support.constraint.ConstraintLayout>
