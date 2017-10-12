@@ -4,6 +4,7 @@ package se.miun.antonsskafferi;
  * Created by My on 9/28/2017.
  */
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,12 +18,12 @@ import android.widget.ImageButton;
 
 public class CourseAdapter extends ArrayAdapter<CourseListItem> {
 
-    ArrayList<CourseListItem> list = new ArrayList<CourseListItem>();
-    Context context;
-    int layoutResourceld;
+    private List<CourseListItem> list = new ArrayList<CourseListItem>();
+    private Context context;
+    private int layoutResourceld;
 
     public CourseAdapter(Context context, int layoutResourceld,
-                             ArrayList<CourseListItem> list){
+                             List<CourseListItem> list){
         super(context, layoutResourceld, list);
         this.layoutResourceld = layoutResourceld;
         this.context = context;
