@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Antons Skafferi</string>
 
+    <string name="ip_address">http://37.139.13.250:8080/api/</string>
+
     <string name="table1">Bord 1</string>
     <string name="table2">Bord 2</string>
     <string name="table3">Bord 3</string>
