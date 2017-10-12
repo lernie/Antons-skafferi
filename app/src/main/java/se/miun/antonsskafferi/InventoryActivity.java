@@ -124,6 +124,7 @@ public class InventoryActivity extends NavigationActivity {
 
 
     }
+    
     public void removePopupOnClick(View view){
         popupWindow.dismiss();
     }

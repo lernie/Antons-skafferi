@@ -25,9 +25,11 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        final int tableNumber = getIntent()
+                .getIntExtra("table_number", 44);
+
         getSupportActionBar()
-            .setTitle("Bord " + getIntent()
-                .getIntExtra("table_number", 44));
+            .setTitle("Bord " + tableNumber);
 
         orderItems = new ArrayList<Order.OrderItem>();
         adapter = new TableOrdersAdapter(this, orderItems);
@@ -44,7 +46,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         OrderService orderService = retrofit.create(OrderService.class);
 
-        Call<List<OrderServiceItem>> call = orderService.getActiveOrders();
+        Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
 
         call.enqueue(new Callback<List<OrderServiceItem>>() {
             @Override
@@ -69,7 +71,7 @@ public class OrdersActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                orderItems.add(new Order.OrderItem("Fuck", 1));
+                orderItems.add(new Order.OrderItem("Fuck", 1)); // TODO: Remove this lol
                 adapter.notifyDataSetChanged();
             }
         });
