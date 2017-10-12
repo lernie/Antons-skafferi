@@ -22,12 +22,22 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:id="@+id/popup_add_unit"
+    <TextView
+        android:id="@+id/popup_unit_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Enhet:"
+        android:textSize="22sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/popup_add_ingredient"/>
+
+    <Spinner
+        android:id="@+id/popup_spinner_unit"
+        android:spinnerMode="dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enhet"
-        android:layout_below="@+id/popup_add_ingredient"
+        android:layout_below="@+id/popup_unit_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -36,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Antal"
-        android:layout_below="@+id/popup_add_unit"
+        android:layout_below="@+id/popup_spinner_unit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:inputType="numberDecimal"/>
