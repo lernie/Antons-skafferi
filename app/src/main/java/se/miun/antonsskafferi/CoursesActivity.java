@@ -26,7 +26,7 @@ public class CoursesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        list = new ArrayList<CourseListItem>();
+        list = new ArrayList<CourseListItem>();https://github.com/MelvinS4/Antons-skafferi.git
 
         userAdapter = new CourseAdapter(CoursesActivity.this,
                 R.layout.courses_list_item, list);
