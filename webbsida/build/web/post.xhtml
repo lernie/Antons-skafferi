@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <link href="./resources/css/design.css" rel="stylesheet" type="text/css"/>
+        <h:outputStylesheet library="css" name="design.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+            
+        <h:form>
+            Rättens namn: <input type="text" name="fname" id="name"/><br/>
+            Tillagningstid: <input type="text" name="fname" id="tid"/><br/>
+            Pris: <input type="text" name="fname" id="pris"/><br/>
+           
+
+            <input type="button" value="button" id="button"/>
+        </h:form>
+
+        <div id="wrapper">
+            
+        </div>
+        <script>
+        $(document).ready(function(){
+            console.log("hej");
+            $("#button").click(function() {
+                $.ajax({
+                    url: "http://37.139.13.250:8080/api/food",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
+                    success : function(r) {
+                        console.log(r);
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+            });
+                    $.ajax({
+                    url: "http://37.139.13.250:8080/api/food",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#wrapper").append("<b>Inventarie ID:</b> ",r[i].id," <b>Maträtt:</b> ",r[i].name," <b>FoodID:</b> ",r[i].foodTypeId," <b>Tillagningstid:</b> ",r[i].timeToCook," <b>Pris:</b> ",r[i].price,"<br>");
+                        }
+                       
+                       //]]>
+                        r.forEach(function(element) {
+                        
+                    });
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+        });
+        
+
+        
+        </script>
+
+    </h:body>
+</html>
+

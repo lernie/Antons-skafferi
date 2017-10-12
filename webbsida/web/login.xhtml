@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Admin login</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+     
+        <script> src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+
+    </h:head>
+    <h:body>
+        <form>
+            Email:
+            <input type="text" name="email" id="email"/>
+            Password:
+            <input type="password" name="password" id="password"/>
+            <input type="button" value="Submit" onclick="login()" id="button"/>
+        </form>
+        
+        <script>
+            function login() {
+                $.ajax({
+                    url: "/antons-skafferi/api/login",
+                    data: JSON.stringify({ email: $("#email").val(), password : $("#password").val()}),
+                    type: "post",
+                    dataType: "text",
+                    contentType : "application/json",
+                    complete: function(xhr, textStatus) {
+                        console.log(xhr);
+                        if (xhr.status == 200) {
+                            console.log(xhr.responseText);
+                            Cookies.set("token", xhr.responseText);  
+                            console.log(Cookies.get());
+                            window.location.assign("/antons-skafferi/");
+                        } else {
+                            Cookies.remove("token");
+                        }
+                    }
+                });
+            }
+ 
+            $(document).ready(function(){
+                $("#text, #password").keypress(function(event) {
+                    if (event.keyCode == 13) {
+                        $("#button").click();
+                    }
+                });
+            });
+   
+        </script>
+ 
+    </h:body>
+</html>
+
