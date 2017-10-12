@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrey">
+
+    <TextView
+        android:id="@+id/ingredient_popup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="22sp"
+        android:text="Lägg till ingrediens."/>
+
+    <EditText
+        android:id="@+id/popup_add_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrediens"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/ingredient_popup_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/popup_unit_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="Enhet:"
+        android:textSize="22sp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/popup_add_ingredient"/>
+
+    <Spinner
+        android:id="@+id/popup_spinner_unit"
+        android:spinnerMode="dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_unit_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/popup_add_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Antal"
+        android:layout_below="@+id/popup_spinner_unit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:inputType="numberDecimal"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_add_quantity"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/popup_save_button"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Spara"
+            android:onClick="removePopupOnClick"/>
+
+        <Button
+            android:id="@+id/popup_cancel_button"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Avbryt"
+            android:onClick="removePopupOnClick"/>
+
+        <Button
+            android:id="@+id/popup_remove_button"
+            android:layout_width="85dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Ta bort" />
+    </LinearLayout>
+</RelativeLayout>

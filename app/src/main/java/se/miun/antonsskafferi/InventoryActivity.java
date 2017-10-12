@@ -34,7 +34,7 @@ public class InventoryActivity extends NavigationActivity {
 
     private ArrayList<Ingredient> inventoryList;
     private InventoryListAdapter adapter;
-    private PopupWindow popupWindow;
+    private IngredientPopupWindow ingredientPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,44 +119,11 @@ public class InventoryActivity extends NavigationActivity {
     }
 
     public void showIngredientPopupWindow(View view) {
-
-        // get a reference to the already created main layout
-        LinearLayout mainLayout = (LinearLayout) findViewById(R.id.inventory_layout);
-
-        // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.inventory_popup, null);
-
-        // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        List<String> units = new ArrayList<String>();
-        units.add("st");
-        units.add("l");
-        units.add("dl");
-        units.add("cl");
-        units.add("ml");
-        units.add("kg");
-        units.add("hg");
-        units.add("g");
-
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, units);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner spinner = (Spinner) popupView.findViewById(R.id.popup_spinner_unit);
-        spinner.setAdapter(dataAdapter);
-
-        // show the popup window
-        popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
-
-
+        ingredientPopupWindow = new IngredientPopupWindow(this, 1);
     }
     
     public void removePopupOnClick(View view){
-        popupWindow.dismiss();
+        ingredientPopupWindow.remove();
     }
     public void saveChangeInventory(View v){
         Toast.makeText(InventoryActivity.this,
