@@ -77,7 +77,6 @@
             android:layout_width="85dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:text="Ta bort"
-            android:onClick="deleteIngredient"/>
+            android:text="Ta bort" />
     </LinearLayout>
 </RelativeLayout>
