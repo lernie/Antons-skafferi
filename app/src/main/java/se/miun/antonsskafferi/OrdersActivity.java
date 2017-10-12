@@ -15,7 +15,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class OrdersActivity extends AppCompatActivity {
+public class OrdersActivity extends BackButtonActivity {
 
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
@@ -35,10 +35,6 @@ public class OrdersActivity extends AppCompatActivity {
         adapter = new TableOrdersAdapter(this, orderItems);
         ((ListView) findViewById(R.id.orderList)).setAdapter(adapter);
 
-//        orderItems.add(new Order.OrderItem("Gino", 3));
-//        orderItems.add(new Order.OrderItem("Känguru", "Utan lök"));
-//        orderItems.add(new Order.OrderItem("Cola", 1));
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,33 +42,41 @@ public class OrdersActivity extends AppCompatActivity {
 
         OrderService orderService = retrofit.create(OrderService.class);
 
-        Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
+        final Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
 
-        call.enqueue(new Callback<List<OrderServiceItem>>() {
+        final CoursesCache cache = CoursesCache.getInstance();
+        cache.update(new CoursesCache.UpdateCallback() {
             @Override
-            public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+            public void onSuccess() {
+                call.enqueue(new Callback<List<OrderServiceItem>>() {
+                    @Override
+                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                if (response == null) {
-                    orderItems.clear();
-                    adapter.notifyDataSetChanged();
-                    return;
-                }
+                        if (response == null) {
+                            orderItems.clear();
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
 
-                for (OrderServiceItem item : response.body()) {
-                    if ("".equals(item.getModification())) {
-                        orderItems.add(new Order.OrderItem("" + item.getFoodId(), 1));
-                    } else {
-                        orderItems.add(new Order.OrderItem("" + item.getFoodId(), item.getModification()));
+                        for (OrderServiceItem item : response.body()) {
+                            String name = cache.getCourses().get(item.getFoodId()).getName();
+
+                            if ("".equals(item.getModification())) {
+                                orderItems.add(new Order.OrderItem(name, 1));
+                            } else {
+                                orderItems.add(new Order.OrderItem(name, item.getModification()));
+                            }
+                        }
+
+                        adapter.notifyDataSetChanged();
                     }
-                }
 
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                orderItems.add(new Order.OrderItem("Fuck", 1)); // TODO: Remove this lol
-                adapter.notifyDataSetChanged();
+                    @Override
+                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                        orderItems.add(new Order.OrderItem("Fuck", 1)); // TODO: Remove this lol
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }

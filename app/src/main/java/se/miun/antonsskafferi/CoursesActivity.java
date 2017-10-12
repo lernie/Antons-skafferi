@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,19 +15,18 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 
-public class CoursesActivity extends AppCompatActivity {
-    ListView listView;
-    ArrayList<CourseListItem> list;
-    CourseAdapter userAdapter;
-    PopupWindow popupWindow;
-
+public class CoursesActivity extends BackButtonActivity {
+    private ListView listView;
+    private ArrayList<CourseListItem> list;
+    private CourseAdapter userAdapter;
+    private PopupWindow popupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
-        list = new ArrayList<CourseListItem>();https://github.com/MelvinS4/Antons-skafferi.git
+        list = new ArrayList<CourseListItem>();
 
         userAdapter = new CourseAdapter(CoursesActivity.this,
                 R.layout.courses_list_item, list);
@@ -70,7 +70,7 @@ public class CoursesActivity extends AppCompatActivity {
         popupWindow.dismiss();
     }
 
-    public void goToOrder (View view){
-
+    public void goToOrder (View view) {
+        // TODO: Put saving stuff to database here
     }
 }

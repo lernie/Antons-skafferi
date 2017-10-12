@@ -21,8 +21,6 @@ public class CoursesCache {
 
     private Retrofit retrofit;
 
-    Call<List<CoursesServiceItem>> call;
-
     private HashMap<Integer, Course> courses;
 
     public static CoursesCache getInstance() {
@@ -39,8 +37,6 @@ public class CoursesCache {
                 .baseUrl("http://37.139.13.250:8080/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-        call = ((CoursesService) retrofit.create(CoursesService.class)).getCourses();
     }
 
     public HashMap<Integer, Course> getCourses() {
@@ -48,6 +44,8 @@ public class CoursesCache {
     }
 
     public void update(final UpdateCallback callback) {
+        Call<List<CoursesServiceItem>> call = ((CoursesService) retrofit.create(CoursesService.class)).getCourses();
+
         call.enqueue(new Callback<List<CoursesServiceItem>>() {
             @Override
             public void onResponse(Call<List<CoursesServiceItem>> call, Response<List<CoursesServiceItem>> response) {
