@@ -46,10 +46,11 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
             if (item.isSpecial()) {
                 courseView = inflater.inflate(R.layout.kitchen_order_courses_spec, linLayout, false);
                 TextView specText = (TextView) courseView.findViewById(R.id.course_spec_text);
-
                 specText.setText(item.getText());
             } else {
                 courseView = inflater.inflate(R.layout.kitchen_order_courses, linLayout, false);
+                TextView courseCount = (TextView) courseView.findViewById(R.id.course_count);
+                courseCount.setText("x" + item.getCount());
             }
 
             TextView textView = (TextView) courseView.findViewById(R.id.course_name);

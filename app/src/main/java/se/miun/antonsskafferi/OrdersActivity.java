@@ -1,9 +1,7 @@
 package se.miun.antonsskafferi;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class OrdersActivity extends BackButtonActivity {
         setContentView(R.layout.activity_orders);
 
         final int tableNumber = getIntent()
-                .getIntExtra("table_number", 44);
+                .getIntExtra("table_number", -1);
 
         getSupportActionBar()
             .setTitle("Bord " + tableNumber);
@@ -61,7 +59,7 @@ public class OrdersActivity extends BackButtonActivity {
                         for (OrderServiceItem item : response.body()) {
                             String name = cache.getCourses().get(item.getFoodId()).getName();
 
-                            if ("".equals(item.getModification())) {
+                            if (item.isSpecial()) {
                                 orderItems.add(new Order.OrderItem(name, 1));
                             } else {
                                 orderItems.add(new Order.OrderItem(name, item.getModification()));

@@ -49,7 +49,7 @@ public class Order {
         }
 
         public boolean isSpecial() {
-            return !"".equals(text);
+            return text != null && !"".equals(text);
         }
 
         public String getCourse() {

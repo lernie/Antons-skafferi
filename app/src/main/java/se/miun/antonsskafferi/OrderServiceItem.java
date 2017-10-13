@@ -6,7 +6,7 @@ package se.miun.antonsskafferi;
 
 public class OrderServiceItem {
     String created, delivered, modification, ready;
-    int foodId, orderStatusId, diningTableOrderId;
+    int foodId, orderStatusId, diningTableId;
 
     public OrderServiceItem() {   }
 
@@ -34,7 +34,11 @@ public class OrderServiceItem {
         return orderStatusId;
     }
 
-    public int getDiningTableOrderId() {
-        return diningTableOrderId;
+    public int getDiningTableId() {
+        return diningTableId;
+    }
+
+    public boolean isSpecial() {
+        return modification != null && !"".equals(modification);
     }
 }
