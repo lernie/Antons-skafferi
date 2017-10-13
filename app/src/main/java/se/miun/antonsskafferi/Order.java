@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -33,7 +34,7 @@ public class Order {
         return courses.get(index);
     }
 
-    public static class OrderItem {
+    public static class OrderItem implements Serializable {
         private String course;
         private int count = 0;
         private String text = "";

@@ -16,6 +16,11 @@ public class CourseListItem {
         count = 0;
     }
 
+    public CourseListItem(Course course, int count) {
+        this.course = course;
+        this.count = count;
+    }
+
     public Course getCourse() {
         return course;
     }

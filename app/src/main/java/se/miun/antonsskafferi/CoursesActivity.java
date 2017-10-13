@@ -13,42 +13,59 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 public class CoursesActivity extends BackButtonActivity {
-    private ListView listView;
     private ArrayList<CourseListItem> list;
-    private CourseAdapter userAdapter;
     private PopupWindow popupWindow;
+    private ArrayList<Order.OrderItem> orderedItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
+        orderedItems = (ArrayList<Order.OrderItem>) getIntent().getSerializableExtra("items");
+
         list = new ArrayList<CourseListItem>();
 
-        userAdapter = new CourseAdapter(CoursesActivity.this,
-                R.layout.courses_list_item, list);
+        final CourseAdapter adapter = new CourseAdapter(CoursesActivity. this, list);
 
         CoursesCache.getInstance().update(new CoursesCache.UpdateCallback() {
             @Override
             public void onSuccess() {
                 for (Course course : CoursesCache.getInstance().getCourses().values()) {
-                    list.add(new CourseListItem(course));
-                    userAdapter.notifyDataSetChanged();
+                    Order.OrderItem match = null;
+
+                    for (Order.OrderItem item : orderedItems) {
+                        if (item.getCourse().equals(course.getName())) {
+                            match = item;
+                            break;
+                        }
+                    }
+
+                    if (match == null) {
+                        list.add(new CourseListItem(course));
+                    } else {
+                        list.add(new CourseListItem(course, match.getCount()));
+                    }
                 }
+
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFail() {
-                userAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
         });
 
-        listView = (ListView) findViewById(R.id.courses_list);
+        ListView listView = (ListView) findViewById(R.id.courses_list);
         listView.setItemsCanFocus(false);
-        listView.setAdapter(userAdapter);
+        listView.setAdapter(adapter);
     }
 
     public void showSpecPopup(View v) {

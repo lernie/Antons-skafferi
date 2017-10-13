@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +19,14 @@ public class OrdersActivity extends BackButtonActivity {
 
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
+    private int tableNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
-        final int tableNumber = getIntent()
+        tableNumber = getIntent()
                 .getIntExtra("table_number", -1);
 
         getSupportActionBar()
@@ -60,9 +63,9 @@ public class OrdersActivity extends BackButtonActivity {
                             String name = cache.getCourses().get(item.getFoodId()).getName();
 
                             if (item.isSpecial()) {
-                                orderItems.add(new Order.OrderItem(name, 1));
-                            } else {
                                 orderItems.add(new Order.OrderItem(name, item.getModification()));
+                            } else {
+                                orderItems.add(new Order.OrderItem(name, 1));
                             }
                         }
 
@@ -81,6 +84,7 @@ public class OrdersActivity extends BackButtonActivity {
 
     public void goToCourses (View view){
         Intent intent = new Intent(this, CoursesActivity.class);
+        intent.putExtra("items", (Serializable) orderItems);
         startActivity(intent);
     }
 
