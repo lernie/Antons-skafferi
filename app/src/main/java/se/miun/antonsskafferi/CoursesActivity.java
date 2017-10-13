@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -120,18 +120,19 @@ public class CoursesActivity extends BackButtonActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            Call<List<OrderService.OrderPost>> call = retrofit.create(OrderService.class)
+            Call<Void> call = retrofit.create(OrderService.class)
                     .postOrders(newOrders);
 
-            call.enqueue(new Callback<List<OrderService.OrderPost>>() {
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<List<OrderService.OrderPost>> call, Response<List<OrderService.OrderPost>> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     onBackPressed();
                 }
 
                 @Override
-                public void onFailure(Call<List<OrderService.OrderPost>> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     Toast toast = Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT);
+                    Log.w("Failed POST", "Failed to post new orders", t);
                     toast.show();
                 }
             });

@@ -26,7 +26,7 @@ public interface OrderService {
     Call<List<OrderServiceItem>> getAllOrders();
 
     @POST("foodorder")
-    Call<List<OrderPost>> postOrders(@Body List<OrderPost> orders);
+    Call<Void> postOrders(@Body List<OrderPost> orders);
 
     class OrderPost {
         String modification;
