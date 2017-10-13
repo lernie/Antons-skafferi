@@ -83,7 +83,7 @@ public class NavigationActivity extends AppCompatActivity {
                         intent = new Intent(NavigationActivity.this, InventoryActivity.class);
                         break;
                     case R.id.nav_schedule_button:
-//                        intent = new Intent(NavigationActivity.this, ScheduleActivity.class);
+                        intent = new Intent(NavigationActivity.this, ScheduleActivity.class);
                         break;
                 }
 
