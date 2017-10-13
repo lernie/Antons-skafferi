@@ -2,64 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="se.miun.antonsskafferi">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
-
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".TablesActivity">
-        <intent-filter>
-            <action
-                android:name ="android.intent.action.MAIN"/>
-            <category
-                android:name ="android.intent.category.LAUNCHER"/>
-        </intent-filter>>
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name=".OrdersActivity"
+            android:name=".TablesActivity"
             android:label="@string/title_activity_tables"
-            android:parentActivityName=".TablesActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.TablesActivity" />
-        </activity>
-        <activity
-            android:name=".CoursesActivity"
-            android:label="Rätter"
-            android:parentActivityName=".OrdersActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.OrdersActivity" />
-        </activity>
-        <activity
-            android:name=".KitchenActivity"
-            android:label="Kök"
-            android:parentActivityName=".OrdersActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.OrdersActivity" />
-        </activity>
-        <activity
-            android:name=".InventoryActivity"
-            android:label="Inventering"
-            android:parentActivityName=".TablesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.TablesActivity" />
-
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="Logga In" >
-
+                android:value="se.miun.antonsskafferi.MainActivity" />
         </activity>
     </application>
 
