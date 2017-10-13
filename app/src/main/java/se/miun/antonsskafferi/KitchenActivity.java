@@ -39,7 +39,7 @@ public class KitchenActivity extends NavigationActivity {
 
         OrderService service = retrofit.create(OrderService.class);
 
-        final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(1);
+        final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(0);
 
         final CoursesCache cache = CoursesCache.getInstance();
 
