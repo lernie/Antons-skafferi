@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Path("/api")
@@ -17,8 +18,25 @@ public class ApplicationRequests {
     @Path("/foodorder")
     @GET
     @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
-    public Response getOrders(){
-        return Response.ok(ApplicationDB.getAllFoodOrders()).build();
+    public Response getOrders(@DefaultValue("-1") @QueryParam("id") int id,
+                              @DefaultValue("") @QueryParam("modification") String modification,
+                              @DefaultValue("-1") @QueryParam("foodId") int foodId,
+                              @DefaultValue("-1")@QueryParam("diningTableId") int diningTableId,
+                              @DefaultValue("-1") @QueryParam("orderStatusId") int orderStatusId,
+                              @QueryParam("ready") Timestamp ready,
+                              @QueryParam("created") Timestamp created,
+                              @QueryParam("delivered") Timestamp delivered){
+        FoodOrder foParam = new FoodOrder();
+        foParam.setId(id);
+        foParam.setModification(modification);
+        foParam.setFoodId(foodId);
+        foParam.setDiningTableId(diningTableId);
+        foParam.setOrderStatusId(orderStatusId);
+        foParam.setReady(ready);
+        foParam.setCreated(created);
+        foParam.setDelivered(delivered);
+
+        return Response.ok(ApplicationDB.getAllFoodOrders(foParam)).build();
     }
 
     @Path("/foodorder")
@@ -28,7 +46,7 @@ public class ApplicationRequests {
     public Response addOrders(List<FoodOrder> foList) {
         ApplicationDB.addFoodOrders(foList);
 
-        return Response.ok(ApplicationDB.getAllFoodOrders()).build();
+        return Response.ok().build();
     }
 
     @Path("/login")
