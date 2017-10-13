@@ -11,10 +11,8 @@
         android:id="@+id/log_in"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="135dp"
-        android:layout_marginLeft="135dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:layout_weight="0.06"
         android:ems="10"
         android:text="Logga in "
         android:textSize="30sp" />
@@ -49,10 +47,8 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06"
         android:text="Logga in"
         android:layout_marginTop="21dp"
         android:layout_below="@+id/password_login"
-        android:layout_centerHorizontal="true"
-        android:onClick ="goToTables"/>
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
