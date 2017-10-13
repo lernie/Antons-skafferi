@@ -7,7 +7,10 @@ import android.widget.ListView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,13 +62,26 @@ public class OrdersActivity extends BackButtonActivity {
                             return;
                         }
 
+                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+
                         for (OrderServiceItem item : response.body()) {
                             String name = cache.getCourses().get(item.getFoodId()).getName();
 
                             if (item.isSpecial()) {
                                 orderItems.add(new Order.OrderItem(name, item.getModification()));
                             } else {
-                                orderItems.add(new Order.OrderItem(name, 1));
+                                if (nonSpecCount.containsKey(item.getFoodId())) {
+                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                                } else {
+                                    nonSpecCount.put(item.getFoodId(), 1);
+                                }
+                            }
+                        }
+
+                        for (int key : nonSpecCount.keySet()) {
+                            if (nonSpecCount.containsKey(key)) {
+                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key).getName(),
+                                        nonSpecCount.get(key)));
                             }
                         }
 
@@ -85,6 +101,7 @@ public class OrdersActivity extends BackButtonActivity {
     public void goToCourses (View view){
         Intent intent = new Intent(this, CoursesActivity.class);
         intent.putExtra("items", (Serializable) orderItems);
+        intent.putExtra("table_id", tableNumber);
         startActivity(intent);
     }
 

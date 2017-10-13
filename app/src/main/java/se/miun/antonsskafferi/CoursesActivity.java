@@ -1,27 +1,29 @@
 package se.miun.antonsskafferi;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CoursesActivity extends BackButtonActivity {
     private ArrayList<CourseListItem> list;
     private PopupWindow popupWindow;
     private ArrayList<Order.OrderItem> orderedItems;
+    private int tableId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class CoursesActivity extends BackButtonActivity {
         setContentView(R.layout.activity_courses);
 
         orderedItems = (ArrayList<Order.OrderItem>) getIntent().getSerializableExtra("items");
+        tableId = getIntent().getIntExtra("table_id", -1);
 
         list = new ArrayList<CourseListItem>();
 
@@ -59,6 +62,7 @@ public class CoursesActivity extends BackButtonActivity {
 
             @Override
             public void onFail() {
+                list.clear();
                 adapter.notifyDataSetChanged();
             }
         });
@@ -87,7 +91,53 @@ public class CoursesActivity extends BackButtonActivity {
         popupWindow.dismiss();
     }
 
-    public void goToOrder (View view) {
-        // TODO: Put saving stuff to database here
+    public void saveOrder(View view) {
+        ArrayList<OrderService.OrderPost> newOrders = new ArrayList<OrderService.OrderPost>();
+
+        for (CourseListItem item : list) {
+            Order.OrderItem match = null;
+
+            for (Order.OrderItem order : orderedItems) {
+                if (item.getCourse().getName().equals(order.getCourse())) {
+                    match = order;
+                    break;
+                }
+            }
+
+            // TODO: Check for equivalence, so that orders may be removed
+            if ((match == null && item.getCount() > 0) || (match != null && match.getCount() < item.getCount())) {
+                int id = CoursesCache.getInstance().getIds().get(item.getCourse());
+
+                for (int i = 0; i < item.getCount(); i++) {
+                    newOrders.add(new OrderService.OrderPost(id, tableId, 0, ""));
+                }
+            }
+        }
+
+        if (!newOrders.isEmpty()) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(getResources().getString(R.string.ip_address))
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            Call<List<OrderService.OrderPost>> call = retrofit.create(OrderService.class)
+                    .postOrders(newOrders);
+
+            call.enqueue(new Callback<List<OrderService.OrderPost>>() {
+                @Override
+                public void onResponse(Call<List<OrderService.OrderPost>> call, Response<List<OrderService.OrderPost>> response) {
+                    onBackPressed();
+                }
+
+                @Override
+                public void onFailure(Call<List<OrderService.OrderPost>> call, Throwable t) {
+                    Toast toast = Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        } else {
+            Toast toast = Toast.makeText(CoursesActivity.this, "Inget att spara", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }

@@ -22,6 +22,7 @@ public class CoursesCache {
     private Retrofit retrofit;
 
     private HashMap<Integer, Course> courses;
+    private HashMap<Course, Integer> ids;
 
     public static CoursesCache getInstance() {
         if (instance == null) instance = new CoursesCache();
@@ -32,6 +33,7 @@ public class CoursesCache {
 //        courses = (HashMap<Integer, Course>) Collections.synchronizedMap(new HashMap<Integer, Course>());
 
         courses = new HashMap<Integer, Course>();
+        ids = new HashMap<Course, Integer>();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://37.139.13.250:8080/api/")
@@ -43,6 +45,10 @@ public class CoursesCache {
         return courses;
     }
 
+    public HashMap<Course, Integer> getIds() {
+        return ids;
+    }
+
     public void update(final UpdateCallback callback) {
         Call<List<CoursesServiceItem>> call = ((CoursesService) retrofit.create(CoursesService.class)).getCourses();
 
@@ -51,12 +57,14 @@ public class CoursesCache {
             public void onResponse(Call<List<CoursesServiceItem>> call, Response<List<CoursesServiceItem>> response) {
 
                 if (response == null || response.body() == null) {
-                    courses.clear();
+                    clear();
                     return;
                 }
 
                 for (CoursesServiceItem item : response.body()) {
-                    courses.put(item.getId(), new Course (item.getName(), item.getType(), item.getPrice(), item.getTimeToCook()));
+                    Course course = new Course (item.getName(), item.getType(), item.getPrice(), item.getTimeToCook());
+                    courses.put(item.getId(), course);
+                    ids.put(course, item.getId());
                 }
 
                 if (callback != null) {
@@ -66,13 +74,18 @@ public class CoursesCache {
 
             @Override
             public void onFailure(Call<List<CoursesServiceItem>> call, Throwable t) {
-                courses.clear();
+                clear();
 
                 if (callback != null) {
                     callback.onFail();
                 }
             }
         });
+    }
+
+    public void clear() {
+        courses.clear();
+        ids.clear();
     }
 
     public static abstract class UpdateCallback {

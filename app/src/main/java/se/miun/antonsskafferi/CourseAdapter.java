@@ -73,7 +73,7 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
                     addBtn,
                     subBtn);
 
-            row.setTag(item);
+            row.setTag(listItem);
         } else {
             listItem = (ListItem) row.getTag();
         }

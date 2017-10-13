@@ -8,7 +8,7 @@ public class OrderServiceItem {
     String created, delivered, modification, ready;
     int foodId, orderStatusId, diningTableId;
 
-    public OrderServiceItem() {   }
+    public OrderServiceItem(String created) {   }
 
     public String getCreated() {
         return created;
