@@ -67,8 +67,8 @@
         </h:form>
 
 
-        <script>
-        $(document).ready(function(){
+       <script>
+      /*  $(document).ready(function(){
             console.log("hej");
             $("#button").click(function() {
                 $.ajax({
@@ -110,48 +110,44 @@
         });
         
 
-        
+        */
         </script>
          
         </div>
         <div id="section2" class="container-fluid">
-            <h1>Meny</h1>
-            <img src="bilder/laxmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-            <img src="bilder/köttfärsås.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
             
-            <br/>
-            
-            
+        <script>
+        $(document).ready(function(){
+            console.log("hej");
+                    $.ajax({
+                       
+                    url: "http://37.139.13.250:8080/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                       
+                       //]]>
+                        r.forEach(function(element) {
+                        
+                    });
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+        });
+        
 
-            <h2>Måndag</h2>
-                <p>Fisk med maskmasdkoasd</p>  
-                <p>Spaghetti med köttfärsås</p>
-            <br/> 
-            <h2>Tisdag</h2>
-                <p>Lasange</p>
-                <p>Thai-wok</p>
-                <img src="bilder/pastameny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-                <img src="bilder/köttigtmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
+        
+        </script>
 
-            <br/> 
-            <h2>Onsdag</h2>
-                <p>Pastagratäng med rökt skinka, fetaost, rödlök, svarta oliver och vitvinsås</p>
-                <p>Högrevsgryta med sotad purjolök, pepparrot och bulgur</p>
-
-            <br/> 
-
-     
-            <h2>Torsdag</h2>
-                <p>Rosmarinkryddad kalvbiff med potatismos och rödvinssås</p>
-                <p>VARJE TORSDAG – Ärtsoppa med pannkaka och sylt</p>
-                <img src="bilder/kalvmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-                <img src="bilder/soppameny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-            <br/> 
-            <h2>Fredag</h2>
-                <p>Fisklasagne med spenat</p>
-                <p>Timiankryddad kyckling med chili, samt broccoli och potatisgratäng</p>
-       
-                
         </div>
         <div id="section3" class="container-fluid">
             <img src="bilder/delorian.jpg" alt="mat" style="width:100%;height:70%;"/>
