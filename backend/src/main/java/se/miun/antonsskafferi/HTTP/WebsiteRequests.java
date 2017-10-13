@@ -1,14 +1,19 @@
 package se.miun.antonsskafferi.HTTP;
 
+import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Database.WebsiteDB;
+import se.miun.antonsskafferi.Models.ErrorResponse;
+import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.Models.InventoryItem;
+import se.miun.antonsskafferi.Models.TodaysLunch;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
 
 @Path("/api")
 public class WebsiteRequests {
@@ -37,4 +42,18 @@ public class WebsiteRequests {
         System.out.println(WebsiteDB.getAllTodaysLunch(startdate, enddate));
         return Response.ok(WebsiteDB.getAllTodaysLunch(startdate, enddate)).build();
     }
+
+    @Path("/todayslunch")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addTodaysLunch(TodaysLunch todaysLunch) {
+        if (WebsiteDB.addTodaysLunch(todaysLunch)) {
+            return Response.ok().build();
+        }
+
+        return Response.status(400).entity(new ErrorResponse(400, "Error adding.")).build();
+    }
+
+
+
 }

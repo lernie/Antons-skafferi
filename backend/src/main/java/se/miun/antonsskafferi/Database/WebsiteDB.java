@@ -4,11 +4,8 @@ package se.miun.antonsskafferi.Database;
         import se.miun.antonsskafferi.Models.TodaysLunch;
         import se.miun.antonsskafferi.Models.TodaysLunchString;
 
+        import java.sql.*;
         import java.text.DateFormat;
-        import java.sql.Date;
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
-        import java.sql.Statement;
         import java.text.SimpleDateFormat;
 
 public class WebsiteDB {
@@ -76,5 +73,26 @@ public class WebsiteDB {
             sqlExcept.printStackTrace();
         }
         return todaysLunchStrings;
+    }
+
+    public static boolean addTodaysLunch(TodaysLunch todaysLunch)
+    {
+        boolean status = true;
+        try
+        {
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO TodaysLunch " +
+                    "(foodId, todaysDate) VALUES (?, ?)");
+            ps.setInt(1, todaysLunch.getFoodId());
+            ps.setDate(2, todaysLunch.getTodaysDate());
+
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        }
+        catch (SQLException sqlExcept)
+        {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+        return status;
     }
 }

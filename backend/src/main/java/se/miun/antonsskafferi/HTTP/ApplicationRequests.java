@@ -20,9 +20,9 @@ public class ApplicationRequests {
     @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
     public Response getOrders(@DefaultValue("-1") @QueryParam("id") int id,
                               @DefaultValue("") @QueryParam("modification") String modification,
-                              @DefaultValue("-1") @QueryParam("foodId") int foodId,
-                              @DefaultValue("-1")@QueryParam("diningTableId") int diningTableId,
-                              @DefaultValue("-1") @QueryParam("orderStatusId") int orderStatusId,
+                              @DefaultValue("-1") @QueryParam("food") int foodId,
+                              @DefaultValue("-1")@QueryParam("table") int diningTableId,
+                              @DefaultValue("-1") @QueryParam("status") int orderStatusId,
                               @QueryParam("ready") Timestamp ready,
                               @QueryParam("created") Timestamp created,
                               @QueryParam("delivered") Timestamp delivered){
