@@ -177,12 +177,43 @@ public class ApplicationDB {
         return diningTables;
     }
 
-    public static java.util.List<FoodOrder> getAllFoodOrders() {
-        java.util.List<FoodOrder> foodOrders = new java.util.ArrayList();
+    public static java.util.List<FoodOrder> getAllFoodOrders(FoodOrder foParam) {
+        java.util.List<FoodOrder> foodOrders = new java.util.ArrayList<FoodOrder>();
 
         try {
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT ID, FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUSID, CREATED, READY, DELIVERED FROM " + foodOrderTableName);
+            String sqlQuery = "SELECT ID, FOODID, MODIFICATION, DININGTABLEID, " +
+                    "ORDERSTATUSID, CREATED, READY, DELIVERED FROM FOODORDER WHERE " +
+                    "(? = -1 OR Id = ?) AND " +
+                    "(? = '' OR modification = ? ) AND " +
+                    "(? = -1 OR foodId = ? ) AND " +
+                    "(? = -1 OR diningTableId = ?) AND " +
+                    "(? = -1 OR orderStatusId = ?) ";/*AND " +
+                    "(? != NULL || ready = ?) AND " +
+                    "(? != NULL || created = ? ) AND " +
+                    "(? != NULL || delivered = ?)";*/
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            System.out.println("ID: " + foParam.getId() + " foodID: " + foParam.getFoodId() + " diningTableId: " + foParam.getDiningTableId()
+                                      + " orderStatusId: " + foParam.getOrderStatusId());
+
+            ps.setInt(1, foParam.getId());
+            ps.setInt(2, foParam.getId());
+            ps.setString(3, foParam.getModification());
+            ps.setString(4, foParam.getModification());
+            ps.setInt(5, foParam.getFoodId());
+            ps.setInt(6, foParam.getFoodId());
+            ps.setInt(7, foParam.getDiningTableId());
+            ps.setInt(8, foParam.getDiningTableId());
+            ps.setInt(9, foParam.getOrderStatusId());
+            ps.setInt(10, foParam.getOrderStatusId());/*
+            ps.setTimestamp(11,foParam.getReady());
+            ps.setTimestamp(12,foParam.getReady());
+            ps.setTimestamp(13,foParam.getCreated());
+            ps.setTimestamp(14,foParam.getCreated());
+            ps.setTimestamp(15,foParam.getDelivered());
+            ps.setTimestamp(16,foParam.getDelivered());*/
+
+            ResultSet results = ps.executeQuery();
             while (results.next()) {
                 FoodOrder tempFoodOrder = new FoodOrder();
                 tempFoodOrder.setId(results.getInt(1));
@@ -198,7 +229,8 @@ public class ApplicationDB {
                 foodOrders.add(tempFoodOrder);
             }
             results.close();
-            stmt.close();
+            ConnectionSetup.conn.commit();
+            //stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
