@@ -53,7 +53,7 @@ public class FoodTypeCache {
     public void update(final UpdateCallback callback) {
         Call<List<FoodTypeService.FoodTypeServiceItem>> call =((FoodTypeService)
                 retrofit.create(FoodTypeService.class)).getTypes();
-                
+
         call.enqueue(new Callback<List<FoodTypeService.FoodTypeServiceItem>>() {
             @Override
             public void onResponse(Call<List<FoodTypeService.FoodTypeServiceItem>> call, Response<List<FoodTypeService.FoodTypeServiceItem>> response) {
