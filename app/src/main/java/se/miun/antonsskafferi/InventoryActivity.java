@@ -31,15 +31,11 @@ public class InventoryActivity extends NavigationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
+        UnitCache.getInstance().update(null);
+
         inventoryList = new ArrayList<Ingredient>();
         adapter = new InventoryListAdapter(this, inventoryList);
         ((GridView) findViewById(R.id.inventory_list)).setAdapter(adapter);
-
-        /*for (int i = 0; i < 20; i++) {
-            inventoryList.add(new Ingredient("Gino", 3, "st"));
-            inventoryList.add(new Ingredient("Känguru", 2.5, "st"));
-            inventoryList.add(new Ingredient("Cola", 1, "l"));
-        }*/
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
@@ -59,7 +55,7 @@ public class InventoryActivity extends NavigationActivity {
                 }
 
                 for (IngredientServiceItem item : response.body()) {
-                    Ingredient ingredient = new Ingredient(item.getName(), 1, "" + item.getMeasurementId());
+                    Ingredient ingredient = new Ingredient(item.getName(), 1, UnitCache.getInstance().getUnits().get(item.getMeasurementId()));
                     inventoryList.add(ingredient);
                 }
 
