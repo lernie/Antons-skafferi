@@ -150,25 +150,25 @@
 
         </div>
         <div id="section3" class="container-fluid">
-            <img src="bilder/delorian.jpg" alt="mat" style="width:100%;height:70%;"/>
+         <script>
+       $(document).ready(function(){
+            console.log("hej");
             
-            <h1> Delorian - Release party </h1> 
-            <p>
-                HUMANOMALY släpps 29/9.
-                Det vill vi fira med er på Medelpads nation / Grönborg, den 7e oktober.
-                <br/>
-                Kom och häng med oss, hör hela albumet live!
-                <br/> 
-                <br/>
-                Hör senaste singeln "The best of me is you" här:
-                <br/>
-                <i>https://open.spotify.com/track/72I1fQ45eTnbTeMVCyhAIh</i>
-                <br/>
-                <br/>
-                Förköp: 80kr (kårmedlem 40kr) 
-                <br/>
-                <i>https://delorian.yapsody.com/event/index/149301/release-party</i>
-            </p>
+                    $.ajax({
+                    url: "http://37.139.13.250:8080/api/food",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        var listItems= "";
+                         for (var i = 0; i < r.length; i++){
+                          listItems+= "<option value='" + r[i].id + "'>" + r[i].name + "</option>";
+      }//]]>
+                      $("#section3").html(listItems);
+    });    
+        </script>
            
         </div>
         <div id="section41" class="container-fluid">
