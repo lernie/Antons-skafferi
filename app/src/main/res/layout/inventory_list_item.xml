@@ -34,20 +34,12 @@
         android:textSize="35sp" />
 
     <ImageButton
-        android:id="@+id/confrim_edit_ingredient"
+        android:id="@+id/edit_ingredient"
         android:layout_width="20dp"
         android:layout_height="50dp"
         android:layout_weight="0.6"
         android:layout_marginTop="15dp"
         android:background="@drawable/ic_mode_edit_black_24dp"
-        android:onClick="saveChangeInventory" />
-
-    <Button
-        android:id="@+id/edit_ingredient"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_weight="0.5"
-        android:text="Edit"
-        android:onClick="showIngredientPopupWindow"/>
+        android:onClick="showIngredientPopupWindow" />
 
 </LinearLayout>
