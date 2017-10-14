@@ -49,6 +49,31 @@ public class ApplicationRequests {
         return Response.ok().build();
     }
 
+    @Path("/foodorder/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateFoodOrder(@PathParam("id") int id, FoodOrder foParam) {
+        foParam.setId(id);
+        if (!ApplicationDB.checkIfFoodOrderExist(id)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
+        } else if (!ApplicationDB.updateFoodOrder(foParam)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
+        } else {
+            return Response.ok().build();
+        }
+    }
+
+    @DELETE
+    @Path("/foodorder/{id}")
+    public Response deleteFoodOrder(@PathParam("id") int id) {
+        if (ApplicationDB.deleteFoodOrder(id)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
+        }
+    }
+
+
     @Path("/login")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
