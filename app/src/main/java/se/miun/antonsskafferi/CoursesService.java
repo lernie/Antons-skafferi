@@ -11,6 +11,6 @@ import retrofit2.http.GET;
 
 public interface CoursesService {
     @GET("food")
-    Call<List<CoursesServiceItem>> getFoodType();
+    Call<List<CoursesServiceItem>> getCourses();
 
 }

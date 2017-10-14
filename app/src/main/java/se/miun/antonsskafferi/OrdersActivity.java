@@ -1,13 +1,16 @@
 package se.miun.antonsskafferi;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,18 +18,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class OrdersActivity extends AppCompatActivity {
+public class OrdersActivity extends BackButtonActivity {
 
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
+    private int tableNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
-        final int tableNumber = getIntent()
-                .getIntExtra("table_number", 44);
+        tableNumber = getIntent()
+                .getIntExtra("table_number", -1);
 
         getSupportActionBar()
             .setTitle("Bord " + tableNumber);
@@ -35,10 +39,6 @@ public class OrdersActivity extends AppCompatActivity {
         adapter = new TableOrdersAdapter(this, orderItems);
         ((ListView) findViewById(R.id.orderList)).setAdapter(adapter);
 
-//        orderItems.add(new Order.OrderItem("Gino", 3));
-//        orderItems.add(new Order.OrderItem("Känguru", "Utan lök"));
-//        orderItems.add(new Order.OrderItem("Cola", 1));
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -46,39 +46,62 @@ public class OrdersActivity extends AppCompatActivity {
 
         OrderService orderService = retrofit.create(OrderService.class);
 
-        Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
+        final Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
 
-        call.enqueue(new Callback<List<OrderServiceItem>>() {
+        final CoursesCache cache = CoursesCache.getInstance();
+        cache.update(new CoursesCache.UpdateCallback() {
             @Override
-            public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+            public void onSuccess() {
+                call.enqueue(new Callback<List<OrderServiceItem>>() {
+                    @Override
+                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                if (response == null) {
-                    orderItems.clear();
-                    adapter.notifyDataSetChanged();
-                    return;
-                }
+                        if (response == null) {
+                            orderItems.clear();
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
 
-                for (OrderServiceItem item : response.body()) {
-                    if ("".equals(item.getModification())) {
-                        orderItems.add(new Order.OrderItem("" + item.getFoodId(), 1));
-                    } else {
-                        orderItems.add(new Order.OrderItem("" + item.getFoodId(), item.getModification()));
+                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+
+                        for (OrderServiceItem item : response.body()) {
+                            String name = cache.getCourses().get(item.getFoodId()).getName();
+
+                            if (item.isSpecial()) {
+                                orderItems.add(new Order.OrderItem(name, item.getModification()));
+                            } else {
+                                if (nonSpecCount.containsKey(item.getFoodId())) {
+                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                                } else {
+                                    nonSpecCount.put(item.getFoodId(), 1);
+                                }
+                            }
+                        }
+
+                        for (int key : nonSpecCount.keySet()) {
+                            if (nonSpecCount.containsKey(key)) {
+                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key).getName(),
+                                        nonSpecCount.get(key)));
+                            }
+                        }
+
+                        adapter.notifyDataSetChanged();
                     }
-                }
 
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                orderItems.add(new Order.OrderItem("Fuck", 1)); // TODO: Remove this lol
-                adapter.notifyDataSetChanged();
+                    @Override
+                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                        orderItems.add(new Order.OrderItem("Fuck", 1)); // TODO: Remove this lol
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }
 
     public void goToCourses (View view){
         Intent intent = new Intent(this, CoursesActivity.class);
+        intent.putExtra("items", (Serializable) orderItems);
+        intent.putExtra("table_id", tableNumber);
         startActivity(intent);
     }
 
