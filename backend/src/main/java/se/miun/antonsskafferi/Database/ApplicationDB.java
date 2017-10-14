@@ -138,6 +138,48 @@ public class ApplicationDB {
         return status;
     }
 
+    public static boolean checkIfFoodOrderExist(int id) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "SELECT COUNT(1) FROM foodorder WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            ConnectionSetup.conn.commit();
+
+            rs.next();
+            if (rs.getInt(1) == 0) {
+                status = false;
+            }
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+    public static boolean deleteFoodOrder(int id) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "DELETE FROM FOODORDER WHERE Id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setInt(1,id);
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+
     public static boolean deleteEmployee(int id) {
         boolean status = true;
 
@@ -236,6 +278,50 @@ public class ApplicationDB {
         }
         return foodOrders;
     }
+
+
+
+    public static boolean updateFoodOrder(FoodOrder foParam) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "UPDATE FOODORDER " +
+                    "SET modification = ?, " +
+                    "foodId = ?, " +
+                    "diningTableId = ?, " +
+                    "orderStatusId = ?, " +
+                    "ready = ?, " +
+                    "delivered = ? " +
+                    "WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            System.out.println("ID: " + foParam.getId() + " foodID: " + foParam.getFoodId() + " diningTableId: " + foParam.getDiningTableId()
+                    + " orderStatusId: " + foParam.getOrderStatusId());
+
+
+            ps.setString(1, foParam.getModification());
+            ps.setInt(2, foParam.getFoodId());
+            ps.setInt(3, foParam.getDiningTableId());
+            ps.setInt(4, foParam.getOrderStatusId());
+            ps.setTimestamp(5,foParam.getReady());
+            ps.setTimestamp(6,foParam.getDelivered());
+            ps.setInt(7, foParam.getId());
+
+            ps.execute();
+            //ResultSet results = ps.executeQuery();
+            ps.close();
+            //results.close();
+            ConnectionSetup.conn.commit();
+            //stmt.close();
+        } catch (SQLException sqlExcept) {
+            status = false;
+            sqlExcept.printStackTrace();
+
+        }
+        return status;
+    }
+
+
 
     public static boolean addFoodOrders(List<FoodOrder> foList) {
         boolean status = true;
