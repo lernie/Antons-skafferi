@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="22sp"
-        android:text="Lägg till ingrediens."/>
+        android:text="Redigera ingrediens"/>
 
     <EditText
         android:id="@+id/popup_add_ingredient"
