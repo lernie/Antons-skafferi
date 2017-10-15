@@ -1,9 +1,12 @@
 package se.miun.antonsskafferi;
 
+import android.text.TextUtils;
+
 import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,66 +18,70 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class LoginCache {
+
+    private String token;
+    private User user;
     private static LoginCache instance;
 
     private Retrofit retrofit;
-
-    private String authToken;
-
-    private OkHttpClient client;
-
+    
     public static LoginCache getInstance() {
-
-        if (instance == null) {
-            instance = new LoginCache();
-        }
+        if (instance == null) instance = new LoginCache();
         return instance;
     }
-/*
-    private LoginCache() {
 
-        authToken = new String();
-        client = new OkHttpClient();
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    private LoginCache() {
+        token = "";
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(" ")
+                .baseUrl("http://simonarstam.com:8080/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
-    public String getAuthToken() {
-        return authToken;
-    }
 
-    public OkHttpClient getClient() {
-        return client;
-    }
-    LoginService service = retrofit.create(LoginService.class);
+    public void update(final UpdateCallback callback) {
 
-    public void update (final UpdateCallback callback) {
-        Call<LoginService> call = service.post("login", getAuthToken());
-
-        call.enqueue(new Callback<LoginService>() {
+        Call<String> call = ((LoginService) retrofit.create(LoginService.class)).getToken(user);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<LoginService> call, Response<LoginService> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
 
+                if (response == null || response.body() == null) {
+                    clear();
+                    return;
+                }
+
+                token = response.body();
             }
 
             @Override
-            public void onFailure(Call<LoginService> call, Throwable t) {
-
+            public void onFailure(Call<String> call, Throwable t) {
+                clear();
             }
         });
     }
 
-    public void clear(){
-        authToken.clear();
-        client.clear();
+    public void clear() {
+       token = "";
     }
 
-    public static abstract class UpdateCallback{
-        public void onSuccess() { }
-        public void onFail () { }
+    public static abstract class UpdateCallback {
+        public void onSuccess() {  }
+        public void onFail() {  }
     }
-    */
 }
+
+

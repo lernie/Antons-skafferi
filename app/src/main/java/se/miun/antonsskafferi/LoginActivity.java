@@ -24,17 +24,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
 
-    EditText mail, password;
-    Button log_button;
+    Retrofit.Builder builder = new Retrofit.Builder()
+            .baseUrl(" ")
+            .addConverterFactory(GsonConverterFactory.create());
+
+    Retrofit retrofit = builder.build();
+
+    LoginService loginService = retrofit.create(LoginService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        LoginBtn();
+        // LoginBtn();
+        Button log_button = (Button) findViewById(R.id.login_button);
+
 
     }
 
+
+/*
     public void LoginBtn(){
         log_button = (Button) findViewById(R.id.login_button);
         mail = (EditText) findViewById(R.id.email_login);
@@ -54,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                }
                 }
         });
-    }
+    }*/
 
 
 /*
@@ -65,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }*/
-
 }
+
 
 
