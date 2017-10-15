@@ -7,8 +7,11 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <h:outputStylesheet library="css" name="design.css" />
 
         <style>
@@ -17,7 +20,7 @@
             }
             #section1 {padding-top:50px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #404040;}
             #section2 {padding-top:50px;height:1000px;color: #fff; background-color: #bfbfbf}
-            #section3 {padding-top:0px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
+            #section3 {padding-top:px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
             #section41 {padding-top:50px;height:650px;color: #fff; background-color: #bfbfbf;}
             #section42 {padding-top:50px;height:650px;color: #fff; background-color: #b3b3b3}
             #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #595959}
@@ -56,72 +59,71 @@
 
         <div id="section1" class="container-fluid">
 
-            
-        <h:form>
-            Rättens namn: <input type="text" name="fname" id="name" style="color:black;"/><br/>
-            Tillagningstid: <input type="text" name="fname" id="tid" style="color:black;" /><br/>
-            Pris: <input type="text" name="fname" id="pris" style="color:black;" /><br/>
-           
-
-            <input type="button" value="Lägg till dagens lunch!" id="button" style="color:black;" />
-        </h:form>
-
-
-       <script>
-      /*  $(document).ready(function(){
-            console.log("hej");
-            $("#button").click(function() {
-                $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
-                    success : function(r) {
-                        console.log(r);
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-            });
-                    $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
-                    method: "GET",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    success : function(r) {
-                        console.log(r);
-                        //<![CDATA[
-                        for(var i = 0; i < r.length; i++){
-                           console.log(r[i]);
-                           $("#section1").append("<b>Inventarie ID:</b> ",r[i].id," <b>Maträtt:</b> ",r[i].name," <b>FoodID:</b> ",r[i].foodTypeId," <b>Tillagningstid:</b> ",r[i].timeToCook," <b>Pris:</b> ",r[i].price,"<br>");
-                        }
-                       
-                       //]]>
-                        r.forEach(function(element) {
-                        
-                    });
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-        });
-        
-
-        */
-        </script>
-         
         </div>
+        
         <div id="section2" class="container-fluid">
+        
+            <p>
+                
+        
+        Food: <select id="fillMe" style="color:black"></select>
+        ID: <input title="ID number" id="foodTxt" name="foodSelected" type="text" style="color:black"/>
+        <br/>
+        <br/>
+        Date: <input type="text" id="datePicker"/>
+        <br/>
+        <br/>
+        <button id="sendToServer" value="">Send</button>
+
+        
+<!--    <input id="success" name="success" type="text" style="color:black;"/>
+-->      
+            </p>
             
-        <script>
+        </div>
+        
+        <div id="section3" class="container-fluid">
+              
+        </div>
+        
+        
+        <input type="button" id="id_trial" name="btn_trial" value="Trial Button.."/>
+        <div id="section41" class="container-fluid">
+            <h1>Vill du boka bord?</h1>
+            <p>
+                För att boka bok ikväll, eller för en kommande spelning, klicka
+                på länken nedan! asd asd
+            </p>
+            
+            <a> href="booking.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
+            
+            
+            
+        </div>
+        <div id="section42" class="container-fluid">
+            <p> Klicka på länken för beta-sida av post/get. </p>
+            <a href="login.xhtml" style="padding-left:100px;">BETA BETA BETA</a>
+            
+
+            
+        </div>
+        
+        <div id="section5" class="container-fluid">
+            
+            <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
+            
+            <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
+
+            
+        </div>
+
+<script>
         $(document).ready(function(){
-            console.log("hej");
+         
                     $.ajax({
-                       
-                    url: "http://37.139.13.250:8080/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
+                    
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&amp;enddate=2017-11-05",
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
                     method: "GET",
                     dataType: "json",
                     contentType: "application/json; chaset=utf-8",
@@ -140,70 +142,110 @@
                     }
                 }).done(function(response) {
                     
-                    console.log("hej", JSON.parse(response));
+                   
                 });
         });
-        
+</script>
 
-        
-        </script>
+<script> 
+         $(document).ready(function(){
 
-        </div>
-        <div id="section3" class="container-fluid">
-         <script>
-       $(document).ready(function(){
-            console.log("hej");
+           $.getJSON("http://simonarstam.com/antons-skafferi/api/food", function(r){
+          $("#fillMe").html("");
+          //<![CDATA[
+       for(var i = 0; i < r.length; i++){
             
+            $("#fillMe").append("<option value='"+r[i].id+"'>"+r[i].name+"</option>");
+            }
+            
+             //]]>
+   });    
+ });
+
+</script> 
+
+        
+<script>
+        
+        $("#fillMe").on('change', function(){
+            $("#foodTxt").val($('#fillMe').val());
+            
+        });
+</script>
+
+    
+<script>
+  $( function() {
+    $( "#datePicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    
+  } );
+</script>
+    
+
+    
+<script>
+        $("#sendToServer").click(function() {
+          // $("#success").val(JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}));
+          
+                $.ajax({
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}),
+                    //data : JSON.stringify({"foodId": 47, "todaysDate": "2017-10-15"}),
+                    
+                    success : function(r) {
+                        console.log(r);
+                    }
+                })
+            });
+</script>
+    
+<script>
+      $(document).ready(function(){
+            
+            $("#button").click(function() {
+                $.ajax({
+                    url: "http://simonarstam.com/antons-skafferi/api/food",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
+                    success : function(r) {
+                       // console.log(r);
+                    }
+                }).done(function(response) {
+                    
+                   
+                });
+            });
                     $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
+                    url: "http://simonarstam.com/antons-skafferi/api/food",
                     method: "GET",
                     dataType: "json",
                     contentType: "application/json; chaset=utf-8",
                     success : function(r) {
-                        console.log(r);
+                       // console.log(r);
                         //<![CDATA[
-                        var listItems= "";
-                         for (var i = 0; i < r.length; i++){
-                          listItems+= "<option value='" + r[i].id + "'>" + r[i].name + "</option>";
-      }//]]>
-                      $("#section3").html(listItems);
-    });    
-        </script>
-           
-        </div>
-        <div id="section41" class="container-fluid">
-            <h1>Vill du boka bord?</h1>
-            <p>
-                För att boka bok ikväll, eller för en kommande spelning, klicka
-                på länken nedan! asd asd
-            </p>
-            
-            <a> href="booking.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
-            
-            
-            
-        </div>
-        <div id="section42" class="container-fluid">
-            <p> Klicka på länken för beta-sida av post/get. </p>
-            <a href="login.xhtml" style="padding-left:100px;">BETA BETA BETA</a>
-            
-            <h:form>
-                <h:inputText id="inputtxt" value="#{user.name}" />
-                <h:commandButton id="submit" value="Submit" action="home" />
-            </h:form>   
-            
-        </div>
-        
-        <div id="section5" class="container-fluid">
-            
-            <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
-            
-            <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
-
-            
-        </div>
-        
-
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section3").append("<b>Inventarie ID:</b> ",r[i].id," <b>Maträtt:</b> ",r[i].name," <b>FoodID:</b> ",r[i].foodTypeId," <b>Tillagningstid:</b> ",r[i].timeToCook," <b>Pris:</b> ",r[i].price,"<br>");
+                        }
+                       
+                       //]]>
+                        r.forEach(function(element) {
+                        
+                    });
+                    }
+                }).done(function(response) {
+                    
+                
+                }); 
+                
+        });
+</script>
     </h:body>
-</html>
 
+    
+</html> 
