@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Path("/api")
@@ -18,8 +19,25 @@ public class ApplicationRequests {
     @Path("/foodorder")
     @GET
     @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
-    public Response getOrders(){
-        return Response.ok(ApplicationDB.getAllFoodOrders()).build();
+    public Response getOrders(@DefaultValue("-1") @QueryParam("id") int id,
+                              @DefaultValue("") @QueryParam("modification") String modification,
+                              @DefaultValue("-1") @QueryParam("food") int foodId,
+                              @DefaultValue("-1")@QueryParam("table") int diningTableId,
+                              @DefaultValue("-1") @QueryParam("status") int orderStatusId,
+                              @QueryParam("ready") Timestamp ready,
+                              @QueryParam("created") Timestamp created,
+                              @QueryParam("delivered") Timestamp delivered){
+        FoodOrder foParam = new FoodOrder();
+        foParam.setId(id);
+        foParam.setModification(modification);
+        foParam.setFoodId(foodId);
+        foParam.setDiningTableId(diningTableId);
+        foParam.setOrderStatusId(orderStatusId);
+        foParam.setReady(ready);
+        foParam.setCreated(created);
+        foParam.setDelivered(delivered);
+
+        return Response.ok(ApplicationDB.getAllFoodOrders(foParam)).build();
     }
 
     @Path("/foodorder")
@@ -29,8 +47,33 @@ public class ApplicationRequests {
     public Response addOrders(List<FoodOrder> foList) {
         ApplicationDB.addFoodOrders(foList);
 
-        return Response.ok(ApplicationDB.getAllFoodOrders()).build();
+        return Response.ok().build();
     }
+
+    @Path("/foodorder/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateFoodOrder(@PathParam("id") int id, FoodOrder foParam) {
+        foParam.setId(id);
+        if (!ApplicationDB.checkIfFoodOrderExist(id)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
+        } else if (!ApplicationDB.updateFoodOrder(foParam)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
+        } else {
+            return Response.ok().build();
+        }
+    }
+
+    @DELETE
+    @Path("/foodorder/{id}")
+    public Response deleteFoodOrder(@PathParam("id") int id) {
+        if (ApplicationDB.deleteFoodOrder(id)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
+        }
+    }
+
 
     @Path("/login")
     @POST

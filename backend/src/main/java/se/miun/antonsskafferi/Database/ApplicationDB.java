@@ -138,6 +138,48 @@ public class ApplicationDB {
         return status;
     }
 
+    public static boolean checkIfFoodOrderExist(int id) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "SELECT COUNT(1) FROM foodorder WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            ConnectionSetup.conn.commit();
+
+            rs.next();
+            if (rs.getInt(1) == 0) {
+                status = false;
+            }
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+    public static boolean deleteFoodOrder(int id) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "DELETE FROM FOODORDER WHERE Id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            ps.setInt(1,id);
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+
     public static boolean deleteEmployee(int id) {
         boolean status = true;
 
@@ -177,12 +219,43 @@ public class ApplicationDB {
         return diningTables;
     }
 
-    public static java.util.List<FoodOrder> getAllFoodOrders() {
-        java.util.List<FoodOrder> foodOrders = new java.util.ArrayList();
+    public static java.util.List<FoodOrder> getAllFoodOrders(FoodOrder foParam) {
+        java.util.List<FoodOrder> foodOrders = new java.util.ArrayList<FoodOrder>();
 
         try {
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT ID, FOODID, MODIFICATION, DININGTABLEID, ORDERSTATUSID, CREATED, READY, DELIVERED FROM " + foodOrderTableName);
+            String sqlQuery = "SELECT ID, FOODID, MODIFICATION, DININGTABLEID, " +
+                    "ORDERSTATUSID, CREATED, READY, DELIVERED FROM FOODORDER WHERE " +
+                    "(? = -1 OR Id = ?) AND " +
+                    "(? = '' OR modification = ? ) AND " +
+                    "(? = -1 OR foodId = ? ) AND " +
+                    "(? = -1 OR diningTableId = ?) AND " +
+                    "(? = -1 OR orderStatusId = ?) ";/*AND " +
+                    "(? != NULL || ready = ?) AND " +
+                    "(? != NULL || created = ? ) AND " +
+                    "(? != NULL || delivered = ?)";*/
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            System.out.println("ID: " + foParam.getId() + " foodID: " + foParam.getFoodId() + " diningTableId: " + foParam.getDiningTableId()
+                                      + " orderStatusId: " + foParam.getOrderStatusId());
+
+            ps.setInt(1, foParam.getId());
+            ps.setInt(2, foParam.getId());
+            ps.setString(3, foParam.getModification());
+            ps.setString(4, foParam.getModification());
+            ps.setInt(5, foParam.getFoodId());
+            ps.setInt(6, foParam.getFoodId());
+            ps.setInt(7, foParam.getDiningTableId());
+            ps.setInt(8, foParam.getDiningTableId());
+            ps.setInt(9, foParam.getOrderStatusId());
+            ps.setInt(10, foParam.getOrderStatusId());/*
+            ps.setTimestamp(11,foParam.getReady());
+            ps.setTimestamp(12,foParam.getReady());
+            ps.setTimestamp(13,foParam.getCreated());
+            ps.setTimestamp(14,foParam.getCreated());
+            ps.setTimestamp(15,foParam.getDelivered());
+            ps.setTimestamp(16,foParam.getDelivered());*/
+
+            ResultSet results = ps.executeQuery();
             while (results.next()) {
                 FoodOrder tempFoodOrder = new FoodOrder();
                 tempFoodOrder.setId(results.getInt(1));
@@ -198,12 +271,57 @@ public class ApplicationDB {
                 foodOrders.add(tempFoodOrder);
             }
             results.close();
-            stmt.close();
+            ConnectionSetup.conn.commit();
+            //stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
         return foodOrders;
     }
+
+
+
+    public static boolean updateFoodOrder(FoodOrder foParam) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "UPDATE FOODORDER " +
+                    "SET modification = ?, " +
+                    "foodId = ?, " +
+                    "diningTableId = ?, " +
+                    "orderStatusId = ?, " +
+                    "ready = ?, " +
+                    "delivered = ? " +
+                    "WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            System.out.println("ID: " + foParam.getId() + " foodID: " + foParam.getFoodId() + " diningTableId: " + foParam.getDiningTableId()
+                    + " orderStatusId: " + foParam.getOrderStatusId());
+
+
+            ps.setString(1, foParam.getModification());
+            ps.setInt(2, foParam.getFoodId());
+            ps.setInt(3, foParam.getDiningTableId());
+            ps.setInt(4, foParam.getOrderStatusId());
+            ps.setTimestamp(5,foParam.getReady());
+            ps.setTimestamp(6,foParam.getDelivered());
+            ps.setInt(7, foParam.getId());
+
+            ps.execute();
+            //ResultSet results = ps.executeQuery();
+            ps.close();
+            //results.close();
+            ConnectionSetup.conn.commit();
+            //stmt.close();
+        } catch (SQLException sqlExcept) {
+            status = false;
+            sqlExcept.printStackTrace();
+
+        }
+        return status;
+    }
+
+
 
     public static boolean addFoodOrders(List<FoodOrder> foList) {
         boolean status = true;
