@@ -56,7 +56,7 @@ public class OrdersActivity extends BackButtonActivity {
                     @Override
                     public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                        if (response == null) {
+                        if (response == null || response.body() == null) {
                             orderItems.clear();
                             adapter.notifyDataSetChanged();
                             return;

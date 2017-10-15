@@ -36,7 +36,7 @@ public class CoursesCache {
         ids = new HashMap<Course, Integer>();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://simonarstam.com:8080/antons-skafferi/api/")
+                .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
