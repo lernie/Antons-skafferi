@@ -59,7 +59,7 @@ public class ApplicationDB {
             ps.setString(2, emp.getLastName());
             ps.setInt(3, emp.getPositionId());
             ps.setString(4, emp.getUserName());
-            ps.setString(5, emp.getPassword());
+            ps.setString(5, AuthenticationProvider.hashPassword(emp.getPassword()));
             ps.setString(6, emp.getEmail());
 
             ps.execute();

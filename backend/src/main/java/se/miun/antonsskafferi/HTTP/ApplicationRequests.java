@@ -4,6 +4,7 @@ import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.Security.AuthenticationProvider;
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
@@ -51,9 +52,7 @@ public class ApplicationRequests {
     @Path("/employee")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployees(){
-        return Response.ok(ApplicationDB.getAllEmployees()).build();
-    }
+    public Response getEmployees(){ return Response.ok(ApplicationDB.getAllEmployees()).build(); }
 
     @Path("/employee")
     @POST
