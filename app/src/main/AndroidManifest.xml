@@ -29,7 +29,7 @@
             <action
                 android:name="se.miun.antonsskafferi.TablesActivity"/>
             <category
-                android:name="android.intent.category.default"/>
+                android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
         <activity
