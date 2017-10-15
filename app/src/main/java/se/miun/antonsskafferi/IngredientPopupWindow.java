@@ -46,7 +46,8 @@ public class IngredientPopupWindow extends PopupWindow{
         boolean focusable = false; // lets taps outside the popup also dismiss it
         popupWindow = new PopupWindow(popupView, width, height, focusable);
 
-        List<UnitService.Unit> units = new ArrayList<UnitService.Unit>();
+        ArrayList<UnitService.Unit> unitsList = new ArrayList<UnitService.Unit>();
+        unitsList.add(new UnitService.Unit());
    /*     units.add("st");
         units.add("l");
         units.add("dl");
@@ -61,6 +62,8 @@ public class IngredientPopupWindow extends PopupWindow{
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = (Spinner) popupView.findViewById(R.id.popup_spinner_unit);
         spinner.setAdapter(dataAdapter);
+
+
 
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
