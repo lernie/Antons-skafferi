@@ -1,7 +1,9 @@
 package se.miun.antonsskafferi;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class LoginCache {
         token = "";
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://simonarstam.com:8080/antons-skafferi/api/")
+                .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -54,22 +56,34 @@ public class LoginCache {
 
     public void update(final UpdateCallback callback) {
 
-        Call<String> call = ((LoginService) retrofit.create(LoginService.class)).getToken(user);
-        call.enqueue(new Callback<String>() {
+        Call<ResponseBody> call = ((LoginService) retrofit.create(LoginService.class)).getToken(user);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.e("Response code", "" + response.code());
                 if (response == null || response.body() == null) {
                     clear();
+                    callback.onFail();
+
                     return;
                 }
 
-                token = response.body();
+                try {
+                    token = response.body().string();
+                } catch (IOException e) {
+                    token = "";
+                    callback.onFail();
+                    return;
+                }
+
+                callback.onSuccess();
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 clear();
+                callback.onFail();
+                Log.e("tmessage", t.getMessage());
             }
         });
     }

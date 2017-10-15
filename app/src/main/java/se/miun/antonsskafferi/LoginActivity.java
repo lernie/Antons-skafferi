@@ -17,53 +17,50 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.R.attr.password;
+
 /**
  * Created by My on 10/12/2017.
  */
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(" ")
-            .addConverterFactory(GsonConverterFactory.create());
-
-    Retrofit retrofit = builder.build();
-
-    LoginService loginService = retrofit.create(LoginService.class);
+    EditText mail, pword;
+    Button log_button;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        // LoginBtn();
-        Button log_button = (Button) findViewById(R.id.login_button);
 
 
     }
 
-
-/*
-    public void LoginBtn(){
+    public void doLogin(View v){
         log_button = (Button) findViewById(R.id.login_button);
         mail = (EditText) findViewById(R.id.email_login);
-        password = (EditText) findViewById(R.id.password_login);
+        pword = (EditText) findViewById(R.id.password_login);
 
-      log_button.setOnClickListener(new View.OnClickListener() {
+        LoginCache.getInstance().setUser(new User(mail.getText().toString(), pword.getText().toString()));
+
+        LoginCache.getInstance().update(new LoginCache.UpdateCallback() {
             @Override
-            public void onClick(View view) {
-               if (mail.getText().toString().equals("a") &&
-                        password.getText().toString().equals("a")) {
-                    Intent intent = new Intent(getApplicationContext(), TablesActivity.class);
-                    startActivity(intent);
+            public void onSuccess() {
+                Intent intent = new Intent(LoginActivity.this, TablesActivity.class);
+                startActivity(intent);
 
-                } else {
-                   Toast.makeText(LoginActivity.this, "emailen eller lösenordet är fel",
-                           Toast.LENGTH_SHORT).show();
-               }
-                }
+                finish();
+            }
+
+            @Override
+            public void onFail() {
+                Toast.makeText(LoginActivity.this, "Fel lösenord eller mail", Toast.LENGTH_SHORT).show();
+            }
         });
-    }*/
+    }
+}
+
 
 
 /*
@@ -74,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }*/
-}
+
 
 
 
