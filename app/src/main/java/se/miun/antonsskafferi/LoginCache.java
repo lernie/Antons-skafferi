@@ -24,7 +24,7 @@ public class LoginCache {
     private static LoginCache instance;
 
     private Retrofit retrofit;
-    
+
     public static LoginCache getInstance() {
         if (instance == null) instance = new LoginCache();
         return instance;
@@ -74,6 +74,7 @@ public class LoginCache {
         });
     }
 
+    
     public void clear() {
        token = "";
     }
