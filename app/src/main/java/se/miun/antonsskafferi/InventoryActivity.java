@@ -101,4 +101,15 @@ public class InventoryActivity extends NavigationActivity {
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
+/*  keep this one for later:
+
+    public void onBackPressed() {
+        if(ingredientPopupWindow != null){
+            if(ingredientPopupWindow.isShowing()){
+                ingredientPopupWindow.dismiss();
+            }
+        } else {
+            finish();
+        }
+    } */
 }

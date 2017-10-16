@@ -43,8 +43,9 @@ public class IngredientPopupWindow extends PopupWindow{
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = false; // lets taps outside the popup also dismiss it
+        boolean focusable = true; // lets taps outside the popup also dismiss it
         popupWindow = new PopupWindow(popupView, width, height, focusable);
+
 
         final ArrayList<String> unitsList = new ArrayList<String>();
 
