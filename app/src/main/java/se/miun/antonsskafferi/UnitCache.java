@@ -34,7 +34,7 @@ public class UnitCache {
         ids = new HashMap<String, Integer>();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://37.139.13.250:8080/api/")
+                .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

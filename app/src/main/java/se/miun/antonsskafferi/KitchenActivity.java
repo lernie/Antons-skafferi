@@ -78,12 +78,12 @@ public class KitchenActivity extends NavigationActivity {
                                         nonSpecCount.put(item.getFoodId(), 1);
                                     }
                                 } else {
-                                    orderItems.add(new Order.OrderItem(cache.getCourses().get(item.getFoodId()).getName(), item.getModification()));
+                                    orderItems.add(new Order.OrderItem(cache.getCourses().get(item.getFoodId()), item.getModification()));
                                 }
                             }
 
                             for (int key : nonSpecCount.keySet()) {
-                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key).getName(), nonSpecCount.get(key)));
+                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key), nonSpecCount.get(key)));
                             }
 
                             orderList.add(new Order(k, orderItems));

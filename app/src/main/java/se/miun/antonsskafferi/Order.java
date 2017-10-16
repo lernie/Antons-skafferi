@@ -35,16 +35,16 @@ public class Order {
     }
 
     public static class OrderItem implements Serializable {
-        private String course;
+        private Course course;
         private int count = 0;
         private String text = "";
 
-        public OrderItem(String course, int count) {
+        public OrderItem(Course course, int count) {
             this.course = course;
             this.count = count;
         }
 
-        public OrderItem(String course, String text) {
+        public OrderItem(Course course, String text) {
             this.course = course;
             this.text = text;
         }
@@ -53,7 +53,7 @@ public class Order {
             return text != null && !"".equals(text);
         }
 
-        public String getCourse() {
+        public Course getCourse() {
             return course;
         }
 

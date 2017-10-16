@@ -6,6 +6,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -27,6 +29,28 @@ public interface OrderService {
 
     @POST("foodorder")
     Call<Void> postOrders(@Body List<OrderPost> orders);
+
+    @PUT("foodorder/{orderId}")
+    Call<Void> updateOrder(@Path("orderId") int orderId, @Body OrderUpdate order);
+
+    class OrderUpdate {
+        //String modification, ready, delivered;
+        int orderStatusId;//, foodId, diningTableId;
+
+        public OrderUpdate(
+//                int foodId,
+//                int tableId,
+                int statusId
+//                String modification
+        ) {
+//            this.foodId = foodId;
+//            this.diningTableId = tableId;
+            this.orderStatusId = statusId;
+//            this.modification = modification;
+//            this.ready = null;
+//            this.delivered = null;
+        }
+    }
 
     class OrderPost {
         String modification;
