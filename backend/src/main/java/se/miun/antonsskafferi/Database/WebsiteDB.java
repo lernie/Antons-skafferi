@@ -9,18 +9,19 @@ package se.miun.antonsskafferi.Database;
         import java.text.SimpleDateFormat;
 
 public class WebsiteDB {
-    private static String tableName = "openinghours";
+    private static String tableName = "openinghour";
     private static String todaysLunchName = "todayslunch";
     private static String foodName = "food";
     private static Statement stmt = null;
 
+    @Deprecated
     public static java.util.List<OpeningHour> getAllOpeningHours() {
         java.util.List<OpeningHour> openingHours = new java.util.ArrayList();
 
         try
         {
             stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + tableName);
+            ResultSet results = stmt.executeQuery("select ID, DAY, OPENINGTIME, CLOSINGTIME from " + tableName);
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
