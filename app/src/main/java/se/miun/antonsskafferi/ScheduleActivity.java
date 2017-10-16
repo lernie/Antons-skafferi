@@ -34,8 +34,10 @@ import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -61,7 +63,10 @@ public class ScheduleActivity extends NavigationActivity
     private static final String BUTTON_TEXT = "Call Google Calendar API";
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
-
+    private Button btn;
+    private ScheduleListAdapter adapter;
+    private ListView scheduleListView;
+    private List<ScheduledEvents> scheduleList = new ArrayList<ScheduledEvents>();
     /**
      * Create the main activity.
      * @param savedInstanceState previously saved instance data.
@@ -69,46 +74,23 @@ public class ScheduleActivity extends NavigationActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LinearLayout activityLayout = new LinearLayout(this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        activityLayout.setLayoutParams(lp);
-        activityLayout.setOrientation(LinearLayout.VERTICAL);
-        activityLayout.setPadding(16, 16, 16, 16);
-
-        ViewGroup.LayoutParams tlp = new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        mCallApiButton = new Button(this);
-        mCallApiButton.setText(BUTTON_TEXT);
-        mCallApiButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCallApiButton.setEnabled(false);
-                mOutputText.setText("");
-                getResultsFromApi();
-                mCallApiButton.setEnabled(true);
-            }
-        });
-        activityLayout.addView(mCallApiButton);
-
-        mOutputText = new TextView(this);
-        mOutputText.setLayoutParams(tlp);
-        mOutputText.setPadding(16, 16, 16, 16);
-        mOutputText.setVerticalScrollBarEnabled(true);
-        mOutputText.setMovementMethod(new ScrollingMovementMethod());
-        mOutputText.setText(
-                "Click the \'" + BUTTON_TEXT +"\' button to test the API.");
-        activityLayout.addView(mOutputText);
+        setContentView(R.layout.activity_schedule);
+        btn = (Button) findViewById(R.id.update_schedule_button);
+        mOutputText=(TextView) findViewById(R.id.text123);
+        scheduleListView = (ListView) findViewById(R.id.schedule_list);
 
         mProgress = new ProgressDialog(this);
         mProgress.setMessage("Calling Google Calendar API ...");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn.setEnabled(false);
+                mOutputText.setText("");
+                getResultsFromApi();
+                btn.setEnabled(true);
+            }
+        });
 
-        setContentView(activityLayout);
-
-        // Initialize credentials and service object.
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
                 .setBackOff(new ExponentialBackOff());
@@ -362,6 +344,8 @@ public class ScheduleActivity extends NavigationActivity
                     .setSingleEvents(true)
                     .execute();
             List<Event> items = events.getItems();
+            ScheduledEvents scheduleEvent;
+            scheduleList.clear();
 
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
@@ -370,8 +354,13 @@ public class ScheduleActivity extends NavigationActivity
                     // the start date.
                     start = event.getStart().getDate();
                 }
-                eventStrings.add(
-                        String.format("%s (%s)", event.getSummary(), start));
+                scheduleEvent = new ScheduledEvents();
+                scheduleEvent.setEventName(event.getSummary());
+                scheduleEvent.setStartDate(start.toString());
+                //scheduleEvent.setEndDate("");
+                scheduleEvent.setBookingQuantity(event.getDescription());
+
+                scheduleList.add(scheduleEvent);
             }
             return eventStrings;
         }
@@ -386,11 +375,11 @@ public class ScheduleActivity extends NavigationActivity
         @Override
         protected void onPostExecute(List<String> output) {
             mProgress.hide();
-            if (output == null || output.size() == 0) {
+            if (scheduleList.size() <= 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                output.add(0, "Data retrieved using the Google Calendar API:");
-                mOutputText.setText(TextUtils.join("\n", output));
+                adapter = new ScheduleListAdapter(ScheduleActivity.this, scheduleList);
+                scheduleListView.setAdapter(adapter);
             }
         }
 
