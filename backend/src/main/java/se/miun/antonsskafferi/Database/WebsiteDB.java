@@ -52,7 +52,7 @@ public class WebsiteDB {
             System.out.println("startdate: " + startDate + " enddate: " + endDate);
             //DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             //java.sql.Date sqlStartDate = format.parse(startDate);
-            ResultSet results = stmt.executeQuery("SELECT Food.Name, TodaysLunch.TodaysDate " +
+            ResultSet results = stmt.executeQuery("SELECT Food.Name, TodaysLunch.TodaysDate, TodaysLunch.Price, Food.id " +
                     "FROM TodaysLunch " +
                     "INNER JOIN Food ON TodaysLunch.FoodId=Food.Id " +
                     "WHERE TodaysLunch.TodaysDate >= '" + startDate + "' " +
@@ -63,6 +63,8 @@ public class WebsiteDB {
                 TodaysLunchString tempTodaysLunchString = new TodaysLunchString();
                 tempTodaysLunchString.setFoodName(results.getString(1));
                 tempTodaysLunchString.setTodaysDate(results.getString(2));
+                tempTodaysLunchString.setPrice(results.getInt(3));
+                tempTodaysLunchString.setId(results.getInt(4));
                 todaysLunchStrings.add(tempTodaysLunchString);
             }
             results.close();
@@ -81,15 +83,32 @@ public class WebsiteDB {
         try
         {
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO TodaysLunch " +
-                    "(foodId, todaysDate) VALUES (?, ?)");
+                    "(foodId, todaysDate, Price) VALUES (?, ?, ?)");
             ps.setInt(1, todaysLunch.getFoodId());
             ps.setDate(2, todaysLunch.getTodaysDate());
+            ps.setInt(3, todaysLunch.getPrice());
 
             ps.execute();
             ConnectionSetup.conn.commit();
         }
         catch (SQLException sqlExcept)
         {
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+        return status;
+    }
+
+    public static boolean deleteTodaysLunch(Date date, int id) {
+        boolean status = true;
+        try {
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("DELETE FROM TodaysLunch WHERE TODAYSDATE = ? AND FOODID = ?");
+            ps.setDate(1, date);
+            ps.setInt(2, id);
+
+            ps.execute();
+            ps.close();
+        }catch(SQLException sqlExcept){
             sqlExcept.printStackTrace();
             status = false;
         }

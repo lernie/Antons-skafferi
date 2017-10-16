@@ -54,6 +54,14 @@ public class WebsiteRequests {
         return Response.status(400).entity(new ErrorResponse(400, "Error adding.")).build();
     }
 
-
+    @Path("/todayslunch/{date}/{foodid}")
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteTodaysLunch(
+        @PathParam("date") Date date,
+        @PathParam("foodid") int id
+    ){
+        return Response.ok(WebsiteDB.deleteTodaysLunch(date, id)).build();
+    }
 
 }
