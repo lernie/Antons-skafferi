@@ -4,10 +4,7 @@ import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.Booking;
 import se.miun.antonsskafferi.dao.BookingDao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class BookingDaoJdbc implements BookingDao {
     @Override
     public boolean add(Booking bkParam) {
         boolean status = true;
-        try{
+        try {
             String sqlQuery = "INSERT INTO BOOKING(LASTNAME, NUMBEROFGUESTS, BOOKINGDATE, BOOKINGTIME, PHONENUMBER) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
 
@@ -59,6 +56,29 @@ public class BookingDaoJdbc implements BookingDao {
             status = false;
             sqlExcept.printStackTrace();
 
+        }
+        return status;
+    }
+
+    @Override
+    public boolean checkIfLess(int count, Date date) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "SELECT COUNT(*) " +
+                    "FROM Booking " +
+                    "WHERE BookingDate = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+            ps.setDate(1, date);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            if (!(rs.getInt(1) < count)) {
+                status = false;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            status = false;
         }
         return status;
     }

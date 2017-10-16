@@ -48,6 +48,7 @@ public class ApplicationRequests {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addOrders(List<FoodOrder> foList) {
         FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+
         if (dao.add(foList)){
             return Response.ok().build();
         } else {

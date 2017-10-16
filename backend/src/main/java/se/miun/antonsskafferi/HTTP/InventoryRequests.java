@@ -10,6 +10,8 @@ import se.miun.antonsskafferi.Database.IngredientDB;
 import se.miun.antonsskafferi.Database.InventoryDB;
 import se.miun.antonsskafferi.Database.MeasurementDB;
 import se.miun.antonsskafferi.Models.*;
+import se.miun.antonsskafferi.dao.FoodDao;
+import se.miun.antonsskafferi.dao.jdbc.FoodDaoJdbc;
 
 
 @Path("/api")
@@ -87,20 +89,45 @@ public class InventoryRequests {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFood(
         @DefaultValue("-1")@QueryParam("type") int type,
-        @DefaultValue("-1")@QueryParam("id") int id
-    ) {
-        return Response.ok(InventoryDB.getFood(type, id)).build();
+        @DefaultValue("-1")@QueryParam("id") int id) {
+        FoodDaoJdbc foodDao = new FoodDaoJdbc();
+        return Response.ok(foodDao.getAll(type, id)).build();
     }
 
     @POST
     @Path("/food")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addFood(Food item) {
-        if (InventoryDB.insertFood(item)) {
-            return Response.ok().build();
-        } else {
-            return Response.status(403).entity(new ErrorResponse(403,"unable to add item.")).build();
+        if(!item.isValid()) {
+            return Response
+                    .status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "invalid input"))
+                    .build();
         }
+        FoodDaoJdbc foodDao = new FoodDaoJdbc();
+        if (!foodDao.insert(item)) {
+            return Response
+                    .status(403)
+                    .entity(new ErrorResponse(403,"unable to add item."))
+                    .build();
+        }
+
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/food/{id}")
+    public Response deleteFood(@PathParam("id") int id) {
+        FoodDaoJdbc foodDao = new FoodDaoJdbc();
+        if(!foodDao.delete(id)) {
+            return Response
+                    .status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "unable to delete"))
+                    .build();
+        }
+        return Response.ok().build();
     }
 
     @GET
