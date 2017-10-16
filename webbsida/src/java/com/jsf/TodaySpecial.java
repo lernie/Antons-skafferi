@@ -7,41 +7,38 @@ package com.jsf;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped; 
 
 @ManagedBean
 @SessionScoped
-public class todaysBean implements Serializable{
-   
-    private String foodName = null; 
+public class TodaySpecial implements Serializable{
+
     private String todaysDate = null;
+    private int dayOfTheWeek = 0;
     
 
 
 
-public todaysBean() {
+public TodaySpecial() {
     
     /**
-     * @param foodName
      * @param todaysDate
+     * @param dayOfTheWeek
      */
 }
 
-public todaysBean(String foodName, String todaysDate) {
+public TodaySpecial(String todaysDate, int dayOfTheWeek) {
 
-    this.foodName = foodName;
+
     this.todaysDate = todaysDate;
+    this.dayOfTheWeek = dayOfTheWeek;
+    
 }
 
-public String getFoodName(){
-return foodName;
-}
 
-public void setFoodName(String foodName){
-this.foodName = foodName;
-}
 
 public String getTodaysDate(){
     Date date = new Date();
@@ -53,4 +50,15 @@ public void setTodaysDate(String todaysDate){
     this.todaysDate = todaysDate;
 }
 
+public int getDayOfTheWeek(){
+    
+    Calendar calendar = Calendar.getInstance();
+    dayOfTheWeek = calendar.get(Calendar.DAY_OF_WEEK);
+    
+    return dayOfTheWeek;
+}
+
+public void setDayOfTheWeek(int dayOfTheWeek){
+    this.dayOfTheWeek = dayOfTheWeek;
+}
 }

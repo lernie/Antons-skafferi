@@ -1,14 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
     <h:head>
-        <title>Antons Skafferi @ Hackers</title>
+        
+        <title>Antons Skafferi</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="./resources/javascripts/scripts.js" type="text/javascript"></script>
+        
         <h:outputStylesheet library="css" name="design.css" />
 
         <style>
@@ -17,13 +25,13 @@
             }
             #section1 {padding-top:50px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #404040;}
             #section2 {padding-top:50px;height:1000px;color: #fff; background-color: #bfbfbf}
-            #section3 {padding-top:0px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
+            #section3 {padding-top:px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
             #section41 {padding-top:50px;height:650px;color: #fff; background-color: #bfbfbf;}
             #section42 {padding-top:50px;height:650px;color: #fff; background-color: #b3b3b3}
             #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #595959}
         </style>
     </h:head>
-    <h:body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <h:body>
         
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -55,155 +63,62 @@
         </nav>    
 
         <div id="section1" class="container-fluid">
-
             
-        <h:form>
-            Rättens namn: <input type="text" name="fname" id="name" style="color:black;"/><br/>
-            Tillagningstid: <input type="text" name="fname" id="tid" style="color:black;" /><br/>
-            Pris: <input type="text" name="fname" id="pris" style="color:black;" /><br/>
-           
-
-            <input type="button" value="Lägg till dagens lunch!" id="button" style="color:black;" />
-        </h:form>
-
-
-       <script>
-      /*  $(document).ready(function(){
-            console.log("hej");
-            $("#button").click(function() {
-                $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
-                    success : function(r) {
-                        console.log(r);
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-            });
-                    $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
-                    method: "GET",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    success : function(r) {
-                        console.log(r);
-                        //<![CDATA[
-                        for(var i = 0; i < r.length; i++){
-                           console.log(r[i]);
-                           $("#section1").append("<b>Inventarie ID:</b> ",r[i].id," <b>Maträtt:</b> ",r[i].name," <b>FoodID:</b> ",r[i].foodTypeId," <b>Tillagningstid:</b> ",r[i].timeToCook," <b>Pris:</b> ",r[i].price,"<br>");
-                        }
-                       
-                       //]]>
-                        r.forEach(function(element) {
-                        
-                    });
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-        });
+            
+            <script>getTodaySpecials(#{todaySpecial.dayOfTheWeek},"#{todaySpecial.todaysDate}")</script>
+            
+            <br></br>
         
-
-        */
-        </script>
-         
         </div>
+        
         <div id="section2" class="container-fluid">
+        
             
-        <script>
-        $(document).ready(function(){
-            console.log("hej");
-                    $.ajax({
-                       
-                    url: "http://37.139.13.250:8080/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
-                    method: "GET",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    success : function(r) {
-                        console.log(r);
-                        //<![CDATA[
-                        for(var i = 0; i < r.length; i++){
-                           console.log(r[i]);
-                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
-                        }
-                       
-                       //]]>
-                        r.forEach(function(element) {
-                        
-                    });
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-        });
-        
+                
+               
+            <form>
+                Food: <select id="foodDropDown" style="color:black">
+                      <option selected='true' disabled='disabled'>Please update list </option>
+                      </select>
+                
+                <input id="updateDropDown" type="button" value="Update" onclick="loadDropDown();" />     
 
+               
+                <br/>
+                <br/>
         
-        </script>
-
+                Date: <input type="text" id="datePicker" style="color:black" onclick="getDatePicker()"/>
+        
+                <br/>
+                <br/>
+                
+                <input type="reset" value="Reset"></input>
+                <input id="sendToServer" type="button" value="Send" onclick="sendTodayToServer()"></input>
+               
+            </form>
+ 
+      
+        
+            
         </div>
+        
         <div id="section3" class="container-fluid">
-            <img src="bilder/delorian.jpg" alt="mat" style="width:100%;height:70%;"/>
-            
-            <h1> Delorian - Release party </h1> 
-            <p>
-                HUMANOMALY släpps 29/9.
-                Det vill vi fira med er på Medelpads nation / Grönborg, den 7e oktober.
-                <br/>
-                Kom och häng med oss, hör hela albumet live!
-                <br/> 
-                <br/>
-                Hör senaste singeln "The best of me is you" här:
-                <br/>
-                <i>https://open.spotify.com/track/72I1fQ45eTnbTeMVCyhAIh</i>
-                <br/>
-                <br/>
-                Förköp: 80kr (kårmedlem 40kr) 
-                <br/>
-                <i>https://delorian.yapsody.com/event/index/149301/release-party</i>
-            </p>
-           
+              
         </div>
+
         <div id="section41" class="container-fluid">
-            <h1>Vill du boka bord?</h1>
-            <p>
-                För att boka bok ikväll, eller för en kommande spelning, klicka
-                på länken nedan! asd asd
-            </p>
-            
-            <a> href="booking.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
-            
-            
-            
+
         </div>
+        
         <div id="section42" class="container-fluid">
-            <p> Klicka på länken för beta-sida av post/get. </p>
-            <a href="login.xhtml" style="padding-left:100px;">BETA BETA BETA</a>
-            
-            <h:form>
-                <h:inputText id="inputtxt" value="#{user.name}" />
-                <h:commandButton id="submit" value="Submit" action="home" />
-            </h:form>   
+
             
         </div>
         
         <div id="section5" class="container-fluid">
-            
-            <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
-            
-            <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
 
-            
         </div>
-        
 
     </h:body>
-</html>
 
+</html> 

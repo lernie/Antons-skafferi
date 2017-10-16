@@ -7,13 +7,21 @@
 
 
 
-function getTodaySpecials(date){
+function getTodaySpecials(day, date){
        
          
-         
-                 $.ajax({
+    switch(day) {
+             
+    
+    case 1: //Sunday
+        //code block
+        break;
+        
+    case 2: //Monday
+        
+            $.ajax({
                     
-                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&amp;enddate=2017-11-05",
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
                     url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date+"&enddate="+date,
                     method: "GET",
                     dataType: "json",
@@ -21,26 +29,134 @@ function getTodaySpecials(date){
                     success : function(r) {
                         console.log(r);
                         //<![CDATA[
+                        
                         for(var i = 0; i < r.length; i++){
                            console.log(r[i]);
                            $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
                         }
+                        
                        
                        //]]>
                        
                     }
                 })
+        break;
+        
+    case 3: //Tuesday
+            $.ajax({
+                    
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date+"&enddate="+date,
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                        
+                       
+                       //]]>
+                       
+                    }
+                })
+        break;
+        
+    case 4: //Wednesday
+            $.ajax({
+                    
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date+"&enddate="+date,
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                        
+                       
+                       //]]>
+                       
+                    }
+                })
+        break;
+        
+    case 5: //Thursday
+            $.ajax({
+                    
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date+"&enddate="+date,
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                        
+                       
+                       //]]>
+                       
+                    }
+                })
+        break;
+        
+    case 6: //Friday
+            $.ajax({
+                    
+                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date+"&enddate="+date,
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                        
+                       
+                       //]]>
+                       
+                    }
+                })
+        break;
+        
+    case 7: //Saturday
+        //code block
+        break;
+}
+
 };
 
 function loadDropDown(){
 
            $.getJSON("http://simonarstam.com/antons-skafferi/api/food", function(r){
           $("#foodDropDown").html("");
+          
           //<![CDATA[
+         $("#foodDropDown").append("<option selected='true' disabled='disabled'>Choose Food:</option>");
        for(var i = 0; i < r.length; i++){
             
             $("#foodDropDown").append("<option value='"+r[i].id+"'>"+r[i].name+"</option>");
             }
+            
             
              //]]>
    });    
@@ -53,31 +169,31 @@ $("#fillMe").on('change', function(){
 */
 
 
-function getDatePicker() {
+function getDatePicker(){
         $("#datePicker").datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "show")
     
 };
-/*
-$("#sendToServer").click(function() {
-          // $("#success").val(JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}));
+
+function sendTodayToServer() {
+         //  $("#success").val(JSON.stringify({foodId:$('#foodDropDown').val(),todaysDate:$('#datePicker').val()}));
           
                 $.ajax({
                     url: "http://simonarstam.com/antons-skafferi/api/todayslunch",
                     method: "POST",
                     dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}),
+                    contentType: "application/json; charset=utf-8",
+                    data : JSON.stringify({foodId:$('#foodDropDown').val(),todaysDate:$('#datePicker').val()}),
                     //data : JSON.stringify({"foodId": 47, "todaysDate": "2017-10-15"}),
                     
                     success : function(r) {
                         console.log(r);
                     }
                 })
-            });
+            };
 
 
    
-
+/*
 $(document).ready(function(){
             
             $("#button").click(function() {
@@ -85,7 +201,7 @@ $(document).ready(function(){
                     url: "http://simonarstam.com/antons-skafferi/api/food",
                     method: "POST",
                     dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
+                    contentType: "application/json; charset=utf-8",
                     data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
                     success : function(r) {
                        // console.log(r);
@@ -100,7 +216,7 @@ $(document).ready(function(){
                     url: "http://simonarstam.com/antons-skafferi/api/food",
                     method: "GET",
                     dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
+                    contentType: "application/json; charset=utf-8",
                     success : function(r) {
                        // console.log(r);
                         //<![CDATA[
