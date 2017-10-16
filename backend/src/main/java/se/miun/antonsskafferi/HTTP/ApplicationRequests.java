@@ -86,7 +86,8 @@ public class ApplicationRequests {
     @DELETE
     @Path("/foodorder/{id}")
     public Response deleteFoodOrder(@PathParam("id") int id) {
-        if (ApplicationDB.deleteFoodOrder(id)) {
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        if (dao.delete(id)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
