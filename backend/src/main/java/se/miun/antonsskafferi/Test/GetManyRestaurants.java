@@ -1,6 +1,5 @@
 package se.miun.antonsskafferi.Test;
 
-import se.miun.antonsskafferi.Database.Restaurants;
 import se.miun.antonsskafferi.Models.ARestaurant;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

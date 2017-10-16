@@ -2,7 +2,9 @@ package se.miun.antonsskafferi.Models.Utility;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
 
+@Provider
 public class JacksonObjectMapperProvider implements ContextResolver<ObjectMapper> {
 
     final ObjectMapper defaultObjectMapper;

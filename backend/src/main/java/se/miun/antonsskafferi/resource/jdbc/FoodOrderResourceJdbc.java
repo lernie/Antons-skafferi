@@ -1,0 +1,74 @@
+package se.miun.antonsskafferi.resource.jdbc;
+
+import se.miun.antonsskafferi.Models.ErrorResponse;
+import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.sql.Timestamp;
+import java.util.List;
+
+@Path("/foodorder")
+public class FoodOrderResourceJdbc {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
+    public Response getOrders(@DefaultValue("-1") @QueryParam("id") int id,
+                              @DefaultValue("") @QueryParam("modification") String modification,
+                              @DefaultValue("-1") @QueryParam("food") int foodId,
+                              @DefaultValue("-1")@QueryParam("table") int diningTableId,
+                              @DefaultValue("-1") @QueryParam("status") int orderStatusId,
+                              @QueryParam("ready") Timestamp ready,
+                              @QueryParam("created") Timestamp created,
+                              @QueryParam("delivered") Timestamp delivered){
+        FoodOrder foParam = new FoodOrder();
+        foParam.setId(id);
+        foParam.setModification(modification);
+        foParam.setFoodId(foodId);
+        foParam.setDiningTableId(diningTableId);
+        foParam.setOrderStatusId(orderStatusId);
+        foParam.setReady(ready);
+        foParam.setCreated(created);
+        foParam.setDelivered(delivered);
+
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        return Response.ok(dao.getAll(foParam)).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addOrders(List<FoodOrder> foList) {
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        dao.insert(foList);
+
+        return Response.ok().build();
+    }
+
+    @Path("/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateFoodOrder(@PathParam("id") int id, FoodOrder foParam) {
+        foParam.setId(id);
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        if (!dao.checkIfExist(id)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
+        } else if (!dao.update(foParam)) {
+            return Response.status(400).entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
+        } else {
+            return Response.ok().build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteFoodOrder(@PathParam("id") int id) {
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        if (dao.delete(id)) {
+            return Response.ok().build();
+        } else {
+            return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
+        }
+    }
+}

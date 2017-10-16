@@ -6,12 +6,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import javax.ws.rs.ext.Provider;
 import java.sql.Date;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+@Provider
 public class DateSerializerModule extends SimpleModule {
 
     public DateSerializerModule() {
@@ -25,6 +27,7 @@ public class DateSerializerModule extends SimpleModule {
         public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
             /*https://coderanch.com/t/521898/java/Convert-Java-sql-Date-String*/
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println("DateSerializer called");
             jgen.writeString(df.format(value));
         }
     }
@@ -34,6 +37,7 @@ public class DateSerializerModule extends SimpleModule {
         @Override
         public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             java.util.Date utilDate = null;
+            System.out.println("DateDeserializer called");
             try {
                 utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(jsonParser.getText());
             } catch (ParseException e) {
