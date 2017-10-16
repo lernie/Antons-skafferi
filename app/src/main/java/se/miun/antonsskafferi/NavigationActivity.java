@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 /**
  * Created by joel on 2017-10-03.
@@ -83,7 +81,7 @@ public class NavigationActivity extends AppCompatActivity {
                         intent = new Intent(NavigationActivity.this, InventoryActivity.class);
                         break;
                     case R.id.nav_schedule_button:
-                        intent = new Intent(NavigationActivity.this, ScheduleActivity.class);
+                        intent = new Intent(NavigationActivity.this, BookingActivity.class);
                         break;
                 }
 

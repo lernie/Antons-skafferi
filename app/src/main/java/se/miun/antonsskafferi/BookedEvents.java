@@ -4,7 +4,7 @@ package se.miun.antonsskafferi;
  * Created by Wictor on 2017-10-15.
  */
 
-public class ScheduledEvents {
+public class BookedEvents {
 
     private String startDate;
     private String endDate;

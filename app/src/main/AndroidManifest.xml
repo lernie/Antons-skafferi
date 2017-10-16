@@ -58,7 +58,7 @@
             android:label="Logga In"></activity>
 
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".BookingActivity"
             android:label="Schema">
             <intent-filter>
 

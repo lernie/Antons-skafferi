@@ -19,7 +19,6 @@ import com.google.api.services.calendar.model.*;
 
 import android.Manifest;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -30,13 +29,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -48,7 +42,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ScheduleActivity extends NavigationActivity
+public class BookingActivity extends NavigationActivity
         implements EasyPermissions.PermissionCallbacks {
     GoogleAccountCredential mCredential;
     private TextView mOutputText;
@@ -64,9 +58,9 @@ public class ScheduleActivity extends NavigationActivity
     private static final String PREF_ACCOUNT_NAME = "accountName";
     private static final String[] SCOPES = { CalendarScopes.CALENDAR_READONLY };
     private Button btn;
-    private ScheduleListAdapter adapter;
+    private BookingListAdapter adapter;
     private ListView scheduleListView;
-    private List<ScheduledEvents> scheduleList = new ArrayList<ScheduledEvents>();
+    private List<BookedEvents> scheduleList = new ArrayList<BookedEvents>();
     /**
      * Create the main activity.
      * @param savedInstanceState previously saved instance data.
@@ -74,7 +68,7 @@ public class ScheduleActivity extends NavigationActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.activity_booking);
         btn = (Button) findViewById(R.id.update_schedule_button);
         mOutputText=(TextView) findViewById(R.id.text123);
         scheduleListView = (ListView) findViewById(R.id.schedule_list);
@@ -90,6 +84,8 @@ public class ScheduleActivity extends NavigationActivity
                 btn.setEnabled(true);
             }
         });
+
+
 
         mCredential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), Arrays.asList(SCOPES))
@@ -290,7 +286,7 @@ public class ScheduleActivity extends NavigationActivity
             final int connectionStatusCode) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         Dialog dialog = apiAvailability.getErrorDialog(
-                ScheduleActivity.this,
+                BookingActivity.this,
                 connectionStatusCode,
                 REQUEST_GOOGLE_PLAY_SERVICES);
         dialog.show();
@@ -344,7 +340,7 @@ public class ScheduleActivity extends NavigationActivity
                     .setSingleEvents(true)
                     .execute();
             List<Event> items = events.getItems();
-            ScheduledEvents scheduleEvent;
+            BookedEvents scheduleEvent;
             scheduleList.clear();
 
             for (Event event : items) {
@@ -354,7 +350,7 @@ public class ScheduleActivity extends NavigationActivity
                     // the start date.
                     start = event.getStart().getDate();
                 }
-                scheduleEvent = new ScheduledEvents();
+                scheduleEvent = new BookedEvents();
                 scheduleEvent.setEventName(event.getSummary());
                 scheduleEvent.setStartDate(start.toString());
                 //scheduleEvent.setEndDate("");
@@ -378,7 +374,7 @@ public class ScheduleActivity extends NavigationActivity
             if (scheduleList.size() <= 0) {
                 mOutputText.setText("No results returned.");
             } else {
-                adapter = new ScheduleListAdapter(ScheduleActivity.this, scheduleList);
+                adapter = new BookingListAdapter(BookingActivity.this, scheduleList);
                 scheduleListView.setAdapter(adapter);
             }
         }
@@ -394,7 +390,7 @@ public class ScheduleActivity extends NavigationActivity
                 } else if (mLastError instanceof UserRecoverableAuthIOException) {
                     startActivityForResult(
                             ((UserRecoverableAuthIOException) mLastError).getIntent(),
-                            ScheduleActivity.REQUEST_AUTHORIZATION);
+                            BookingActivity.REQUEST_AUTHORIZATION);
                 } else {
                     mOutputText.setText("The following error occurred:\n"
                             + mLastError.getMessage());
@@ -404,4 +400,5 @@ public class ScheduleActivity extends NavigationActivity
             }
         }
     }
+
 }
