@@ -15,18 +15,18 @@ public class AuthenticationProvider {
     //Add salt
     public static byte[] getSalt() throws NoSuchAlgorithmException
     {
+        // get random number
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        // create array of salt
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
         return salt;
     }
 
-    public static String hashPassword(String passwordToHash) {
+    public static String hashPassword(String passwordToHash, byte[] salt) {
         String generatedPassword = null;
 
         try {
-            byte[] salt = getSalt();
-
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             md.update(salt);
             byte[] bytes = md.digest(passwordToHash.getBytes());

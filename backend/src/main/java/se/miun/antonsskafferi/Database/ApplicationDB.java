@@ -6,6 +6,7 @@ import se.miun.antonsskafferi.Models.FoodOrder;
 import se.miun.antonsskafferi.Security.AuthenticationProvider;
 import se.miun.antonsskafferi.Models.OrderStatus;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,25 +49,32 @@ public class ApplicationDB {
         return employees;
     }
 
-    public static boolean addEmployee(Employee emp) {
+    public static boolean addEmployee(Employee emp) throws NoSuchAlgorithmException, SQLException {
         boolean status = true;
 
         try {
-            String sqlQuery = "INSERT INTO Employee (FIRSTNAME, LASTNAME, POSITIONID, USERNAME, PASSWORD, EMAIL) "
-                            + "VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
-            ps.setString(1, emp.getFirstName());
-            ps.setString(2, emp.getLastName());
-            ps.setInt(3, emp.getPositionId());
-            ps.setString(4, emp.getUserName());
-            ps.setString(5, AuthenticationProvider.hashPassword(emp.getPassword()));
-            ps.setString(6, emp.getEmail());
+            String sqlQuery = "INSERT INTO Employee (FIRSTNAME, LASTNAME, POSITIONID, USERNAME, PASSWORD, EMAIL, SALTKEY) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            ps.execute();
-            ConnectionSetup.conn.commit();
+            try {
+                byte[] salt = AuthenticationProvider.getSalt();
+
+                PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+                ps.setString(1, emp.getFirstName());
+                ps.setString(2, emp.getLastName());
+                ps.setInt(3, emp.getPositionId());
+                ps.setString(4, emp.getUserName());
+                ps.setString(5, AuthenticationProvider.hashPassword(emp.getPassword(), salt));
+                ps.setString(6, emp.getEmail());
+                ps.setBytes(7, salt);
+
+                ps.execute();
+                ConnectionSetup.conn.commit();
+            } catch(NoSuchAlgorithmException e) {
+                throw e;
+            }
         } catch (SQLException sqlExcept) {
-            //sqlExcept.printStackTrace();
-            status = false;
+            throw sqlExcept;
         }
 
         return status;
@@ -74,11 +82,10 @@ public class ApplicationDB {
 
     public static String validateEmployee(Employee emp) {
         try {
-            String sqlQuery = "SELECT FIRSTNAME, LASTNAME, EMAIL, ID FROM EMPLOYEE WHERE email = ? AND password = ?";
+            String sqlQuery = "SELECT FIRSTNAME, LASTNAME, EMAIL, ID, SALTKEY, PASSWORD FROM EMPLOYEE WHERE email = ?";
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
 
             ps.setString(1, emp.getEmail());
-            ps.setString(2, emp.getPassword());
 
             ResultSet result = ps.executeQuery();
 
@@ -90,9 +97,17 @@ public class ApplicationDB {
                 user.setLastName(result.getString(2));
                 user.setEmail(result.getString(3));
                 user.setId(result.getInt(4));
+                user.setSaltKey(result.getString(5).getBytes());
+                user.setPassword(result.getString(6));
 
-                jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
-                return jwt_token;
+                String hashPassword = AuthenticationProvider.hashPassword(emp.getPassword(), user.getSaltKey());
+
+                if (user.getPassword() == hashPassword) {
+                    jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
+                    return jwt_token;
+                } else {
+                    return "TRY AGAIN BITCH";
+                }
             }
 
             return "No user found";

@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -84,25 +85,31 @@ public class ApplicationRequests {
            String jwt_token =  ApplicationDB.validateEmployee(emp);
 
            if (jwt_token == "error" || jwt_token == "No user found") {
-               return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
+               return Response.status(500).entity(new ErrorResponse(500, jwt_token)).build();
            }
            return Response.ok(jwt_token).build();
         }
 
         return Response.ok().build();
     }
-    
+
     @Path("/employee")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees(){ return Response.ok(ApplicationDB.getAllEmployees()).build(); }
 
+    //Add new employee user to the database
     @Path("/employee")
     @POST
     public Response addEmployee(Employee emp) {
-        if (ApplicationDB.addEmployee(emp)){
-            return Response.ok().build();
+        try {
+            if (ApplicationDB.addEmployee(emp)){
+                return Response.ok().build();
+            }
+        } catch(Exception e) {
+            return Response.status(500).entity(new ErrorResponse(500, "Something went wrong with encryption")).build();
         }
+
         /*
          * https://docs.microsoft.com/en-us/rest/api/storageservices/common-rest-api-error-codes
          * http://www.restapitutorial.com/lessons/httpmethods.html

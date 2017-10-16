@@ -23,6 +23,7 @@ public class Employee {
     private String userName = "";
     private String password = "";
     private String email = "";
+    private byte[] saltKey = null;
 
     @JsonbDateFormat("yyyy-MM-dd")
     private Date startDate;
@@ -116,5 +117,13 @@ public class Employee {
     @JsonIgnore
     public boolean isValid() {
         return isOnlyChars(firstName);
+    }
+
+    public byte[] getSaltKey() {
+        return saltKey;
+    }
+
+    public void setSaltKey(byte[] saltKey) {
+        this.saltKey = saltKey;
     }
 }
