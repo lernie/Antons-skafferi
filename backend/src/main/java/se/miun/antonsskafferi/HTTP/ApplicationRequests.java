@@ -4,6 +4,8 @@ import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.dao.FoodOrderDao;
+import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Path("/api")
 public class ApplicationRequests {
+
     @Path("/foodorder")
     @GET
     @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
@@ -36,31 +39,48 @@ public class ApplicationRequests {
         foParam.setCreated(created);
         foParam.setDelivered(delivered);
 
-        return Response.ok(ApplicationDB.getAllFoodOrders(foParam)).build();
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        return Response.ok(dao.getAll(foParam)).build();
     }
 
     @Path("/foodorder")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addOrders(List<FoodOrder> foList) {
-        ApplicationDB.addFoodOrders(foList);
-
-        return Response.ok().build();
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        if (dao.add(foList)){
+            return Response.ok().build();
+        } else {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Failed to add food orders. " +
+                            "Not all food orders were valid. 'foodId', and 'diningTableId'" +
+                            " is required.")).build();
+        }
     }
 
     @Path("/foodorder/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    //@Produces(MediaType.APPLICATION_JSON) // ttemporary
     public Response updateFoodOrder(@PathParam("id") int id, FoodOrder foParam) {
         foParam.setId(id);
-        if (!ApplicationDB.checkIfFoodOrderExist(id)) {
-            return Response.status(400).entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
-        } else if (!ApplicationDB.updateFoodOrder(foParam)) {
-            return Response.status(400).entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
+        System.out.println(foParam.toString());
+
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+
+        if (!dao.checkIfExist(id)) {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
+        } else if (!dao.update(foParam)) {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
         } else {
             return Response.ok().build();
         }
+        //return Response.ok(foParam.toString()).build();
     }
 
     @DELETE
@@ -80,17 +100,17 @@ public class ApplicationRequests {
     public Response login(Employee emp) {
 
         if (emp.isValidEmail()) {
-           String jwt_token =  ApplicationDB.validateEmployee(emp);
+            String jwt_token =  ApplicationDB.validateEmployee(emp);
 
-           if (jwt_token == "error" || jwt_token == "No user found") {
-               return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
-           }
-           return Response.ok(jwt_token).build();
+            if (jwt_token == "error" || jwt_token == "No user found") {
+                return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
+            }
+            return Response.ok(jwt_token).build();
         }
 
         return Response.ok().build();
     }
-    
+
     @Path("/employee")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -140,4 +160,4 @@ public class ApplicationRequests {
     public Response getOrderStatus() {
         return Response.ok(ApplicationDB.getAllOrderStatus()).build();
     }
- }
+}

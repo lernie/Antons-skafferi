@@ -42,4 +42,4 @@ public class DateSerializerModule extends SimpleModule {
             return new Date(utilDate.getTime());
         }
     }
-}
+}   
