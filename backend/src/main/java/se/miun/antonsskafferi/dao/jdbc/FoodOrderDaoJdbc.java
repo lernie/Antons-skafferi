@@ -2,6 +2,7 @@ package se.miun.antonsskafferi.dao.jdbc;
 
 import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.FoodOrder;
+import se.miun.antonsskafferi.Models.FoodOrderDelete;
 import se.miun.antonsskafferi.dao.FoodOrderDao;
 
 import java.sql.PreparedStatement;
@@ -200,6 +201,68 @@ public class FoodOrderDaoJdbc implements FoodOrderDao {
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
             status = false;
+        }
+
+        return status;
+    }
+
+    @Override
+    public boolean setOrderStatus(List<Integer> intList, int diningTableId) {
+        boolean status = true;
+        try {
+            ConnectionSetup.conn.setAutoCommit(false);
+            String sqlQuery = "UPDATE FOODORDER SET orderStatus = ? WHERE diningTableId = ?";
+            PreparedStatement ps= ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status = false;
+        } finally {
+            try {
+                ConnectionSetup.conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return status;
+    }
+
+    @Override
+    public boolean delete(int foodId, int diningTableId, int count) {
+        boolean status = true;
+
+        try {
+            ConnectionSetup.conn.setAutoCommit(false);
+            String query = "DELETE FROM FoodOrder " +
+                    "WHERE foodId = ? AND " +
+                    "id = (SELECT Id FROM FoodOrder WHERE modification = '' AND diningTableId = ? AND foodId = ? AND OrderStatusId = 0 FETCH FIRST ROW ONLY)";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(query);
+
+            int count1 = 0;
+            while (count1 < count) {
+                ps.setInt(1,foodId);
+                ps.setInt(2,diningTableId);
+                ps.setInt(3,foodId);
+                ps.addBatch();
+                count1++;
+            }
+
+            ps.executeBatch();
+
+            //ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            status = false;
+        } finally {
+            try {
+                ConnectionSetup.conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return status;
