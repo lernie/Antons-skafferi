@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="22sp"
-        android:text="Lägg till ingrediens."/>
+        android:text="Redigera ingrediens:"/>
 
     <EditText
         android:id="@+id/popup_add_ingredient"
@@ -35,9 +35,10 @@
     <Spinner
         android:id="@+id/popup_spinner_unit"
         android:spinnerMode="dialog"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/popup_unit_title"
+        android:background="@android:drawable/btn_dropdown"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
