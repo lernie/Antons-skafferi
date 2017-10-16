@@ -8,9 +8,7 @@ import android.widget.ListView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,6 +21,7 @@ public class OrdersActivity extends BackButtonActivity {
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
     private int tableNumber;
+    private OrderConfirmPopup orderConfirmPopup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class OrdersActivity extends BackButtonActivity {
 
         orderItems = new ArrayList<Order.OrderItem>();
         adapter = new TableOrdersAdapter(this, orderItems);
-        ((ListView) findViewById(R.id.orderList)).setAdapter(adapter);
+        ((ListView) findViewById(R.id.order_list)).setAdapter(adapter);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
@@ -107,13 +106,25 @@ public class OrdersActivity extends BackButtonActivity {
 
     public void clearOrders(View view){
         adapter.clear();
+
+        orderConfirmPopup.remove();
+        onBackPressed();
+        /*Intent intent = new Intent(this, TablesActivity.class);
+        startActivity(intent);*/
     }
 
     public void clearSpec(View view){
-        ListView listView = (ListView) findViewById(R.id.orderList);
+        ListView listView = (ListView) findViewById(R.id.order_list);
         int i = listView.getPositionForView((View) view.getParent());
         orderItems.remove(i);
         adapter.notifyDataSetChanged();
+    }
+    public void showConfirmPopup(View view){
+        orderConfirmPopup = new OrderConfirmPopup(this);
+
+    }
+    public void dissmissConfirmPopup(View view){
+        orderConfirmPopup.remove();
     }
 
 }
