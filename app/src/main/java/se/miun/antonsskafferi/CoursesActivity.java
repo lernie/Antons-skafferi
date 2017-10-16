@@ -44,7 +44,7 @@ public class CoursesActivity extends BackButtonActivity {
                     Order.OrderItem match = null;
 
                     for (Order.OrderItem item : orderedItems) {
-                        if (item.getCourse().equals(course.getName())) {
+                        if (item.getCourse().getName().equals(course.getName())) {
                             match = item;
                             break;
                         }
@@ -98,7 +98,7 @@ public class CoursesActivity extends BackButtonActivity {
             Order.OrderItem match = null;
 
             for (Order.OrderItem order : orderedItems) {
-                if (item.getCourse().getName().equals(order.getCourse())) {
+                if (item.getCourse().getName().equals(order.getCourse().getName())) {
                     match = order;
                     break;
                 }

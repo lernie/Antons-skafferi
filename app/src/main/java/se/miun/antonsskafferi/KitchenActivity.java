@@ -7,6 +7,9 @@ import android.widget.GridView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +22,7 @@ public class KitchenActivity extends NavigationActivity {
     private ArrayList<Order> orderList;
     private KitchenOrdersAdapter adapter;
     HashMap<Integer, ArrayList<OrderServiceItem>> tablesOrdersList;
+    ScheduledExecutorService scheduler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,69 +41,85 @@ public class KitchenActivity extends NavigationActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        OrderService service = retrofit.create(OrderService.class);
-
-        final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(0);
+        final OrderService service = retrofit.create(OrderService.class);
 
         final CoursesCache cache = CoursesCache.getInstance();
 
-        cache.update(new CoursesCache.UpdateCallback() {
+        scheduler = Executors.newScheduledThreadPool(1);
+
+        scheduler.scheduleWithFixedDelay(new Runnable() {
             @Override
-            public void onSuccess() {
-                call.enqueue(new Callback<List<OrderServiceItem>>() {
+            public void run() {
+                cache.update(new CoursesCache.UpdateCallback() {
                     @Override
-                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
-                        if (response == null || response.body() == null) {
+                    public void onSuccess() {
+                    final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(0);
+
+                    call.enqueue(new Callback<List<OrderServiceItem>>() {
+                        @Override
+                        public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
                             orderList.clear();
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
+                            tablesOrdersList.clear();
 
-                        for (OrderServiceItem item : response.body()) {
-                            if (!tablesOrdersList.containsKey(item.getDiningTableId())) {
-                                tablesOrdersList.put(item.getDiningTableId(), new ArrayList<OrderServiceItem>());
+                            if (response == null || response.body() == null) {
+                                adapter.notifyDataSetChanged();
+                                return;
                             }
 
-                            tablesOrdersList.get(item.getDiningTableId())
-                                    .add(item);
-                        }
-
-                        for (int k : tablesOrdersList.keySet()) {
-
-                            ArrayList<Order.OrderItem> orderItems = new ArrayList<Order.OrderItem>();
-
-                            HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
-
-                            for (OrderServiceItem item : tablesOrdersList.get(k)) {
-                                if (!item.isSpecial()) {
-                                    if (nonSpecCount.containsKey(item.getFoodId())) {
-                                        nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
-                                    } else {
-                                        nonSpecCount.put(item.getFoodId(), 1);
-                                    }
-                                } else {
-                                    orderItems.add(new Order.OrderItem(cache.getCourses().get(item.getFoodId()), item.getModification()));
+                            for (OrderServiceItem item : response.body()) {
+                                if (!tablesOrdersList.containsKey(item.getDiningTableId())) {
+                                    tablesOrdersList.put(item.getDiningTableId(), new ArrayList<OrderServiceItem>());
                                 }
+
+                                tablesOrdersList.get(item.getDiningTableId())
+                                        .add(item);
                             }
 
-                            for (int key : nonSpecCount.keySet()) {
-                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key), nonSpecCount.get(key)));
+                            for (int k : tablesOrdersList.keySet()) {
+
+                                ArrayList<Order.OrderItem> orderItems = new ArrayList<Order.OrderItem>();
+
+                                HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+
+                                for (OrderServiceItem item : tablesOrdersList.get(k)) {
+                                    if (!item.isSpecial()) {
+                                        if (nonSpecCount.containsKey(item.getFoodId())) {
+                                            nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                                        } else {
+                                            nonSpecCount.put(item.getFoodId(), 1);
+                                        }
+                                    } else {
+                                        orderItems.add(new Order.OrderItem(cache.getCourses().get(item.getFoodId()), item.getModification()));
+                                    }
+                                }
+
+                                for (int key : nonSpecCount.keySet()) {
+                                    orderItems.add(new Order.OrderItem(cache.getCourses().get(key), nonSpecCount.get(key)));
+                                }
+
+                                orderList.add(new Order(k, orderItems));
                             }
 
-                            orderList.add(new Order(k, orderItems));
+                            adapter.notifyDataSetChanged();
                         }
 
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                        orderList.clear();
-                        adapter.notifyDataSetChanged();
+                        @Override
+                        public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                            orderList.clear();
+                            tablesOrdersList.clear();
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
                     }
                 });
             }
-        });
+        }, 0, 5, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        scheduler.shutdown();
     }
 
     public void removeOrder(View view) {

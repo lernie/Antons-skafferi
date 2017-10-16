@@ -1,10 +1,12 @@
 package se.miun.antonsskafferi;
 
+import java.io.Serializable;
+
 /**
  * Created by My on 9/28/2017.
  */
 
-public class Course {
+public class Course implements Serializable {
     public static final int MAIN = 0;
     public static final int DRINK = 1;
     public static final int APPETIZER = 2;
