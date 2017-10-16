@@ -2,8 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
     <h:head>
-        <title>Antons Skafferi @ Hackers</title>
+        
+        <title>Antons Skafferi</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -11,7 +13,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="./resources/javascripts/scripts.js" type="text/javascript"></script>
+        
         <h:outputStylesheet library="css" name="design.css" />
 
         <style>
@@ -26,7 +30,7 @@
             #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #595959}
         </style>
     </h:head>
-    <h:body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <h:body>
         
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -58,194 +62,58 @@
         </nav>    
 
         <div id="section1" class="container-fluid">
-
+            
+            <script>getTodaySpecials('#{todaySpecial.todaysDate}')</script>
+            
+            <br></br>
+        
         </div>
         
         <div id="section2" class="container-fluid">
         
-            <p>
+            
                 
+               
+
+                Food: <select id="foodDropDown" style="color:black" onclick="loadDropDown(); this.onclick=null;">
+                      <option data-placeholder="true">Please choose:</option>
+                      </select>
+                <input id="updateDropDown" type="button" value="Update" onclick="loadDropDown();" />     
+
+               <!-- ID: <input title="ID number" id="foodTxt" name="foodSelected" type="text" style="color:black"/> -->
+                <br/>
+                <br/>
         
-        Food: <select id="fillMe" style="color:black"></select>
-        ID: <input title="ID number" id="foodTxt" name="foodSelected" type="text" style="color:black"/>
-        <br/>
-        <br/>
-        Date: <input type="text" id="datePicker"/>
-        <br/>
-        <br/>
-        <button id="sendToServer" value="">Send</button>
+                Date: <input type="text" id="datePicker" style="color:black" onclick="getDatePicker()"/>
+        
+                <br/>
+                <br/>
+                <input id="sendToServer" type="button" value="Send" onclick="sendTodayToServer()"></input>
 
         
-<!--    <input id="success" name="success" type="text" style="color:black;"/>
--->      
-            </p>
+ 
+      
+        
             
         </div>
         
         <div id="section3" class="container-fluid">
               
         </div>
-        
-        
-        <input type="button" id="id_trial" name="btn_trial" value="Trial Button.."/>
+
         <div id="section41" class="container-fluid">
-            <h1>Vill du boka bord?</h1>
-            <p>
-                För att boka bok ikväll, eller för en kommande spelning, klicka
-                på länken nedan! asd asd
-            </p>
-            
-            <a> href="booking.php"style="padding-left:100px;"><h1> klicka här för att boka bord </h1></a>
-            
-            
-            
+
         </div>
+        
         <div id="section42" class="container-fluid">
-            <p> Klicka på länken för beta-sida av post/get. </p>
-            <a href="login.xhtml" style="padding-left:100px;">BETA BETA BETA</a>
-            
 
             
         </div>
         
         <div id="section5" class="container-fluid">
-            
-            <a href="adminlogin.php" style="padding-left:100px;">Klicka här för att komma till Admin</a>
-            
-            <p> Detta är en footer - här kan anders lägga in lite vad han vill asd asd</p>
 
-            
         </div>
 
-<script>
-        $(document).ready(function(){
-         
-                    $.ajax({
-                    
-                    //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&amp;enddate=2017-11-05",
-                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
-                    method: "GET",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    success : function(r) {
-                        console.log(r);
-                        //<![CDATA[
-                        for(var i = 0; i < r.length; i++){
-                           console.log(r[i]);
-                           $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
-                        }
-                       
-                       //]]>
-                        r.forEach(function(element) {
-                        
-                    });
-                    }
-                }).done(function(response) {
-                    
-                   
-                });
-        });
-</script>
-
-<script> 
-         $(document).ready(function(){
-
-           $.getJSON("http://simonarstam.com/antons-skafferi/api/food", function(r){
-          $("#fillMe").html("");
-          //<![CDATA[
-       for(var i = 0; i < r.length; i++){
-            
-            $("#fillMe").append("<option value='"+r[i].id+"'>"+r[i].name+"</option>");
-            }
-            
-             //]]>
-   });    
- });
-
-</script> 
-
-        
-<script>
-        
-        $("#fillMe").on('change', function(){
-            $("#foodTxt").val($('#fillMe').val());
-            
-        });
-</script>
-
-    
-<script>
-  $( function() {
-    $( "#datePicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-    
-  } );
-</script>
-    
-
-    
-<script>
-        $("#sendToServer").click(function() {
-          // $("#success").val(JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}));
-          
-                $.ajax({
-                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch",
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}),
-                    //data : JSON.stringify({"foodId": 47, "todaysDate": "2017-10-15"}),
-                    
-                    success : function(r) {
-                        console.log(r);
-                    }
-                })
-            });
-</script>
-    
-<script>
-      $(document).ready(function(){
-            
-            $("#button").click(function() {
-                $.ajax({
-                    url: "http://simonarstam.com/antons-skafferi/api/food",
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
-                    success : function(r) {
-                       // console.log(r);
-                    }
-                }).done(function(response) {
-                    
-                   
-                });
-            });
-                    $.ajax({
-                    url: "http://simonarstam.com/antons-skafferi/api/food",
-                    method: "GET",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    success : function(r) {
-                       // console.log(r);
-                        //<![CDATA[
-                        for(var i = 0; i < r.length; i++){
-                           console.log(r[i]);
-                           $("#section3").append("<b>Inventarie ID:</b> ",r[i].id," <b>Maträtt:</b> ",r[i].name," <b>FoodID:</b> ",r[i].foodTypeId," <b>Tillagningstid:</b> ",r[i].timeToCook," <b>Pris:</b> ",r[i].price,"<br>");
-                        }
-                       
-                       //]]>
-                        r.forEach(function(element) {
-                        
-                    });
-                    }
-                }).done(function(response) {
-                    
-                
-                }); 
-                
-        });
-</script>
     </h:body>
 
-    
 </html> 
