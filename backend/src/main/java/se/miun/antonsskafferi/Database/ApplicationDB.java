@@ -69,13 +69,17 @@ public class ApplicationDB {
                 user.setSaltKey(result.getBytes(5));
                 user.setPassword(result.getString(6));
 
-                String hashPassword = AuthenticationProvider.hashPassword(emp.getPassword(), user.getSaltKey());
+                try {
+                    String hashPassword = AuthenticationProvider.hashPassword(emp.getPassword(), user.getSaltKey());
 
-                if (user.getPassword().equals(hashPassword)) {
-                    jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
-                    return jwt_token;
-                } else {
-                    throw new ApplicationException("Email or password is incorrect");
+                    if (user.getPassword().equals(hashPassword)) {
+                        jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
+                        return jwt_token;
+                    } else {
+                        throw new ApplicationException("Email or password is incorrect");
+                    }
+                } catch(Exception e) {
+                    throw new ApplicationException("Something went wrong with en encryption");
                 }
             }
 
