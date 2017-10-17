@@ -46,10 +46,6 @@ public class InventoryActivity extends NavigationActivity {
         inventoryList = new ArrayList<Ingredient>();
         adapter = new InventoryListAdapter(this, inventoryList);
         ((GridView) findViewById(R.id.inventory_list)).setAdapter(adapter);
-        /*Spinner spinner = (Spinner) findViewById(R.id.popup_spinner_unit);
-        spinner.setAdapter(adapter);*/
-
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
@@ -83,40 +79,10 @@ public class InventoryActivity extends NavigationActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
-        InventoryService inventoryService = retrofit.create(InventoryService.class);
-
-        Call<List<InventoryServiceItem>> call = inventoryService.getInventory();
-
-//        call.enqueue(new Callback<List<InventoryServiceItem>>() {
-//            @Override
-//            public void onResponse(Call<List<InventoryServiceItem>> call, Response<List<InventoryServiceItem>> response) {
-//                if (response == null || response.body() == null) {
-//                    inventoryList.clear();
-//                    adapter.notifyDataSetChanged();
-//                    return;
-//                }
-//
-//                for (InventoryServiceItem item : response.body()) {
-//                    Ingredient ingredient = new Ingredient("" + item.getIngredientId(), item.getAmount(), "kg");
-//                    inventoryList.add(ingredient);
-//                }
-//
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<InventoryServiceItem>> call, Throwable t) {
-//                inventoryList.clear();
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
-
-        adapter.notifyDataSetChanged();
     }
 
     public void showIngredientPopupWindow(View view) {
-        ingredientPopupWindow = new IngredientPopupWindow(this, 1);
+        ingredientPopupWindow = new IngredientPopupWindow(this);
     }
     
     public void removePopupOnClick(View view){

@@ -22,6 +22,7 @@
                     android:name ="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+      
         <!--<activity
             android:name=".LoginActivity"
             android:label="Logga In" >
@@ -32,6 +33,7 @@
                 android:name ="android.intent.category.LAUNCHER"/>
         </intent-filter>
         </activity> -->
+      
         <activity
             android:name=".OrdersActivity"
             android:label="@string/title_activity_tables"

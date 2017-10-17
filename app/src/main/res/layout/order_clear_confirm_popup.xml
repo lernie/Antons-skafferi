@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorGrey">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="Betala?"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/popup_title" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_title"
+        android:layout_centerHorizontal="true">
+        <Button
+            android:id="@+id/confirm_clear"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Spara"
+            android:onClick="clearOrders"/>
+        <Button
+            android:id="@+id/cancel_clear"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Avbryt"
+            android:onClick="dissmissConfirmPopup"/>
+    </LinearLayout>
+
+</RelativeLayout>

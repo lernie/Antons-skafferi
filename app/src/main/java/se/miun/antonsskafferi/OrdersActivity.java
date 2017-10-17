@@ -12,9 +12,7 @@ import com.google.gson.GsonBuilder;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +25,7 @@ public class OrdersActivity extends BackButtonActivity {
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
     private int tableNumber;
+  
     private Retrofit retrofit;
     private OrderService orderService;
     private HashMap<Course, Integer> specItemIds;
@@ -125,6 +124,11 @@ public class OrdersActivity extends BackButtonActivity {
 
     public void clearOrders(View view){
         adapter.clear();
+
+        orderConfirmPopup.remove();
+        onBackPressed();
+        /*Intent intent = new Intent(this, TablesActivity.class);
+        startActivity(intent);*/
     }
 
     public void removeSpecOrder(View view) {
