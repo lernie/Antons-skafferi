@@ -79,7 +79,7 @@ public class ApplicationDB {
                         throw new ApplicationException("Email or password is incorrect");
                     }
                 } catch(Exception e) {
-                    throw new ApplicationException("Something went wrong with en encryption");
+                    throw new ApplicationException("Something went wrong with an encryption");
                 }
             }
 
