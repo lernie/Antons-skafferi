@@ -12,6 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CoursesActivity extends BackButtonActivity {
-    private ArrayList<CourseListItem> list;
+    private ArrayList<CourseListItem> courseList;
     private PopupWindow popupWindow;
     private ArrayList<Order.OrderItem> orderedItems;
     private int tableId;
@@ -33,9 +37,9 @@ public class CoursesActivity extends BackButtonActivity {
         orderedItems = (ArrayList<Order.OrderItem>) getIntent().getSerializableExtra("items");
         tableId = getIntent().getIntExtra("table_id", -1);
 
-        list = new ArrayList<CourseListItem>();
+        courseList = new ArrayList<CourseListItem>();
 
-        final CourseAdapter adapter = new CourseAdapter(CoursesActivity. this, list);
+        final CourseAdapter adapter = new CourseAdapter(CoursesActivity. this, courseList);
 
         CoursesCache.getInstance().update(new CoursesCache.UpdateCallback() {
             @Override
@@ -44,16 +48,16 @@ public class CoursesActivity extends BackButtonActivity {
                     Order.OrderItem match = null;
 
                     for (Order.OrderItem item : orderedItems) {
-                        if (item.getCourse().equals(course.getName())) {
+                        if (item.getCourse().getName().equals(course.getName())) {
                             match = item;
                             break;
                         }
                     }
 
                     if (match == null) {
-                        list.add(new CourseListItem(course));
+                        courseList.add(new CourseListItem(course));
                     } else {
-                        list.add(new CourseListItem(course, match.getCount()));
+                        courseList.add(new CourseListItem(course, match.getCount()));
                     }
                 }
 
@@ -62,7 +66,7 @@ public class CoursesActivity extends BackButtonActivity {
 
             @Override
             public void onFail() {
-                list.clear();
+                courseList.clear();
                 adapter.notifyDataSetChanged();
             }
         });
@@ -93,52 +97,116 @@ public class CoursesActivity extends BackButtonActivity {
 
     public void saveOrder(View view) {
         ArrayList<OrderService.OrderPost> newOrders = new ArrayList<OrderService.OrderPost>();
+        HashMap<Integer, Integer> deleteOrders = new HashMap<Integer, Integer>();
 
-        for (CourseListItem item : list) {
+        for (CourseListItem item : courseList) {
             Order.OrderItem match = null;
 
+            // Find
             for (Order.OrderItem order : orderedItems) {
-                if (item.getCourse().getName().equals(order.getCourse())) {
+                if (item.getCourse().getName().equals(order.getCourse().getName())) {
                     match = order;
                     break;
                 }
             }
 
-            // TODO: Check for equivalence, so that orders may be removed
-            if ((match == null && item.getCount() > 0) || (match != null && match.getCount() < item.getCount())) {
-                int id = CoursesCache.getInstance().getIds().get(item.getCourse());
+            int courseId = CoursesCache.getInstance().getIds().get(item.getCourse());
 
+            if (match != null) {
+                if (match.getCount() == item.getCount()) {
+                    continue;
+                }
+
+                if (match.getCount() < item.getCount()) {
+                    for (int i = 0; i < item.getCount() - match.getCount(); i++) {
+                        newOrders.add(new OrderService.OrderPost(courseId, tableId, 0, ""));
+                    }
+                } else {
+                    deleteOrders.put(courseId, match.getCount() - item.getCount());
+                }
+            } else if (item.getCount() > 0) {
                 for (int i = 0; i < item.getCount(); i++) {
-                    newOrders.add(new OrderService.OrderPost(id, tableId, 0, ""));
+                    newOrders.add(new OrderService.OrderPost(courseId, tableId, 0, ""));
                 }
             }
         }
 
-        if (!newOrders.isEmpty()) {
+        class Counter {
+            private int count = 0;
+            private int goal;
+
+            public Counter(int goal) {
+                this.goal = goal;
+            }
+
+            public void inc() {
+                count++;
+
+                if (count == goal) {
+                    onBackPressed();
+                }
+            }
+        }
+
+        final Counter counter = new Counter(deleteOrders.size() + (newOrders.isEmpty() ? 0 : 1));
+
+        if (!deleteOrders.isEmpty() || !newOrders.isEmpty()) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(getResources().getString(R.string.ip_address))
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            Call<Void> call = retrofit.create(OrderService.class)
-                    .postOrders(newOrders);
+            OrderService service = retrofit.create(OrderService.class);
 
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    onBackPressed();
-                }
+            if (!deleteOrders.isEmpty()) {
+                for (final Map.Entry<Integer, Integer> entry : deleteOrders.entrySet()) {
+                    Call<Void> call = service.deleteOrders(tableId, entry.getKey(), entry.getValue());
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Toast toast = Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT);
-                    Log.w("Failed POST", "Failed to post new orders", t);
-                    toast.show();
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.code() != 200) {
+                                showToast();
+                            } else {
+                                counter.inc();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            showToast();
+                        }
+
+                        void showToast() {
+                            Toast.makeText(CoursesActivity.this, "Kunde inte ta bort rätt med id " + entry.getKey(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-            });
+            }
+
+            if (!newOrders.isEmpty()) {
+                Call<Void> call = retrofit.create(OrderService.class)
+                        .postOrders(newOrders);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() == 200) {
+                            counter.inc();
+                        } else {
+                            Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT).show();
+                        Log.w("Failed POST", "Failed to post new orders", t);
+                    }
+                });
+            }
         } else {
-            Toast toast = Toast.makeText(CoursesActivity.this, "Inget att spara", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(CoursesActivity.this, "Inget att spara", Toast.LENGTH_SHORT).show();
         }
     }
 }
