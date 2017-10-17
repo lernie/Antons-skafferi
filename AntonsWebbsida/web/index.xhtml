@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
+        <ui:composition template="./WEB-INF/template/template.xhtml">
+            <ui:define name="top">
+                top
+            </ui:define>
+            
+            <ui:define name="content">
+                
+                <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #E57373    ;padding-left:10%;">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>                        
+                            </button>
+                            <a class="navbar-brand" href="#"><menuFont>Antons Skafferi</menuFont></a>
+                        </div>
+                        <div>
+                            <div class="collapse navbar-collapse" id="myNavbar">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#section1"><menuFont>Dagens Lunch</menuFont></a></li>
+                                    <li><a href="#section2"><menuFont>Á la carte</menuFont></a></li>
+                                    <li><a href="#section3"><menuFont>Evenemang</menuFont></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>    
+
+        <div id="section1" class="container-fluid">
+            <div id="contentSection1">
+                <div id="weekMenuLeft" style="text-align: center;">
+                    <br/>
+                    <h1>- Dagens Lunch -</h1>
+                    <br/>
+                    <script type="text/javascript">
+                        getTodaySpecials(#{todaySpecial.dayOfTheWeek},"#{todaySpecial.todaysDate}");
+                    </script>
+                </div>
+                <div id="weekMenuRight" style="text-align: center;">
+                    <div id="weekMenuTitle">
+                        <br/>
+                        <br/>
+                        <tf>- Veckans Lunchmeny -</tf>
+                    </div>
+                    
+                    <div id="weekMenuMonday" style="text-align: center;">
+                        <h2>Måndag</h2>
+                    </div>
+
+                    <div id="weekMenuTuesday" style="text-align: center;">
+                        <h2>Tisdag</h2>
+                    </div>
+
+                    <div id="weekMenuWednesday" style="text-align: center;">
+                        <h2>Onsdag</h2>
+                    </div>
+
+                    <div id="weekMenuThursday" style="text-align: center;">
+                        <h2>Torsdag</h2>
+                    </div>
+
+                    <div id="weekMenuFriday" style="text-align: center;">
+                        <h2>Fredag</h2>
+                    </div>
+                    
+                    <script type="text/javascript">
+                        getLunch("#{todaySpecial.currentMon}","#{todaySpecial.currentFri}","#{todaySpecial.currentTue}","#{todaySpecial.currentWed}","#{todaySpecial.currentThu}");
+                    </script>
+                </div>
+            </div>
+        </div>
+        
+        <div id="section2" class="container-fluid">
+            <div id="contentSection2" style="text-align: center;">
+                <h1> Á la carte </h1>
+            </div>
+        </div>        
+                
+        <div id="section3" class="container-fluid">
+            <div id="contentSection3">
+                
+            </div>
+        </div>
+                
+        <div id="section41" class="container-fluid">
+            <div id="contentSection4">
+                
+            </div>
+        </div>
+                
+        <div id="section42" class="container-fluid">
+            <div id="contentSection5">
+                
+            </div>
+        </div>
+        <div id="section5" class="container-fluid">
+
+        </div>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+       
+        </ui:composition>
+
+    </body>
+</html>
