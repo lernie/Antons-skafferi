@@ -5,6 +5,7 @@ import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
 import se.miun.antonsskafferi.dao.FoodOrderDao;
+import se.miun.antonsskafferi.dao.jdbc.EmployeeDaoJdbc;
 import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
 
 import javax.print.attribute.standard.Media;
@@ -48,6 +49,7 @@ public class ApplicationRequests {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addOrders(List<FoodOrder> foList) {
         FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+
         if (dao.add(foList)){
             return Response.ok().build();
         } else {
@@ -134,13 +136,15 @@ public class ApplicationRequests {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getEmployees(){
-        return Response.ok(ApplicationDB.getAllEmployees()).build();
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+        return Response.ok(dao.getAll()).build();
     }
 
     @Path("/employee")
     @POST
     public Response addEmployee(Employee emp) {
-        if (ApplicationDB.addEmployee(emp)){
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+        if (dao.insert(emp)){
             return Response.ok().build();
         }
         /*
@@ -155,8 +159,9 @@ public class ApplicationRequests {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateEmployee(Employee emp, @PathParam("id") int id) {
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
         emp.setId(id);
-        if (ApplicationDB.updateEmployee(emp)) {
+        if (dao.update(emp)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
