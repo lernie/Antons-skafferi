@@ -4,7 +4,13 @@ import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
+
 import se.miun.antonsskafferi.Security.AuthenticationProvider;
+
+import se.miun.antonsskafferi.dao.FoodOrderDao;
+import se.miun.antonsskafferi.dao.jdbc.EmployeeDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
+
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
@@ -17,6 +23,7 @@ import java.util.List;
 
 @Path("/api")
 public class ApplicationRequests {
+
     @Path("/foodorder")
     @GET
     @Produces(MediaType.APPLICATION_JSON)  //http://37.139.13.250:8080/api/orders?status=1
@@ -38,41 +45,78 @@ public class ApplicationRequests {
         foParam.setCreated(created);
         foParam.setDelivered(delivered);
 
-        return Response.ok(ApplicationDB.getAllFoodOrders(foParam)).build();
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        return Response.ok(dao.getAll(foParam)).build();
     }
 
     @Path("/foodorder")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addOrders(List<FoodOrder> foList) {
-        ApplicationDB.addFoodOrders(foList);
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
 
-        return Response.ok().build();
+        if (dao.add(foList)){
+            return Response.ok().build();
+        } else {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Failed to add food orders. " +
+                            "Not all food orders were valid. 'foodId', and 'diningTableId'" +
+                            " is required.")).build();
+        }
     }
+
+
 
     @Path("/foodorder/{id}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
+    //@Produces(MediaType.APPLICATION_JSON) // ttemporary
     public Response updateFoodOrder(@PathParam("id") int id, FoodOrder foParam) {
         foParam.setId(id);
-        if (!ApplicationDB.checkIfFoodOrderExist(id)) {
-            return Response.status(400).entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
-        } else if (!ApplicationDB.updateFoodOrder(foParam)) {
-            return Response.status(400).entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
+        System.out.println(foParam.toString());
+
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+
+        if (!dao.checkIfExist(id)) {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Food order with specified id doesn't exist.")).build();
+        } else if (!dao.update(foParam)) {
+            return Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "Failed to update food order with specified id")).build();
         } else {
             return Response.ok().build();
         }
+        //return Response.ok(foParam.toString()).build();
     }
 
     @DELETE
     @Path("/foodorder/{id}")
     public Response deleteFoodOrder(@PathParam("id") int id) {
-        if (ApplicationDB.deleteFoodOrder(id)) {
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+        if (dao.delete(id)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
         }
+    }
+
+    @DELETE
+    @Path("/foodorder")
+    public Response deleteFoodOrder2(@QueryParam("foodId") int foodId,
+                                     @QueryParam("table") int diningTableId,
+                                     @QueryParam("count") int count) {
+
+        FoodOrderDaoJdbc dao = new FoodOrderDaoJdbc();
+
+        if (!dao.delete(foodId, diningTableId, count)) {
+            Response.status(400)
+                    .type(MediaType.APPLICATION_JSON)
+                    .entity(new ErrorResponse(400, "failed")).build();
+        }
+        return Response.ok().build();
     }
 
 
@@ -91,7 +135,10 @@ public class ApplicationRequests {
     @Path("/employee")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEmployees(){ return Response.ok(ApplicationDB.getAllEmployees()).build(); }
+    public Response getEmployees(){
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+        return Response.ok(dao.getAll()).build();
+    }
 
     //Add new employee user to the database
     @Path("/employee")
@@ -117,8 +164,9 @@ public class ApplicationRequests {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateEmployee(Employee emp, @PathParam("id") int id) {
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
         emp.setId(id);
-        if (ApplicationDB.updateEmployee(emp)) {
+        if (dao.update(emp)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
@@ -141,4 +189,4 @@ public class ApplicationRequests {
     public Response getOrderStatus() {
         return Response.ok(ApplicationDB.getAllOrderStatus()).build();
     }
- }
+}

@@ -3,8 +3,8 @@ package se.miun.antonsskafferi.Models;
 public class OpeningHour {
     private int id; //PK
     private String day;
-    private short openingTime;
-    private short closingTime;
+    private short openingTime = -1;
+    private short closingTime = -1;
 
     public int getId() {
         return id;

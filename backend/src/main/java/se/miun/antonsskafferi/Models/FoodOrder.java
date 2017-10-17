@@ -1,13 +1,19 @@
 package se.miun.antonsskafferi.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.ws.rs.DefaultValue;
 import java.sql.Timestamp;
 
 public class FoodOrder {
     private int id; //PK
     private String modification;
-    private int foodId; //FK
-    private int diningTableId; //FK
-    private int orderStatusId; //FK
+
+    private int foodId = -1; //FK
+
+    private int diningTableId = -1; //FK
+
+    private int orderStatusId = -1; //FK
     private Timestamp ready;
     private Timestamp created;
     private Timestamp delivered;
@@ -73,5 +79,16 @@ public class FoodOrder {
 
     public void setDiningTableId(int diningTableId) {
         this.diningTableId = diningTableId;
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + id + " modification: " + modification + " foodId: " + foodId + " diningTableId: " + diningTableId +
+                " orderStatusId: " + orderStatusId + " ready: " + ready + " created: " + created + " deliered: " + delivered;
+    }
+
+    @JsonIgnore
+    public boolean isValid() {
+        return foodId != -1 && diningTableId != -1;
     }
 }

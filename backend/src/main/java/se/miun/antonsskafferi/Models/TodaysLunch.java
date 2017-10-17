@@ -5,6 +5,7 @@ import java.sql.Date;
 public class TodaysLunch {
     private int foodId; //FK PK
     private Date todaysDate; //PK
+    private int price;
 
     public int getFoodId() {
         return foodId;
@@ -20,5 +21,13 @@ public class TodaysLunch {
 
     public void setTodaysDate(Date todaysDate) {
         this.todaysDate = todaysDate;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
