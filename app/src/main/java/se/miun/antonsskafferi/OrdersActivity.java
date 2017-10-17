@@ -30,6 +30,8 @@ public class OrdersActivity extends BackButtonActivity {
     private OrderService orderService;
     private HashMap<Course, Integer> specItemIds;
 
+    private OrderConfirmPopup orderConfirmPopup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class OrdersActivity extends BackButtonActivity {
         orderItems = new ArrayList<Order.OrderItem>();
         adapter = new TableOrdersAdapter(this, orderItems);
 
-        ((ListView) findViewById(R.id.orderList)).setAdapter(adapter);
+        ((ListView) findViewById(R.id.order_list)).setAdapter(adapter);
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
@@ -131,8 +133,16 @@ public class OrdersActivity extends BackButtonActivity {
         startActivity(intent);*/
     }
 
+    public void showConfirmPopup(View view){
+        orderConfirmPopup = new OrderConfirmPopup(this);
+    }
+
+    public void dissmissConfirmPopup(View view){
+        orderConfirmPopup.remove();
+    }
+
     public void removeSpecOrder(View view) {
-        ListView listView = (ListView) findViewById(R.id.orderList);
+        ListView listView = (ListView) findViewById(R.id.order_list);
         final int i = listView.getPositionForView((View) view.getParent());
 
         Order.OrderItem item = orderItems.get(i);
