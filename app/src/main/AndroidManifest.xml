@@ -14,23 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
+        <activity android:name=".TablesActivity"
+            android:label= "Antons Skafferi">
+            <intent-filter>
+                <action
+                    android:name ="android.intent.action.MAIN"/>
+                <category
+                    android:name ="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:label="Logga In" >
-        <intent-filter>
-            <action
-                android:name ="android.intent.action.MAIN"/>
-            <category
-                android:name ="android.intent.category.LAUNCHER"/>
-        </intent-filter>>
-        </activity>
-        <activity android:name=".TablesActivity" >
-            <intent-filter>
-            <action
-                android:name="se.miun.antonsskafferi.TablesActivity"/>
-            <category
-                android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".OrdersActivity"
