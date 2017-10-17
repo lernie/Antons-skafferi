@@ -1,24 +1,23 @@
-package se.miun.antonsskafferi.Database;
+package se.miun.antonsskafferi.dao.jdbc;
 
+import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.Ingredient;
+import se.miun.antonsskafferi.Models.Measurement;
+import se.miun.antonsskafferi.dao.IngredientDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 
-public class IngredientDB {
-    private static String tableName = "ingredient";
-    private static Statement stmt = null;
-
-
-
-    public static java.util.List<Ingredient> getAllIngredients(int measurementId) {
+public class IngredientDaoJdbc implements IngredientDao {
+    @Override
+    public List<Ingredient> getAll(int measurementId) {
         java.util.List<Ingredient> ingredients = new java.util.ArrayList();
 
         try
         {
-            String sqlQuery = "select Id, Name, measurementId from " + tableName;
+            String sqlQuery = "SELECT Id, Name, measurementId FROM Ingredient";
             if (measurementId >= 0) {
                 sqlQuery += " WHERE measurementId = ?";
             }
@@ -50,13 +49,12 @@ public class IngredientDB {
         return ingredients;
     }
 
-
-    public static boolean insertIngredient(Ingredient ingredient)
-    {
+    @Override
+    public boolean insert(Ingredient ingredient) {
         boolean status = true;
         try
         {
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name, measurementId) VALUES (?, ?)");
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO Ingredient (name, measurementId) VALUES (?, ?)");
             ps.setString(1, ingredient.getName());
             ps.setInt(2, ingredient.getMeasurementId());
             ps.execute();

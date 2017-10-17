@@ -1,24 +1,25 @@
-package se.miun.antonsskafferi.Database;
+package se.miun.antonsskafferi.dao.jdbc;
 
+import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.Measurement;
+import se.miun.antonsskafferi.dao.MeasurementDao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
-public class MeasurementDB {
+public class MeasurementDaoJdbc implements MeasurementDao {
 
-    private static String tableName = "measurement";
-    private static Statement stmt = null;
-
-    public static java.util.List<Measurement> getAllMeasurements() {
+    @Override
+    public List<Measurement> getAll() {
         java.util.List<Measurement> measurements = new java.util.ArrayList();
 
         try
         {
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + tableName);
+            Statement stmt = ConnectionSetup.conn.createStatement();
+            ResultSet results = stmt.executeQuery("SELECT Id, Name, Prefix FROM Measurement");
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next())
             {
@@ -39,13 +40,12 @@ public class MeasurementDB {
         return measurements;
     }
 
-
-    public static boolean insertMeasurement(Measurement measurement)
-    {
+    @Override
+    public boolean insert(Measurement measurement) {
         boolean status = true;
         try
         {
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO " + tableName + "(name, prefix) VALUES (?, ?)");
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO Measurement(name, prefix) VALUES (?, ?)");
             ps.setString(1, measurement.getName());
             ps.setString(2, measurement.getPrefix());
 
@@ -60,7 +60,8 @@ public class MeasurementDB {
         return status;
     }
 
-    public static boolean delMeasurement(int id) {
+    @Override
+    public boolean delete(int id) {
         boolean status = true;
 
         try {
@@ -75,5 +76,10 @@ public class MeasurementDB {
         }
 
         return status;
+    }
+
+    @Override
+    public boolean update(Measurement measurement) {
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi.Database;
 
+import javassist.NotFoundException;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.DiningTable;
 import se.miun.antonsskafferi.Models.FoodOrder;
@@ -17,57 +18,8 @@ public class ApplicationDB {
     private static String foodOrderTableName = "foodorder";
     private static Statement stmt = null;
 
-    public static java.util.List<Employee> getAllEmployees() {
-        java.util.List<Employee> employees = new java.util.ArrayList();
 
-        try {
-            stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select ID,FIRSTNAME,LASTNAME,POSITIONID,USERNAME,PASSWORD,EMAIL,STARTDATE from " + employeeTableName);
 
-            while (results.next()) {
-                Employee tempEmployee = new Employee();
-                tempEmployee.setId(results.getInt(1));
-                tempEmployee.setFirstName(results.getString(2));
-                tempEmployee.setLastName(results.getString(3));
-                tempEmployee.setPositionId(results.getInt(4));
-                tempEmployee.setUserName(results.getString(5));
-                tempEmployee.setPassword(results.getString(6));
-                tempEmployee.setEmail(results.getString(7));
-                tempEmployee.setStartDate(results.getDate(8));
-
-                employees.add(tempEmployee);
-            }
-            results.close();
-            stmt.close();
-        } catch (SQLException sqlExcept) {
-            sqlExcept.printStackTrace();
-        }
-        return employees;
-    }
-
-    public static boolean addEmployee(Employee emp) {
-        boolean status = true;
-
-        try {
-            String sqlQuery = "INSERT INTO Employee (FIRSTNAME, LASTNAME, POSITIONID, USERNAME, PASSWORD, EMAIL) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
-            ps.setString(1, emp.getFirstName());
-            ps.setString(2, emp.getLastName());
-            ps.setInt(3, emp.getPositionId());
-            ps.setString(4, emp.getUserName());
-            ps.setString(5, emp.getPassword());
-            ps.setString(6, emp.getEmail());
-
-            ps.execute();
-            ConnectionSetup.conn.commit();
-        } catch (SQLException sqlExcept) {
-            //sqlExcept.printStackTrace();
-            status = false;
-        }
-
-        return status;
-    }
 
     public static String validateEmployee(Employee emp) {
         try {

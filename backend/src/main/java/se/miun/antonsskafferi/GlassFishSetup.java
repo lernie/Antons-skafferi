@@ -1,14 +1,12 @@
 package se.miun.antonsskafferi;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
-import se.miun.antonsskafferi.HTTP.ApplicationRequests;
-import se.miun.antonsskafferi.HTTP.Requests;
-import se.miun.antonsskafferi.HTTP.InventoryRequests;
-import se.miun.antonsskafferi.HTTP.UserRequests;
-import se.miun.antonsskafferi.HTTP.WebsiteRequests;
+import se.miun.antonsskafferi.HTTP.*;
 import se.miun.antonsskafferi.Models.Utility.JacksonObjectMapperProvider;
 import se.miun.antonsskafferi.Security.AuthenticationFilter;
 import se.miun.antonsskafferi.Test.*;
+import se.miun.antonsskafferi.resource.FileResource;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -20,7 +18,16 @@ import java.util.Set;
 public class GlassFishSetup extends Application {
     //The method returns a non-empty collection with classes, that must be included in the published JAX-RS application
 
-
+//    @Override
+//    public Map<String, Object> getProperties() {
+////        Map<String, Object> props = new HashMap<>();
+////        props.put("jersey.config.server.provider.classnames",
+////                "org.glassfish.jersey.media.multipart.MultiPartFeature");
+//
+//        super.getProperties().put("jersey.config.server.provider.classnames",
+//                "org.glassfish.jersey.media.multipart.MultiPartFeature");
+//        return super.getProperties();
+//    }
     //http://jmchung.github.io/blog/2014/06/18/how-to-customise-the-jackson-json-objectmapper-in-java-ee-enterprise-application/
     @Override
     public Set<Class<?>> getClasses() {
@@ -42,7 +49,8 @@ public class GlassFishSetup extends Application {
         h.add(JacksonObjectMapperProvider.class);
 
         h.add(AuthenticationFilter.class);
-      
+        h.add(FileResource.class);
+
         return h;
     }
 }

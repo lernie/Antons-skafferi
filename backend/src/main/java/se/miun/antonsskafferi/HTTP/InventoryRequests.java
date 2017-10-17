@@ -6,12 +6,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.sun.istack.internal.logging.Logger;
-import se.miun.antonsskafferi.Database.IngredientDB;
+
 import se.miun.antonsskafferi.Database.InventoryDB;
-import se.miun.antonsskafferi.Database.MeasurementDB;
+
 import se.miun.antonsskafferi.Models.*;
 import se.miun.antonsskafferi.dao.FoodDao;
+import se.miun.antonsskafferi.dao.MeasurementDao;
 import se.miun.antonsskafferi.dao.jdbc.FoodDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.IngredientDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.MeasurementDaoJdbc;
 
 
 @Path("/api")
@@ -21,14 +24,16 @@ public class InventoryRequests {
     @Path("/measurement")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMeasurements() {
-        return Response.ok(MeasurementDB.getAllMeasurements()).build();
+        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
+        return Response.ok(dao.getAll()).build();
     }
 
     @POST
     @Path("/measurement")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response add(Measurement measurement) {
-        MeasurementDB.insertMeasurement(measurement);
+        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
+        dao.insert(measurement);
         return Response.ok().build();
     }
 
@@ -36,7 +41,8 @@ public class InventoryRequests {
     @DELETE
     @Path("/measurement/{id}")
     public Response delMeasurement(@PathParam("id") int id) {
-        if (MeasurementDB.delMeasurement(id)) {
+        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
+        if (dao.delete(id)) {
             return Response.ok().build();
         }
         return Response.status(500).build();
@@ -46,14 +52,16 @@ public class InventoryRequests {
     @Path("/ingredient")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllIngredients(@DefaultValue("-1")@QueryParam("measurementId") int measurementId) {
-        return Response.ok(IngredientDB.getAllIngredients(measurementId)).build();
+        IngredientDaoJdbc dao = new IngredientDaoJdbc();
+        return Response.ok(dao.getAll(measurementId)).build();
     }
 
     @POST
     @Path("/ingredient")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addIngredient(Ingredient ingredient) {
-        IngredientDB.insertIngredient(ingredient);
+        IngredientDaoJdbc dao = new IngredientDaoJdbc();
+        dao.insert(ingredient);
         return Response.ok().build();
     }
 
