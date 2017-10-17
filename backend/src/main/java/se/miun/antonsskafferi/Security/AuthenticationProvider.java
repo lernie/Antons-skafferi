@@ -5,9 +5,46 @@ import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import io.jsonwebtoken.*;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Date;
 
 public class AuthenticationProvider {
+    //Add salt
+    public static byte[] getSalt() throws NoSuchAlgorithmException
+    {
+        // get random number
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        // create array of salt
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
+
+    public static String hashPassword(String passwordToHash, byte[] salt) {
+        String generatedPassword = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt);
+            byte[] bytes = md.digest(passwordToHash.getBytes());
+            StringBuilder sb = new StringBuilder();
+
+            for(int i=0; i< bytes.length ;i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+
+        return generatedPassword;
+    }
 
     //Sample method to construct a JWT
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {

@@ -4,15 +4,20 @@ import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
+
+import se.miun.antonsskafferi.Security.AuthenticationProvider;
+
 import se.miun.antonsskafferi.dao.FoodOrderDao;
 import se.miun.antonsskafferi.dao.jdbc.EmployeeDaoJdbc;
 import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
+
 
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -119,17 +124,12 @@ public class ApplicationRequests {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(Employee emp) {
-
-        if (emp.isValidEmail()) {
-            String jwt_token =  ApplicationDB.validateEmployee(emp);
-
-            if (jwt_token == "error" || jwt_token == "No user found") {
-                return Response.status(500).entity(new ErrorResponse(409, jwt_token)).build();
-            }
+        try {
+            String jwt_token = ApplicationDB.validateEmployee(emp);
             return Response.ok(jwt_token).build();
+        } catch(Exception e) {
+            return Response.status(500).entity(e.getMessage()).build();
         }
-
-        return Response.ok().build();
     }
 
     @Path("/employee")
@@ -140,13 +140,18 @@ public class ApplicationRequests {
         return Response.ok(dao.getAll()).build();
     }
 
+    //Add new employee user to the database
     @Path("/employee")
     @POST
     public Response addEmployee(Employee emp) {
-        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
-        if (dao.insert(emp)){
-            return Response.ok().build();
+        try {
+            if (ApplicationDB.addEmployee(emp)){
+                return Response.ok().build();
+            }
+        } catch(Exception e) {
+            return Response.status(500).entity(e.getMessage()).build();
         }
+
         /*
          * https://docs.microsoft.com/en-us/rest/api/storageservices/common-rest-api-error-codes
          * http://www.restapitutorial.com/lessons/httpmethods.html
