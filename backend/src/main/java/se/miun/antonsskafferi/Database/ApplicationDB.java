@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
-
 public class ApplicationDB {
     private static String employeeTableName = "employee";
     private static String diningTableTableName = "diningtable";
@@ -49,7 +47,7 @@ public class ApplicationDB {
         return employees;
     }
 
-    public static boolean addEmployee(Employee emp) throws NoSuchAlgorithmException, SQLException {
+    public static boolean addEmployee(Employee emp) throws ApplicationException {
         boolean status = true;
 
         try {
@@ -71,16 +69,16 @@ public class ApplicationDB {
                 ps.execute();
                 ConnectionSetup.conn.commit();
             } catch(NoSuchAlgorithmException e) {
-                throw e;
+                throw new ApplicationException(e.getMessage());
             }
         } catch (SQLException sqlExcept) {
-            throw sqlExcept;
+            throw new ApplicationException(sqlExcept.getMessage());
         }
 
         return status;
     }
 
-    public static String validateEmployee(Employee emp) {
+    public static String validateEmployee(Employee emp) throws ApplicationException {
         try {
             String sqlQuery = "SELECT FIRSTNAME, LASTNAME, EMAIL, ID, SALTKEY, PASSWORD FROM EMPLOYEE WHERE email = ?";
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
@@ -97,22 +95,22 @@ public class ApplicationDB {
                 user.setLastName(result.getString(2));
                 user.setEmail(result.getString(3));
                 user.setId(result.getInt(4));
-                user.setSaltKey(result.getString(5).getBytes());
+                user.setSaltKey(result.getBytes(5));
                 user.setPassword(result.getString(6));
 
                 String hashPassword = AuthenticationProvider.hashPassword(emp.getPassword(), user.getSaltKey());
 
-                if (user.getPassword() == hashPassword) {
+                if (user.getPassword().equals(hashPassword)) {
                     jwt_token = AuthenticationProvider.createJWT(Integer.toString(user.getId()), user.getFirstName() + " " + user.getLastName(), user.getEmail(), 10000000);
                     return jwt_token;
                 } else {
-                    return "TRY AGAIN BITCH";
+                    throw new ApplicationException("Email or password is incorrect");
                 }
             }
 
-            return "No user found";
+            throw new ApplicationException("User was not found");
         }catch(SQLException ex) {
-            return "error";
+            throw new ApplicationException(ex.getMessage());
         }
     }
 

@@ -80,17 +80,12 @@ public class ApplicationRequests {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(Employee emp) {
-
-        if (emp.isValidEmail()) {
-           String jwt_token =  ApplicationDB.validateEmployee(emp);
-
-           if (jwt_token == "error" || jwt_token == "No user found") {
-               return Response.status(500).entity(new ErrorResponse(500, jwt_token)).build();
-           }
-           return Response.ok(jwt_token).build();
+        try {
+            String jwt_token = ApplicationDB.validateEmployee(emp);
+            return Response.ok(jwt_token).build();
+        } catch(Exception e) {
+            return Response.status(500).entity(e.getMessage()).build();
         }
-
-        return Response.ok().build();
     }
 
     @Path("/employee")
@@ -107,7 +102,7 @@ public class ApplicationRequests {
                 return Response.ok().build();
             }
         } catch(Exception e) {
-            return Response.status(500).entity(new ErrorResponse(500, "Something went wrong with encryption")).build();
+            return Response.status(500).entity(e.getMessage()).build();
         }
 
         /*
