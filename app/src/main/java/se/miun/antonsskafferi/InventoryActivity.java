@@ -69,7 +69,8 @@ public class InventoryActivity extends NavigationActivity {
                 }
 
                 for (IngredientServiceItem item : response.body()) {
-                    Ingredient ingredient = new Ingredient(item.getName(), 1, UnitCache.getInstance().getUnits().get(item.getMeasurementId()));
+                    Ingredient ingredient = new Ingredient(item.getName(), 1,
+                            UnitCache.getInstance().getUnits().get(item.getMeasurementId()));
                     inventoryList.add(ingredient);
                 }
 
@@ -121,18 +122,17 @@ public class InventoryActivity extends NavigationActivity {
     public void removePopupOnClick(View view){
         ingredientPopupWindow.remove();
     }
+
     public void saveChangeInventory(View v){
         Toast.makeText(InventoryActivity.this,
                 "Ändring sparad", Toast.LENGTH_LONG).show();
     }
+
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String item = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-    }
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
     }
 }

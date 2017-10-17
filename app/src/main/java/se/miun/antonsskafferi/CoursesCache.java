@@ -62,7 +62,7 @@ public class CoursesCache {
                 }
 
                 for (CoursesServiceItem item : response.body()) {
-                    Course course = new Course (item.getName(), item.getType(), item.getPrice(), item.getTimeToCook());
+                    Course course = new Course(item.getName(), item.getType(), item.getPrice(), item.getTimeToCook());
                     courses.put(item.getId(), course);
                     ids.put(course, item.getId());
                 }

@@ -64,54 +64,54 @@ public class OrdersActivity extends BackButtonActivity {
         cache.update(new CoursesCache.UpdateCallback() {
             @Override
             public void onSuccess() {
-            call.enqueue(new Callback<List<OrderServiceItem>>() {
-                @Override
-                public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+                call.enqueue(new Callback<List<OrderServiceItem>>() {
+                    @Override
+                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                    if (response == null || response.body() == null) {
-                        orderItems.clear();
-                        adapter.notifyDataSetChanged();
-                        return;
-                    }
+                        if (response == null || response.body() == null) {
+                            orderItems.clear();
+                            adapter.notifyDataSetChanged();
+                            return;
+                        }
 
-                    HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
 
-                    for (OrderServiceItem item : response.body()) {
-                        Course course = cache.getCourses().get(item.getFoodId());
+                        for (OrderServiceItem item : response.body()) {
+                            Course course = cache.getCourses().get(item.getFoodId());
 
-                        if (item.isSpecial()) {
-                            orderItems.add(new Order.OrderItem(course, item.getModification()));
-                            specItemIds.put(course, item.orderId);
-                        } else {
-                            if (nonSpecCount.containsKey(item.getFoodId())) {
-                                nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                            if (item.isSpecial()) {
+                                orderItems.add(new Order.OrderItem(course, item.getModification()));
+                                specItemIds.put(course, item.orderId);
                             } else {
-                                nonSpecCount.put(item.getFoodId(), 1);
+                                if (nonSpecCount.containsKey(item.getFoodId())) {
+                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                                } else {
+                                    nonSpecCount.put(item.getFoodId(), 1);
+                                }
                             }
                         }
-                    }
 
-                    for (int key : nonSpecCount.keySet()) {
-                        if (nonSpecCount.containsKey(key)) {
-                            orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
-                                    nonSpecCount.get(key)));
+                        for (int key : nonSpecCount.keySet()) {
+                            if (nonSpecCount.containsKey(key)) {
+                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
+                                        nonSpecCount.get(key)));
+                            }
                         }
+
+                        adapter.notifyDataSetChanged();
                     }
 
-                    adapter.notifyDataSetChanged();
-                }
+                    @Override
+                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                        Toast.makeText(
+                                OrdersActivity.this,
+                                "Kunde inte hämta beställningar",
+                                Toast.LENGTH_SHORT
+                        ).show();
 
-                @Override
-                public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                    Toast.makeText(
-                            OrdersActivity.this,
-                            "Kunde inte hämta beställningar",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-                    adapter.notifyDataSetChanged();
-                }
-            });
+                        adapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
     }

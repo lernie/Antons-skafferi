@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -33,22 +34,14 @@ public interface OrderService {
     @PUT("foodorder/{orderId}")
     Call<Void> updateOrder(@Path("orderId") int orderId, @Body OrderUpdate order);
 
-    class OrderUpdate {
-        //String modification, ready, delivered;
-        int orderStatusId;//, foodId, diningTableId;
+    @DELETE("foodorder")
+    Call<Void> deleteOrders(@Query("table") int diningTableId, @Query("foodId") int foodId, @Query("count") int count);
 
-        public OrderUpdate(
-//                int foodId,
-//                int tableId,
-                int statusId
-//                String modification
-        ) {
-//            this.foodId = foodId;
-//            this.diningTableId = tableId;
+    class OrderUpdate {
+        int orderStatusId;
+
+        public OrderUpdate(int statusId) {
             this.orderStatusId = statusId;
-//            this.modification = modification;
-//            this.ready = null;
-//            this.delivered = null;
         }
     }
 

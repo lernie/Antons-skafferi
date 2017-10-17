@@ -29,54 +29,49 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        View row = convertView;
+        View row = null;
         ListItem listItem = null;
 
         final CourseListItem item = list.get(position);
 
-        if (row == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            row = inflater.inflate(R.layout.courses_list_item, parent, false);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        row = inflater.inflate(R.layout.courses_list_item, parent, false);
 
-            ImageButton addBtn = (ImageButton) row.findViewById(R.id.courses_item_add_button);
-            ImageButton subBtn = (ImageButton) row.findViewById(R.id.courses_item_sub_button);
+        ImageButton addBtn = (ImageButton) row.findViewById(R.id.courses_item_add_button);
+        ImageButton subBtn = (ImageButton) row.findViewById(R.id.courses_item_sub_button);
 
-            addBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    item.setCount(item.getCount() + 1);
-                    ((TextView) ((View) v.getParent()).findViewById(R.id.courses_item_quantity))
-                            .setText(Integer.toString(item.getCount()));
-                }
-            });
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                item.setCount(item.getCount() + 1);
+                ((TextView) ((View) v.getParent()).findViewById(R.id.courses_item_quantity))
+                        .setText(Integer.toString(item.getCount()));
+            }
+        });
 
-            subBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (item.getCount() > 0) {
-                        item.setCount(item.getCount() - 1);
+        subBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (item.getCount() > 0) {
+                    item.setCount(item.getCount() - 1);
 
-                        TextView countView = ((TextView) ((View) v.getParent())
-                                .findViewById(R.id.courses_item_quantity));
+                    TextView countView = ((TextView) ((View) v.getParent())
+                            .findViewById(R.id.courses_item_quantity));
 
-                        if (item.getCount() == 0) {
-                            countView.setText("");
-                        } else {
-                            countView.setText(Integer.toString(item.getCount()));
-                        }
+                    if (item.getCount() == 0) {
+                        countView.setText("");
+                    } else {
+                        countView.setText(Integer.toString(item.getCount()));
                     }
                 }
-            });
+            }
+        });
 
-            listItem = new ListItem((TextView) row.findViewById(R.id.courses_item_quantity),
-                    (TextView) row.findViewById(R.id.courses_item_course_name),
-                    addBtn,
-                    subBtn);
+        listItem = new ListItem((TextView) row.findViewById(R.id.courses_item_quantity),
+                (TextView) row.findViewById(R.id.courses_item_course_name),
+                addBtn,
+                subBtn);
 
-            row.setTag(listItem);
-        } else {
-            listItem = (ListItem) row.getTag();
-        }
 
         CourseListItem courses = list.get(position);
         listItem.courseView.setText(courses.getCourse().getName());
@@ -84,6 +79,9 @@ public class CourseAdapter extends ArrayAdapter<CourseListItem> {
         if (item.getCount() > 0) {
             ((TextView) row.findViewById(R.id.courses_item_quantity))
                     .setText(Integer.toString(item.getCount()));
+        } else {
+            ((TextView) row.findViewById(R.id.courses_item_quantity))
+                    .setText("");
         }
 
         return row;
