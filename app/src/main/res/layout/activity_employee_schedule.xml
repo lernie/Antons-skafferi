@@ -1,129 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context="se.miun.antonsskafferi.EmployeeScheduleActivity"
-    android:orientation="horizontal"
-    android:weightSum="7">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <LinearLayout
-        android:id="@+id/schedule_monday"
-        android:layout_width="0dp"
+        android:id="@+id/schedule_days"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:weightSum="7">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Måndag"
-            android:textSize="28sp"
+            android:text="Pass"
+            android:textSize="22sp"
+            android:layout_weight="1"
             android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mån"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tis"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ons"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tors"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fre"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lör"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/schedule_tuesday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        android:layout_below="@id/schedule_days">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/shift_time"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="11:00-    14:00"
+                android:layout_weight="1"
+                android:textColor="@color/colorBlack"
+                android:textSize="22sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="16:00-    22:00           /24:00"
+                android:textColor="@color/colorBlack"
+                android:textSize="22sp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/schedule_monday"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Tisdag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_tuesday"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="hej"
-            android:textSize="40sp"
-            android:textColor="@color/colorBlack"/>
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_wednseday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_thursday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_friday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_saturday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/schedule_wednseday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Onsdag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/schedule_thursday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Torsdag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/schedule_friday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fredag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/schedule_saturdau"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lördag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/schedule_sunday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Söndag"
-            android:textSize="28sp"
-            android:textColor="@color/colorBlack"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
