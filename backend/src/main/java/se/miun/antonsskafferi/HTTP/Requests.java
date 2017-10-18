@@ -1,9 +1,10 @@
 package se.miun.antonsskafferi.HTTP;
 
-import se.miun.antonsskafferi.Database.ApplicationDB;
+
 import se.miun.antonsskafferi.Models.Booking;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.dao.jdbc.BookingDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.DiningTableDaoJdbc;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +17,8 @@ public class Requests {
     @Path("/diningtable")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDiningTables(){
-        return Response.ok(ApplicationDB.getAllDiningTables()).build();
+        DiningTableDaoJdbc dao = new DiningTableDaoJdbc();
+        return Response.ok(dao.getAll()).build();
     }
 
     @GET
@@ -42,7 +44,7 @@ public class Requests {
                     .build();
         }
 
-        if (!bookingDaoJdbc.add(bk)) {
+        if (!bookingDaoJdbc.insert(bk)) {
             return Response
                     .status(400)
                     .type(MediaType.APPLICATION_JSON)

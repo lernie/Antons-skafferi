@@ -37,7 +37,7 @@ public class BookingDaoJdbc implements BookingDao {
     }
 
     @Override
-    public boolean add(Booking bkParam) {
+    public boolean insert(Booking bkParam) {
         boolean status = true;
         try {
             String sqlQuery = "INSERT INTO BOOKING(LASTNAME, NUMBEROFGUESTS, BOOKINGDATE, BOOKINGTIME, PHONENUMBER) VALUES (?, ?, ?, ?, ?)";
@@ -81,5 +81,15 @@ public class BookingDaoJdbc implements BookingDao {
             status = false;
         }
         return status;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Booking booking) {
+        return false;
     }
 }
