@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi.HTTP;
 
+import com.sun.org.apache.regexp.internal.RE;
 import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Models.Booking;
 import se.miun.antonsskafferi.Models.ErrorResponse;
@@ -47,6 +48,25 @@ public class Requests {
                     .status(400)
                     .type(MediaType.APPLICATION_JSON)
                     .entity(new ErrorResponse(400, "Error adding booking."))
+                    .build();
+        }
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/booking/{id}")
+    public Response deleteBooking(
+        @PathParam("id") int id
+    ){
+        BookingDaoJdbc bookingDaoJdbc = new BookingDaoJdbc();
+        if(!bookingDaoJdbc.exists(id)){
+            return Response
+                    .status(404)
+                    .build();
+        }
+        if(!bookingDaoJdbc.delete(id)){
+            return Response
+                    .status(400)
                     .build();
         }
         return Response.ok().build();
