@@ -55,7 +55,7 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
 
             TextView textView = (TextView) courseView.findViewById(R.id.course_name);
 
-            textView.setText(item.getCourse());
+            textView.setText(item.getCourse().getName());
             linLayout.addView(courseView);
         }
 

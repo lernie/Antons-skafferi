@@ -27,7 +27,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Email"
+        android:text="email@email.com"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:ems="10"
-        android:hint="Lösenord"
+        android:text="asd123"
         android:inputType="textPassword" />
 
     <Button
@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:text="Logga in"
         android:layout_marginTop="21dp"
+        android:onClick="doLogin"
         android:layout_below="@+id/password_login"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

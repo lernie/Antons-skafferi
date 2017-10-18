@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/colorGrey">
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="22sp"
-        android:text="Lägg till ingrediens."/>
+        android:text="Lägg till ingrediens:"/>
 
     <EditText
         android:id="@+id/popup_add_ingredient"
@@ -20,6 +21,7 @@
         android:layout_marginTop="20dp"
         android:layout_below="@+id/ingredient_popup_title"
         android:layout_alignParentLeft="true"
+        android:textSize="20dp"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -34,18 +36,20 @@
 
     <Spinner
         android:id="@+id/popup_spinner_unit"
-        android:spinnerMode="dialog"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/popup_unit_title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/popup_unit_title"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dialog" />
 
     <EditText
         android:id="@+id/popup_add_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Antal"
+        android:textSize="20dp"
         android:layout_below="@+id/popup_spinner_unit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

@@ -42,11 +42,10 @@ public class TableOrdersAdapter extends ArrayAdapter<Order.OrderItem>{
             TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
             quantity.setText(Integer.toString(item.getCount()) + "x");
         }
+
         TextView courseName =  (TextView) rowView.findViewById(R.id.order);
 
-
-        courseName.setText(item.getCourse());
-
+        courseName.setText(item.getCourse().getName());
 
         return rowView;
     }

@@ -1,5 +1,7 @@
 package se.miun.antonsskafferi;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by joel on 2017-10-09.
  */
@@ -8,7 +10,8 @@ public class OrderServiceItem {
     String created, delivered, modification, ready;
     int foodId, orderStatusId, diningTableId;
 
-    public OrderServiceItem(String created) {   }
+    @SerializedName("id")
+    int orderId;
 
     public String getCreated() {
         return created;
