@@ -40,7 +40,7 @@ public class BookingDaoJdbc implements BookingDao {
     }
 
     @Override
-    public boolean add(Booking bkParam) {
+    public boolean insert(Booking bkParam) {
         boolean status = true;
         try {
             String sqlQuery = "INSERT INTO BOOKING(LASTNAME, NUMBEROFGUESTS, BOOKINGDATE, BOOKINGTIME, PHONENUMBER) VALUES (?, ?, ?, ?, ?)";

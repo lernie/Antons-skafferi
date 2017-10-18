@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookingDao{
     List<Booking> get();
-    boolean add(Booking bkParam);
+    boolean insert(Booking bkParam);
     boolean checkIfLess(int count, Date date);
     boolean update(Booking bkParam) throws ApplicationException;
     boolean delete(int id);
