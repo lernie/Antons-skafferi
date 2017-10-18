@@ -11,15 +11,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="7">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pass"
-            android:textSize="22sp"
-            android:layout_weight="1"
-            android:textColor="@color/colorBlack"/>
+        android:weightSum="6">
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,86 +63,12 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <GridView
+        android:id="@+id/schedule_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="7"
-        android:layout_below="@id/schedule_days">
+        android:layout_below="@+id/schedule_days"
+        android:numColumns="6">
 
-        <LinearLayout
-            android:id="@+id/shift_time"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="11:00-    14:00"
-                android:layout_weight="1"
-                android:textColor="@color/colorBlack"
-                android:textSize="22sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:text="16:00-    22:00           /24:00"
-                android:textColor="@color/colorBlack"
-                android:textSize="22sp"/>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/schedule_monday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/schedule_tuesday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/schedule_wednseday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/schedule_thursday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/schedule_friday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/schedule_saturday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        </LinearLayout>
-    </LinearLayout>
-
+    </GridView>
 </RelativeLayout>
