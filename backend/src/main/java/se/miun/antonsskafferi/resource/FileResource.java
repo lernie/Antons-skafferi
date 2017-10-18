@@ -2,21 +2,8 @@ package se.miun.antonsskafferi.resource;
 
 //import com.sun.jersey.core.header.FormDataContentDisposition;
 //import com.sun.jersey.multipart.FormDataParam;
-import se.miun.antonsskafferi.Database.ApplicationDB;
-import se.miun.antonsskafferi.Models.Employee;
-import se.miun.antonsskafferi.Models.ErrorResponse;
-import se.miun.antonsskafferi.Models.FoodOrder;
-import se.miun.antonsskafferi.dao.FoodOrderDao;
-import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
 
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.io.*;
-import java.sql.Timestamp;
-import java.util.List;
 
 @Path("/api")
 public class FileResource {

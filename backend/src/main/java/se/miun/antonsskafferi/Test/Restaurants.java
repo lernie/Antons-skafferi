@@ -1,5 +1,6 @@
-package se.miun.antonsskafferi.Database;
+package se.miun.antonsskafferi.Test;
 
+import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.ARestaurant;
 import java.sql.ResultSet;
 import java.sql.SQLException;

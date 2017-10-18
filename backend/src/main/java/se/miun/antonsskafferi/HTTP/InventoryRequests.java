@@ -7,13 +7,13 @@ import javax.ws.rs.core.Response;
 
 import com.sun.istack.internal.logging.Logger;
 
-import se.miun.antonsskafferi.Database.InventoryDB;
-
 import se.miun.antonsskafferi.Models.*;
 import se.miun.antonsskafferi.dao.FoodDao;
+import se.miun.antonsskafferi.dao.InventoryItemDao;
 import se.miun.antonsskafferi.dao.MeasurementDao;
 import se.miun.antonsskafferi.dao.jdbc.FoodDaoJdbc;
 import se.miun.antonsskafferi.dao.jdbc.IngredientDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.InventoryItemDaoJdbc;
 import se.miun.antonsskafferi.dao.jdbc.MeasurementDaoJdbc;
 
 
@@ -69,7 +69,8 @@ public class InventoryRequests {
     @Path("/inventory")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addInventoryItem(InventoryItem item) {
-        if (InventoryDB.insertInventoryItem(item)) {
+        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
+        if (invDao.insert(item)) {
             return Response.ok().build();
         } else {
             return Response.status(403).entity(new ErrorResponse(403,"unable to add item.")).build();
@@ -80,7 +81,8 @@ public class InventoryRequests {
     @Path("/inventory")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getInventory() {
-        return Response.ok(InventoryDB.getInventory()).build();
+        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
+        return Response.ok(invDao.getAll()).build();
     }
 
     @POST
@@ -88,7 +90,8 @@ public class InventoryRequests {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateInventoryItem(InventoryItem item, @PathParam("id") int id) {
         item.setIngredientId(id);
-        InventoryDB.updateInventoryItem(item);
+        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
+        invDao.update(item);
         return Response.ok().build();
     }
 
@@ -142,6 +145,7 @@ public class InventoryRequests {
     @Path("/foodtype")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFoodTypes(){
-        return Response.ok(InventoryDB.getFoodTypes()).build();
+        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
+        return Response.ok(invDao.getAll()).build();
     }
 }

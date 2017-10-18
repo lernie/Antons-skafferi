@@ -1,15 +1,17 @@
 package se.miun.antonsskafferi.HTTP;
 
-import se.miun.antonsskafferi.Database.ApplicationDB;
+
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
 
 import se.miun.antonsskafferi.Security.AuthenticationProvider;
 
+import se.miun.antonsskafferi.dao.EmployeeDao;
 import se.miun.antonsskafferi.dao.FoodOrderDao;
 import se.miun.antonsskafferi.dao.jdbc.EmployeeDaoJdbc;
 import se.miun.antonsskafferi.dao.jdbc.FoodOrderDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.OrderStatusDaoJdbc;
 
 
 import javax.print.attribute.standard.Media;
@@ -123,9 +125,12 @@ public class ApplicationRequests {
     @Path("/login")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response login(Employee emp) {
+
         try {
-            String jwt_token = ApplicationDB.validateEmployee(emp);
+            EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+            String jwt_token = dao.validate(emp);
             return Response.ok(jwt_token).build();
         } catch(Exception e) {
             return Response.status(500).entity(e.getMessage()).build();
@@ -142,10 +147,12 @@ public class ApplicationRequests {
 
     //Add new employee user to the database
     @Path("/employee")
+    @Consumes(MediaType.APPLICATION_JSON)
     @POST
     public Response addEmployee(Employee emp) {
         try {
-            if (ApplicationDB.addEmployee(emp)){
+            EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+            if (dao.insert(emp)){
                 return Response.ok().build();
             }
         } catch(Exception e) {
@@ -176,7 +183,8 @@ public class ApplicationRequests {
     @DELETE
     @Path("/employee/{id}")
     public Response deleteEmployee(@PathParam("id") int id) {
-        if (ApplicationDB.deleteEmployee(id)) {
+        EmployeeDaoJdbc dao = new EmployeeDaoJdbc();
+        if (dao.delete(id)) {
             return Response.ok().build();
         } else {
             return Response.status(400).entity(new ErrorResponse(400, "Invalid input data.")).build();
@@ -187,6 +195,7 @@ public class ApplicationRequests {
     @Path("/orderstatus")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOrderStatus() {
-        return Response.ok(ApplicationDB.getAllOrderStatus()).build();
+        OrderStatusDaoJdbc dao = new OrderStatusDaoJdbc();
+        return Response.ok(dao.getAll()).build();
     }
 }
