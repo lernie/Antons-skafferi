@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,6 +98,28 @@ public class LoginCache {
     public static abstract class UpdateCallback {
         public void onSuccess() {  }
         public void onFail() {  }
+    }
+
+    public void intercept() {
+        Interceptor interceptor = new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request newRequest = chain.request().newBuilder().addHeader(" ", " ").build();
+                return chain.proceed(newRequest);
+            }
+        };
+
+        // Add the interceptor to OkHttpClient
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                builder.interceptors().add(interceptor);
+        OkHttpClient client = builder.build();
+
+        // Set the custom client when building adapter
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(" ")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
     }
 }
 
