@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi.dao.jdbc;
 
+import se.miun.antonsskafferi.Database.ApplicationException;
 import se.miun.antonsskafferi.Database.ConnectionSetup;
 import se.miun.antonsskafferi.Models.Booking;
 import se.miun.antonsskafferi.dao.BookingDao;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDaoJdbc implements BookingDao {
+    public String SQLError = "";
+
     @Override
     public List<Booking> get() {
         List<Booking> bookings = new ArrayList();
@@ -84,15 +87,16 @@ public class BookingDaoJdbc implements BookingDao {
     }
 
     @Override
-    public boolean update(Booking bkParam) {
+    public boolean update(Booking bkParam) throws ApplicationException {
         boolean status = true;
 
         try{
+            System.out.println(new Date(0) + "     " + new Time(0));
             String sqlQuery = "UPDATE BOOKING " +
                     "SET lastname = CASE WHEN ? = '' THEN lastname ELSE ? END, " +
                     "numberofguests = CASE WHEN ? = '' THEN numberofguests ELSE ? END, " +
                     "bookingdate = CASE WHEN ? = DATE('1970-01-01') THEN bookingdate ELSE ? END, " +
-                    "bookingtime = CASE WHEN ? = TIME('00.00.00.000000') THEN bookingtime ELSE ? END, " +
+                    "bookingtime = CASE WHEN ? = TIME('01.00.00') THEN bookingtime ELSE ? END, " +
                     "phonenumber = CASE WHEN ? = '' THEN phonenumber ELSE ? END " +
                     "WHERE ID = ?";
             PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
@@ -107,13 +111,14 @@ public class BookingDaoJdbc implements BookingDao {
             ps.setTime(8, bkParam.getBookingTime() == null ? new Time(0) : bkParam.getBookingTime());
             ps.setString(9, bkParam.getPhoneNumber() == null ? "" : bkParam.getPhoneNumber());
             ps.setString(10, bkParam.getPhoneNumber() == null ? "" : bkParam.getPhoneNumber());
+            ps.setInt(11, bkParam.getId());
             ps.execute();
             ps.close();
             ConnectionSetup.conn.commit();
 
         }catch(SQLException sqlExcept){
             sqlExcept.printStackTrace();
-            status = false;
+            throw new ApplicationException(sqlExcept.getMessage());
         }
         return status;
     }
