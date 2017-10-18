@@ -2,9 +2,10 @@ package se.miun.antonsskafferi.HTTP;
 
 import com.sun.org.apache.regexp.internal.RE;
 import se.miun.antonsskafferi.Database.ConnectionSetup;
-import se.miun.antonsskafferi.Database.WebsiteDB;
+
 import se.miun.antonsskafferi.Models.*;
 import se.miun.antonsskafferi.dao.jdbc.OpeningHourDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.TodaysLunchDaoJdbc;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -49,16 +50,18 @@ public class WebsiteRequests {
         //Date utilEndDate = formatter.parse(enddate);
         System.out.println("startdate: " + startdate + " enddate: " + enddate);
 
+        TodaysLunchDaoJdbc dao = new TodaysLunchDaoJdbc();
 
-        System.out.println(WebsiteDB.getAllTodaysLunch(startdate, enddate));
-        return Response.ok(WebsiteDB.getAllTodaysLunch(startdate, enddate)).build();
+        System.out.println(dao.getAll(startdate, enddate));
+        return Response.ok(dao.getAll(startdate, enddate)).build();
     }
 
     @Path("/todayslunch")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addTodaysLunch(TodaysLunch todaysLunch) {
-        if (WebsiteDB.addTodaysLunch(todaysLunch)) {
+            TodaysLunchDaoJdbc dao = new TodaysLunchDaoJdbc();
+            if (dao.insert(todaysLunch)) {
             return Response.ok().build();
         }
 
@@ -72,7 +75,8 @@ public class WebsiteRequests {
         @PathParam("date") Date date,
         @PathParam("foodid") int id
     ){
-        return Response.ok(WebsiteDB.deleteTodaysLunch(date, id)).build();
+        TodaysLunchDaoJdbc dao = new TodaysLunchDaoJdbc();
+        return Response.ok(dao.delete(date, id)).build();
     }
 
 }
