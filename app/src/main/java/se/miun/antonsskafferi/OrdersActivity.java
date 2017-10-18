@@ -1,7 +1,9 @@
 package se.miun.antonsskafferi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -39,9 +41,15 @@ public class OrdersActivity extends BackButtonActivity {
 
         OrderStatusCache.getInstance().update(null);
 
-        tableNumber = getIntent()
-                .getIntExtra("table_number", -1);
+        // Activity was restarted
+        if (savedInstanceState != null) {
+            tableNumber = savedInstanceState.getInt("table_number", -1);
+        } else {
+            tableNumber = getIntent()
+                .getIntExtra("table_number", -2);
+        }
 
+        if (tableNumber > 0)
         getSupportActionBar()
             .setTitle("Bord " + tableNumber);
 
@@ -58,6 +66,10 @@ public class OrdersActivity extends BackButtonActivity {
 
         orderService = retrofit.create(OrderService.class);
 
+        update();
+    }
+
+    private void update() {
         final Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
 
         final CoursesCache cache = CoursesCache.getInstance();
@@ -69,8 +81,9 @@ public class OrdersActivity extends BackButtonActivity {
                     @Override
                     public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
+                        orderItems.clear();
+
                         if (response == null || response.body() == null) {
-                            orderItems.clear();
                             adapter.notifyDataSetChanged();
                             return;
                         }
@@ -110,6 +123,7 @@ public class OrdersActivity extends BackButtonActivity {
                                 Toast.LENGTH_SHORT
                         ).show();
 
+                        orderItems.clear();
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -126,11 +140,8 @@ public class OrdersActivity extends BackButtonActivity {
 
     public void clearOrders(View view){
         adapter.clear();
-
         orderConfirmPopup.remove();
         onBackPressed();
-        /*Intent intent = new Intent(this, TablesActivity.class);
-        startActivity(intent);*/
     }
 
     public void showConfirmPopup(View view){
@@ -171,5 +182,24 @@ public class OrdersActivity extends BackButtonActivity {
                 Toast.makeText(OrdersActivity.this, "Kunde inte ta bort spec-beställning", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        update();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("table_number", tableNumber);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        getSupportActionBar().setTitle("Bord " + savedInstanceState.getInt("table_number", -3));
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

@@ -102,7 +102,6 @@ public class CoursesActivity extends BackButtonActivity {
         for (CourseListItem item : courseList) {
             Order.OrderItem match = null;
 
-            // Find
             for (Order.OrderItem order : orderedItems) {
                 if (item.getCourse().getName().equals(order.getCourse().getName())) {
                     match = order;

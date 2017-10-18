@@ -5,8 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -42,6 +40,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="se.miun.antonsskafferi.TablesActivity" />
         </activity>
+
         <activity
             android:name=".CoursesActivity"
             android:label="Rätter"
@@ -50,22 +49,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="se.miun.antonsskafferi.OrdersActivity" />
         </activity>
+
         <activity
             android:name=".KitchenActivity"
-            android:label="Kök"
-            android:parentActivityName=".OrdersActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.OrdersActivity" />
+            android:label="Kök">
         </activity>
+
         <activity
             android:name=".InventoryActivity"
-            android:label="Inventering"
-            android:parentActivityName=".TablesActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.miun.antonsskafferi.TablesActivity" />
-
+            android:label="Inventering">
         </activity>
     </application>
 
