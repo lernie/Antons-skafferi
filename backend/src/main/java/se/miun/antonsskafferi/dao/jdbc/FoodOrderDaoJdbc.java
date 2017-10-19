@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi.dao.jdbc;
 
 import se.miun.antonsskafferi.Database.ConnectionSetup;
+import se.miun.antonsskafferi.Models.BulkFoodOrder;
 import se.miun.antonsskafferi.Models.FoodOrder;
 import se.miun.antonsskafferi.Models.FoodOrderDelete;
 import se.miun.antonsskafferi.dao.FoodOrderDao;
@@ -265,6 +266,61 @@ public class FoodOrderDaoJdbc implements FoodOrderDao {
             }
         }
 
+        return status;
+    }
+
+    @Override
+    public boolean bulkUpdate(BulkFoodOrder bulkFoodOrder) {
+        boolean status = true;
+
+        try {
+            String sqlQuery = "UPDATE FOODORDER " +
+                    "SET modification = CASE WHEN ? = '' THEN  modification ELSE ? END, " +
+                    "foodId = CASE WHEN ? = -1 THEN foodId ELSE ? END, " +
+                    "diningTableId = CASE WHEN ? = -1 THEN diningTableId ELSE ? END, " +
+                    "orderStatusId = CASE WHEN ? = -1 THEN orderStatusId ELSE ? END, " +
+                    "ready = CASE WHEN ? = TIMESTAMP('1970-01-01-00.00.00.000000') THEN ready ELSE ? END, " +
+                    "delivered = CASE WHEN ? = TIMESTAMP('1970-01-01-00.00.00.000000') THEN delivered ELSE ? END " +
+                    "WHERE id IN (";
+
+            int j = 1;
+            for(Integer i : bulkFoodOrder.getFoodOrderIds()){
+                sqlQuery += i;
+                if(j != bulkFoodOrder.getFoodOrderIds().size()){
+                    j++;
+                    sqlQuery += ", ";
+                }
+            }
+            sqlQuery += ")";
+
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+
+            // (foParam.getModification() == null)
+
+            ps.setString(1, bulkFoodOrder.getFoodOrder().getModification() == null ? "" : bulkFoodOrder.getFoodOrder().getModification());
+            ps.setString(2, bulkFoodOrder.getFoodOrder().getModification() == null ? "" : bulkFoodOrder.getFoodOrder().getModification());
+            ps.setInt(3, bulkFoodOrder.getFoodOrder().getFoodId());
+            ps.setInt(4, bulkFoodOrder.getFoodOrder().getFoodId());
+            ps.setInt(5, bulkFoodOrder.getFoodOrder().getDiningTableId());
+            ps.setInt(6, bulkFoodOrder.getFoodOrder().getDiningTableId());
+            ps.setInt(7, bulkFoodOrder.getFoodOrder().getOrderStatusId());
+            ps.setInt(8, bulkFoodOrder.getFoodOrder().getOrderStatusId());
+            ps.setTimestamp(9, bulkFoodOrder.getFoodOrder().getReady() == null ? new Timestamp(0) : bulkFoodOrder.getFoodOrder().getReady());
+            ps.setTimestamp(10, bulkFoodOrder.getFoodOrder().getReady() == null ? new Timestamp(0) : bulkFoodOrder.getFoodOrder().getReady());
+            ps.setTimestamp(11, bulkFoodOrder.getFoodOrder().getDelivered() == null ? new Timestamp(0) : bulkFoodOrder.getFoodOrder().getDelivered());
+            ps.setTimestamp(12, bulkFoodOrder.getFoodOrder().getDelivered() == null ? new Timestamp(0) : bulkFoodOrder.getFoodOrder().getDelivered());
+
+            ps.execute();
+            //ResultSet results = ps.executeQuery();
+            ps.close();
+            //results.close();
+            ConnectionSetup.conn.commit();
+            //stmt.close();
+        } catch (SQLException sqlExcept) {
+            status = false;
+            sqlExcept.printStackTrace();
+
+        }
         return status;
     }
 }

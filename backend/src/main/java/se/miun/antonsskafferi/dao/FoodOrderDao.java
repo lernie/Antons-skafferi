@@ -1,5 +1,6 @@
 package se.miun.antonsskafferi.dao;
 
+import se.miun.antonsskafferi.Models.BulkFoodOrder;
 import se.miun.antonsskafferi.Models.FoodOrder;
 import se.miun.antonsskafferi.Models.FoodOrderDelete;
 
@@ -12,4 +13,5 @@ public interface FoodOrderDao {
     boolean delete(int id);
     boolean setOrderStatus(List<Integer> intList, int diningTableId);
     boolean delete(int foodId, int diningTableId, int count);
+    boolean bulkUpdate(BulkFoodOrder bulkFoodOrder);
 }

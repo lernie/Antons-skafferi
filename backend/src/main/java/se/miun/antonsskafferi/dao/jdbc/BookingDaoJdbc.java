@@ -91,7 +91,6 @@ public class BookingDaoJdbc implements BookingDao {
         boolean status = true;
 
         try{
-            System.out.println(new Date(0) + "     " + new Time(0));
             String sqlQuery = "UPDATE BOOKING " +
                     "SET lastname = CASE WHEN ? = '' THEN lastname ELSE ? END, " +
                     "numberofguests = CASE WHEN ? = '' THEN numberofguests ELSE ? END, " +

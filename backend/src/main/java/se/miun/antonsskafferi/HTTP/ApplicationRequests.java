@@ -1,6 +1,7 @@
 package se.miun.antonsskafferi.HTTP;
 
 
+import se.miun.antonsskafferi.Models.BulkFoodOrder;
 import se.miun.antonsskafferi.Models.Employee;
 import se.miun.antonsskafferi.Models.ErrorResponse;
 import se.miun.antonsskafferi.Models.FoodOrder;
@@ -197,5 +198,15 @@ public class ApplicationRequests {
     public Response getOrderStatus() {
         OrderStatusDaoJdbc dao = new OrderStatusDaoJdbc();
         return Response.ok(dao.getAll()).build();
+    }
+
+    @PUT
+    @Path("/foodorder")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response bulkUpdateFoodOrder(
+        BulkFoodOrder bulkFoodOrder
+    ){
+        FoodOrderDaoJdbc foodOrderDaoJdbc = new FoodOrderDaoJdbc();
+        return Response.ok(foodOrderDaoJdbc.bulkUpdate(bulkFoodOrder)).build();
     }
 }
