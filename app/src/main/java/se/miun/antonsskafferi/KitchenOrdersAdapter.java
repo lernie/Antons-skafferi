@@ -47,10 +47,14 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
                 courseView = inflater.inflate(R.layout.kitchen_order_courses_spec, linLayout, false);
                 TextView specText = (TextView) courseView.findViewById(R.id.course_spec_text);
                 specText.setText(item.getText());
+                TextView cookingTime = (TextView) courseView.findViewById(R.id.course_cooking_time);
+                cookingTime.setText(Integer.toString(item.getCourse().getCookingTime())+ " min");
             } else {
                 courseView = inflater.inflate(R.layout.kitchen_order_courses, linLayout, false);
                 TextView courseCount = (TextView) courseView.findViewById(R.id.course_count);
                 courseCount.setText("x" + item.getCount());
+                TextView cookingTime = (TextView) courseView.findViewById(R.id.course_cooking_time);
+                cookingTime.setText(Integer.toString(item.getCourse().getCookingTime())+ " min");
             }
 
             TextView textView = (TextView) courseView.findViewById(R.id.course_name);
