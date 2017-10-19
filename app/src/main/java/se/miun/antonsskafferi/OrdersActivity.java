@@ -25,8 +25,7 @@ public class OrdersActivity extends BackButtonActivity {
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
     private int tableNumber;
-  
-    private Retrofit retrofit;
+
     private OrderService orderService;
     private HashMap<Course, Integer> specItemIds;
 
@@ -51,12 +50,14 @@ public class OrdersActivity extends BackButtonActivity {
 
         ((ListView) findViewById(R.id.order_list)).setAdapter(adapter);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.ip_address))
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+
+      /*  Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://simonarstam.com/antons-skafferi/api/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         orderService = retrofit.create(OrderService.class);
+*/        orderService = LoginCache.getInstance().getGen().createService(OrderService.class);
 
         final Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
 

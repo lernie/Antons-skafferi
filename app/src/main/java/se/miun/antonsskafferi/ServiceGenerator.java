@@ -24,7 +24,7 @@ public class ServiceGenerator {
 
         retrofit =
             new Retrofit.Builder()
-                .baseUrl(" ")
+                .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

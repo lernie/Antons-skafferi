@@ -54,6 +54,8 @@ public class LoginCache {
                 .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        //TODO: remember to remove
+        serviceGenerator = new ServiceGenerator(token);
         update(null);
     }
 
