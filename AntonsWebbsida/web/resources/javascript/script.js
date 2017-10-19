@@ -4,19 +4,16 @@
  * and open the template in the editor.
  */
 
+$( window ).load(function() {
+  loadDropDown();
+});
 
-function getLunch(d1,d2,d3,d4,d5){
-    
-    var date1 = d1; //Today or Monday
-    var date2 = d2; //Today or Friday
-    var date3 = d3; //Tuesday
-    var date4 = d4; //Wedenesday
-    var date5 = d5; //Thursday
-    
+function getLunch(date1,date2,date3,date4,date5){
+
     if(date1 === date2){
         $.ajax({
         //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
-        url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+d1+"&enddate="+d2,
+        url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate="+date1+"&enddate="+date2,
         method: "GET",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -25,14 +22,13 @@ function getLunch(d1,d2,d3,d4,d5){
             
                 for(var i = 0; i < r.length; i++){
                    
-                    $("#weekMenuLeft").append(r[i].foodName,",  ",r[i].price,":-<br>");
+                    $("#menuLeftTodaysLunch").append(r[i].foodName,", ",r[i].price,":-<br>");
                 }
             
         }
     });
     }
     else{
-    
     
     $.ajax({
         //url: "http://simonarstam.com/antons-skafferi/api/todayslunch?startdate=2017-11-02&enddate=2017-11-05",
@@ -44,46 +40,43 @@ function getLunch(d1,d2,d3,d4,d5){
             
                 for(var i = 0; i < r.length; i++){
                     
-                    var date = r[i].todaysDate;
+                    var jsonDate = r[i].todaysDate;
                     
                     //MONDAY
-                    if (date1 === date){ 
+                    if (date1 === jsonDate){ 
                         $("#weekMenuMonday").append(r[i].foodName,", ",r[i].price,":-<br>");
 
                     }
                     
                     //TUESDAY
-                    else if(date3 === date){ 
+                    else if(date3 === jsonDate){ 
                         $("#weekMenuTuesday").append(r[i].foodName,", ",r[i].price,":-<br>");
                     }
                     
                     //WEDNESDAY
-                    else if(date4 === date){
+                    else if(date4 === jsonDate){
                         $("#weekMenuWednesday").append(r[i].foodName,", ",r[i].price,":-<br>");
                     }
                     
                     //THURSDAY
-                    else if(date5 === date){
+                    else if(date5 === jsonDate){
                         $("#weekMenuThursday").append(r[i].foodName,", ",r[i].price,":-<br>");
                     }
                     
                     // FRIDAY
-                    else if(date2 === date){ 
+                    else if(date2 === jsonDate){ 
                         $("#weekMenuFriday").append(r[i].foodName,", ",r[i].price,":-<br>");
                     }
                     else {
-                        
+                        break;
                     }
-                    console.log(date);
-
-                   
-                    
-                    
-                   
+                    console.log(jsonDate);
+ 
                 };
         
         }
     });
+      
     }
 
 }
@@ -91,38 +84,19 @@ function getTodaySpecials(day, date){
          
     switch(day) {
              
-    case 1: //Sunday
-        $("#weekMenuLeft").append("Idag söndag är det stängt");
-        break;
+        case 1: //Sunday
+            $("#weekMenuLeft").val("Söndag = Stängt")
+            break;
         
-    case 2: //Monday
-        getLunch(date, date);
-           
-        break;
-        
-    case 3: //Tuesday
-        getLunch(date, date);
-        
-        break;
-        
-    case 4: //Wednesday
-        getLunch(date, date);  
-        
-        break;
-        
-    case 5: //Thursday
-        getLunch(date, date);
-        
-        break;
-        
-    case 6: //Friday
-        getLunch(date, date);
-        
-        break;
-        
-    case 7: //Saturday
-        $("#weekMenuLeft").append("Lördag är lunchstängt");
-        break;
+        case 7: //Saturday
+            $("#weekMenuLeft").val("Lördag är lunchstängt!");
+            break;
+
+        default: //Monday - Friday
+            getLunch(date, date);
+
+            break;
+
 }
 
 };
@@ -130,19 +104,20 @@ function getTodaySpecials(day, date){
 function loadDropDown(){
 
            $.getJSON("http://simonarstam.com/antons-skafferi/api/food", function(r){
-          $("#foodDropDown").html("");
-          
-         
-         $("#foodDropDown").append("<option selected='true' disabled='disabled'>Choose Food:</option>");
-       for(var i = 0; i < r.length; i++){
-            
-            $("#foodDropDown").append("<option value='"+r[i].id+"'>"+r[i].name+"</option>");
-            }
-            
-            
-        
-   });    
+                $("#foodDropDown").html("");
+                $("#databaseDropDown").html("");
+                $("#foodDropDown").append("<option selected='true' disabled='disabled'>Choose Food:</option>");
+                $("#databaseDropDown").append("<option selected='true' disabled='disabled'>Choose Food:</option>");
+                r.sort(function(a,b){return a.price-b.price;});
+                
+                    for(var i = 0; i < r.length; i++){
+                        
+                        $("#foodDropDown").append("<option value='"+r[i].id+"'>"+r[i].name+' Food Type= '+r[i].price+"</option>")
+                        $("#databaseDropDown").append("<option value='"+r[i].id+"'>"+r[i].name+' Food Type= '+r[i].price+"</option>")
+                    }
+            });    
 };
+
 
 function getDatePicker(){
         $("#datePicker").datepicker({ dateFormat: 'yy-mm-dd' }).datepicker( "show")
@@ -164,15 +139,11 @@ function sendTodayToServer() {
                         console.log(r);
                     }
                 });
-                $('#foodDropDown').val(function() {
-                    return this.defaultValue;
-                });
-                $('#datePicker').val(function() {
-                    return this.defaultValue;
-                });
-                $('#foodPrice').val(function() {
-                    return this.defaultValue;
-                });
+                $("#foodDropDown").val($("#foodDropDown option:first").val());
+
+                $("#datePicker").val("");
+
+                $('#foodPrice').val("");
 };
 
 function deleteLunch(){
@@ -186,7 +157,53 @@ function deleteLunch(){
                 console.log(r);
           }
       });
+                $("#foodDropDown").val($("#foodDropDown option:first").val());
+
+                $("#datePicker").val("");
+
+                $('#foodPrice').val("");
 }
+function deleteFood(){
+    var url = "http://simonarstam.com/antons-skafferi/api/food/"+$("#databaseDropDown").val();
+    $('#name').val();
+    console.log(url);
+        $.ajax({
+              
+            url: url,
+            method : "DELETE",
+            success : function(r) {
+                console.log(r);
+          }
+      });
+}
+
+function sendFoodToServer(){
+    
+                $.ajax({
+                    url: "http://simonarstam.com/antons-skafferi/api/food",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({name:$("#name").val(),foodTypeId:$("#foodTypeId").val(),timeToCook:$("#timeToCook").val(),price:$("#price").val()}),
+                    success : function(r) {
+                        console.log(r); 
+                    }
+                });
+                
+                
+
+                $("#name").val("");
+
+                $("#foodTypeId").val("");
+
+                $('#timeToCook').val("");
+                
+                $('#price').val("");
+};
+
+
+
+
    
 /*
 $(document).ready(function(){

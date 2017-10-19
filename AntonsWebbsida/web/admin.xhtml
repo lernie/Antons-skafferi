@@ -9,27 +9,36 @@
 
         <ui:composition template="./WEB-INF/template/admintemplate.xhtml">
 
-            <ui:define name="top">
-                top
-            </ui:define>
 
             <ui:define name="content">
-                <div id="contentSection1">
-                    <marquee><h1>Antons Skafferi</h1></marquee>
+                <div id="topMenu">
+                    <ul>
+                        <li><a href="#home">Till huvudsidan</a></li>
+                    </ul>
+                </div>
+                
+                <div id="contentSection2">
                     <div id="adminContentLeft">
+                            
+                        <tf> Lägg till en maträtt till Dagens lunch. </tf>
+                        <p> För att lägga till en maträtt i dagens lunch 
+                            fyller du i formuläret nedan och klickar sedan
+                            "send".
+                        </p> 
                         <br/>
-                        <input id="updateDropDown" type="button" value="Update list" onclick="loadDropDown();" /> 
+                        <p> För att ta bort en maträtt väljer du namnet på den
+                            i listan och vilket datum den låg på. 
+                        </p>
                         <br/>
+                        
+                        
+                        Food: <br/><select id="foodDropDown" style="color:black"></select>
                         <br/>
-                        Food: <select id="foodDropDown" style="color:black">
-                                <option selected='true' disabled='disabled'>Please update list </option>
-                              </select>
+                        
+                        Date: <br/><input type="text" id="datePicker" style="color:black" onclick="getDatePicker()"/>
                         <br/>
-                        <br/>
-                        Date: <input type="text" id="datePicker" style="color:black" onclick="getDatePicker()"/>
-                        <br/>
-                        <br/>
-                        Price: <input type="number" id="foodPrice" style="color:black" />
+                        
+                        Price: <br/><input type="number" id="foodPrice" style="color:black" />
                         <br/>
                         <br/>
                         <input id="sendToServer" type="button" value="Send" onclick="sendTodayToServer()"></input>
@@ -40,42 +49,38 @@
                          *requires food and corresponding date
                     </div>
                     
-                    <div id="adminContentRight">                        
+                    <div id="adminContentRight">
+                        <tf> Lägg till en maträtt i databasen </tf>
+                        <p> För att lägga till en maträtt i databasen
+                            fyller du i formuläret nedanför och klickar
+                            sedan "lägg till".
+                        </p>
+                        
+                        <br/>
+                        <br/>
+                        <br/>
+                        
                         <form>
-                            Rättens namn: <input type="text" name="fname" id="name" style="color:black;"/><br/>
-                            Tillagningstid: <input type="text" name="fname" id="tid" style="color:black;" /><br/>
-                            Pris: <input type="text" name="fname" id="pris" style="color:black;" /><br/>
-                            <input type="button" value="Lägg till dagens lunch!" id="button" style="color:black;" />
+                            Rättens namn: <br/><input type="text" id="name" style="color:black;"/><br/>
+                            Mat typ: <br/><input type="text" id="foodTypeId" style="color:black;">1=Dryck, 2=Förrätt, 3=Varmrätt, 4=Efterrätt</input><br/>
+                            Tillagningstid: <br/><input type="text" id="timeToCook" style="color:black;" /><br/>
+                            Pris: <br/><input type="text" id="price" style="color:black;" /><br/>
+                            <input type="button" value="Lägg till!" id="button" style="color:black;" onclick="sendFoodToServer()"  />
                         </form>
+                        <br/>
+                        <br/>
+                        <p> Markera en rätt i listan och klicka sedan "Ta bort maträtt" för att
+                            ta bort det.
+                        </p>
+                        
+                        Food: <br/><select id="databaseDropDown" style="color:black"></select><br/>
+                        <input type="button" value="Ta bort maträtt" style="color:black;" onclick="deleteFood()"></input>
                     </div>
                 </div>
             </ui:define>
 
             <ui:define name="bottom">
                 
-       <script>
-        $(document).ready(function(){
-            console.log("hej");
-            $("#button").click(function() {
-                $.ajax({
-                    url: "http://simonarstam.com/antons-skafferi/api/food",
-                    method: "POST",
-                    dataType: "json",
-                    contentType: "application/json; chaset=utf-8",
-                    data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
-                    success : function(r) {
-                        console.log(r);
-                    }
-                }).done(function(response) {
-                    
-                    console.log("hej", JSON.parse(response));
-                });
-            });
-            
-            });
-        
-        
-        </script>
             </ui:define>
 
         </ui:composition>
