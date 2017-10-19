@@ -158,11 +158,13 @@ public class OrdersActivity extends BackButtonActivity {
 
         Order.OrderItem item = orderItems.get(i);
 
+        OrderService.OrderUpdate orderUpdate = new OrderService.OrderUpdate();
+        orderUpdate.orderStatusId = OrderStatusCache.getInstance().getIds().get("cancelled").intValue();
+
         Call<Void> call = orderService
                 .updateOrder(
                         specItemIds.get(item.getCourse()),
-                        new OrderService.OrderUpdate(
-                            OrderStatusCache.getInstance().getIds().get("cancelled").intValue()));
+                        orderUpdate);
 
         call.enqueue(new Callback<Void>() {
             @Override

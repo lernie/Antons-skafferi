@@ -34,15 +34,19 @@ public interface OrderService {
     @PUT("foodorder/{orderId}")
     Call<Void> updateOrder(@Path("orderId") int orderId, @Body OrderUpdate order);
 
+    @PUT("foodorder")
+    Call<Void> bulkUpdateOrder(@Body BulkOrderUpdate bulk);
+
     @DELETE("foodorder")
     Call<Void> deleteOrders(@Query("table") int diningTableId, @Query("foodId") int foodId, @Query("count") int count);
 
     class OrderUpdate {
-        int orderStatusId;
+        Integer orderStatusId;
+    }
 
-        public OrderUpdate(int statusId) {
-            this.orderStatusId = statusId;
-        }
+    class BulkOrderUpdate {
+        Integer orderStatusId;
+        List<Integer> orders;
     }
 
     class OrderPost {
