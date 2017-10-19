@@ -1,7 +1,5 @@
 package se.miun.antonsskafferi.HTTP;
 
-import com.sun.org.apache.regexp.internal.RE;
-import se.miun.antonsskafferi.Database.ApplicationDB;
 import se.miun.antonsskafferi.Database.ApplicationException;
 import se.miun.antonsskafferi.Models.Booking;
 import se.miun.antonsskafferi.Models.ErrorResponse;
