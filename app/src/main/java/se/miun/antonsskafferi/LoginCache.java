@@ -23,6 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginCache {
 
+    private ServiceGenerator serviceGenerator;
     private String token;
     private User user;
     private static LoginCache instance;
@@ -47,12 +48,13 @@ public class LoginCache {
     }
 
     private LoginCache() {
-        token = "";
 
+     //   serviceGenerator = new ServiceGenerator();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://simonarstam.com/antons-skafferi/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        update(null);
     }
 
 
@@ -64,63 +66,48 @@ public class LoginCache {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.e("Response code", "" + response.code());
                 if (response == null || response.body() == null) {
-                    clear();
-                    callback.onFail();
-
+                    if(callback != null){
+                        callback.onFail();
+                    }
                     return;
                 }
 
                 try {
                     token = response.body().string();
+                    serviceGenerator = new ServiceGenerator(token);
                 } catch (IOException e) {
                     token = "";
-                    callback.onFail();
+                    if(callback != null) {
+                        callback.onFail();
+                    }
                     return;
                 }
-
-                callback.onSuccess();
+                if(callback != null) {
+                    callback.onSuccess();
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                clear();
-                callback.onFail();
+                if(callback != null) {
+                    callback.onFail();
+                }
                 Log.e("tmessage", t.getMessage());
             }
         });
     }
 
-    
-    public void clear() {
-       token = "";
-    }
-
     public static abstract class UpdateCallback {
-        public void onSuccess() {  }
-        public void onFail() {  }
+        public void onSuccess() {
+        }
+
+        public void onFail() {
+        }
     }
 
-    public void intercept() {
-        Interceptor interceptor = new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request newRequest = chain.request().newBuilder().addHeader(" ", " ").build();
-                return chain.proceed(newRequest);
-            }
-        };
-
-        // Add the interceptor to OkHttpClient
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                builder.interceptors().add(interceptor);
-        OkHttpClient client = builder.build();
-
-        // Set the custom client when building adapter
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(" ")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-    }
+    public ServiceGenerator getGen(){ return serviceGenerator;}
 }
+
+
 
 
