@@ -1,10 +1,12 @@
 package se.miun.antonsskafferi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import android.widget.PopupWindow;
@@ -24,22 +26,32 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CoursesActivity extends BackButtonActivity {
+    private OrderService service;
     private ArrayList<CourseListItem> courseList;
     private PopupWindow popupWindow;
     private ArrayList<Order.OrderItem> orderedItems;
     private int tableId;
+    private CourseAdapter adapter;
+    private int specOrderCourseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.ip_address))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        service = retrofit.create(OrderService.class);
+
         orderedItems = (ArrayList<Order.OrderItem>) getIntent().getSerializableExtra("items");
         tableId = getIntent().getIntExtra("table_id", -1);
 
         courseList = new ArrayList<CourseListItem>();
 
-        final CourseAdapter adapter = new CourseAdapter(CoursesActivity. this, courseList);
+        adapter = new CourseAdapter(CoursesActivity. this, courseList);
 
         CoursesCache.getInstance().update(new CoursesCache.UpdateCallback() {
             @Override
@@ -86,6 +98,12 @@ public class CoursesActivity extends BackButtonActivity {
         int width = RelativeLayout.LayoutParams.WRAP_CONTENT;
         int height = RelativeLayout.LayoutParams.WRAP_CONTENT;
         boolean focusable = true;
+
+        ListView listView = (ListView) findViewById(R.id.courses_list);
+        int index = listView.getPositionForView((View) v.getParent());
+        CourseListItem item = courseList.get(index);
+        specOrderCourseId = CoursesCache.getInstance().getIds().get(item.getCourse()).intValue();
+
         popupWindow = new PopupWindow(popupView, width, height, focusable);
 
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
@@ -93,6 +111,35 @@ public class CoursesActivity extends BackButtonActivity {
 
     public void closePopup(View v) {
         popupWindow.dismiss();
+    }
+
+    public void saveSpecial(final View v){
+        String spec;
+        EditText specEditText = new EditText(this);
+        specEditText = (EditText) popupWindow.getContentView().findViewById(R.id.courses_popup_edittext);
+        spec = specEditText.getText().toString();
+
+        ArrayList<OrderService.OrderPost> specOrderList = new ArrayList<OrderService.OrderPost>();
+        specOrderList.add(new OrderService.OrderPost(specOrderCourseId,tableId,0, spec));
+        Call<Void> call = service.postOrders(specOrderList);
+        call.enqueue(new Callback<Void>() {
+            private void showToast(){
+                Toast.makeText(CoursesActivity.this, "Nått gick snett", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code()!=200){
+                    showToast();
+                    return;
+                }
+                closePopup(v);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                showToast();
+            }
+        });
     }
 
     public void saveOrder(View view) {
@@ -151,13 +198,6 @@ public class CoursesActivity extends BackButtonActivity {
         final Counter counter = new Counter(deleteOrders.size() + (newOrders.isEmpty() ? 0 : 1));
 
         if (!deleteOrders.isEmpty() || !newOrders.isEmpty()) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(getResources().getString(R.string.ip_address))
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            OrderService service = retrofit.create(OrderService.class);
-
             if (!deleteOrders.isEmpty()) {
                 for (final Map.Entry<Integer, Integer> entry : deleteOrders.entrySet()) {
                     Call<Void> call = service.deleteOrders(tableId, entry.getKey(), entry.getValue());
@@ -185,8 +225,7 @@ public class CoursesActivity extends BackButtonActivity {
             }
 
             if (!newOrders.isEmpty()) {
-                Call<Void> call = retrofit.create(OrderService.class)
-                        .postOrders(newOrders);
+                Call<Void> call = service.postOrders(newOrders);
 
                 call.enqueue(new Callback<Void>() {
                     @Override
