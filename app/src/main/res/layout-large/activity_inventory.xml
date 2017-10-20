@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     tools:context="se.miun.antonsskafferi.OrdersActivity">
 
-    <Button
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_ingredient"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/round_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginRight="25dp"
+        android:layout_gravity ="bottom|end"
+        android:layout_marginRight="40dp"
+        app:fabSize="normal"
+        app:backgroundTint="@color/colorPaleRed"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="+"
-        android:textColor="@color/colorWhite"
-        android:textSize="35sp"
-        android:onClick="showIngredientPopupWindow"/>
+        android:onClick="showIngredientPopupWindow"
+        android:src="@drawable/ic_add_black_24dp"/>
 
     <LinearLayout
         android:id="@+id/inventory_layout"
