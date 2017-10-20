@@ -1,5 +1,7 @@
 package se.miun.antonsskafferi;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,27 +36,26 @@ public interface OrderService {
     @PUT("foodorder/{orderId}")
     Call<Void> updateOrder(@Path("orderId") int orderId, @Body OrderUpdate order);
 
+    @PUT("foodorder")
+    Call<Void> bulkUpdateOrder(@Body BulkOrderUpdate bulk);
+
     @DELETE("foodorder")
     Call<Void> deleteOrders(@Query("table") int diningTableId, @Query("foodId") int foodId, @Query("count") int count);
 
     class OrderUpdate {
-        int orderStatusId;
+        Integer orderStatusId;
+    }
 
-        public OrderUpdate(int statusId) {
-            this.orderStatusId = statusId;
-        }
+    class BulkOrderUpdate {
+        @SerializedName("foodOrderIds")
+        List<Integer> orderIds;
+        @SerializedName("foodOrder")
+        OrderPost orderPost;
     }
 
     class OrderPost {
         String modification;
-        int foodId, diningTableId, orderStatusId;
-
-        public OrderPost(int foodId, int diningTableId, int orderStatusId, String modification) {
-            this.foodId = foodId;
-            this.diningTableId = diningTableId;
-            this.orderStatusId = orderStatusId;
-            this.modification = modification;
-        }
+        Integer foodId, diningTableId, orderStatusId;
     }
 }
 
