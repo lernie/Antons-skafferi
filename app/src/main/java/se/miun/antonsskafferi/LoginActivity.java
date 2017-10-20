@@ -26,7 +26,7 @@ import static android.R.attr.password;
 public class LoginActivity extends AppCompatActivity {
 
     EditText mail, pword;
-    Button log_button;
+    Button log_button, register_button;
     String token;
 
     @Override
@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         log_button = (Button) findViewById(R.id.login_button);
         mail = (EditText) findViewById(R.id.email_login);
         pword = (EditText) findViewById(R.id.password_login);
+        register_button = (Button) findViewById(R.id.register_button);
 
         LoginCache.getInstance().setUser(new User(mail.getText().toString(), pword.getText().toString()));
 
@@ -59,18 +60,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-}
 
+    public void goToRegister(View v){
 
-
-/*
-    public void goToTables(View v) {
-
-        Intent intent = new Intent(this, TablesActivity.class);
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
-
-
-    }*/
+    }
+}
 
 
 
