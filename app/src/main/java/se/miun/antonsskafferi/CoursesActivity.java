@@ -118,14 +118,23 @@ public class CoursesActivity extends BackButtonActivity {
 
                 if (match.getCount() < item.getCount()) {
                     for (int i = 0; i < item.getCount() - match.getCount(); i++) {
-                        newOrders.add(new OrderService.OrderPost(courseId, tableId, 0, ""));
+                        OrderService.OrderPost orderPost = new OrderService.OrderPost();
+                        orderPost.foodId = courseId;
+                        orderPost.diningTableId = tableId;
+                        orderPost.modification = "";
+                        newOrders.add(orderPost);
                     }
                 } else {
                     deleteOrders.put(courseId, match.getCount() - item.getCount());
                 }
             } else if (item.getCount() > 0) {
                 for (int i = 0; i < item.getCount(); i++) {
-                    newOrders.add(new OrderService.OrderPost(courseId, tableId, 0, ""));
+                    OrderService.OrderPost orderPost = new OrderService.OrderPost();
+                    orderPost.foodId = courseId;
+                    orderPost.diningTableId = tableId;
+                    orderPost.orderStatusId = 0;
+                    orderPost.modification = "";
+                    newOrders.add(orderPost);
                 }
             }
         }
@@ -193,7 +202,7 @@ public class CoursesActivity extends BackButtonActivity {
                         if (response.code() == 200) {
                             counter.inc();
                         } else {
-                            Toast.makeText(CoursesActivity.this, "Kunde inte spara", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CoursesActivity.this, "Kunde inte spara, kod: " + response.code(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

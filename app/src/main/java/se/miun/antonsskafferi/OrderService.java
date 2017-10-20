@@ -1,5 +1,7 @@
 package se.miun.antonsskafferi;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,20 +47,15 @@ public interface OrderService {
     }
 
     class BulkOrderUpdate {
-        Integer orderStatusId;
-        List<Integer> orders;
+        @SerializedName("foodOrderIds")
+        List<Integer> orderIds;
+        @SerializedName("foodOrder")
+        OrderPost orderPost;
     }
 
     class OrderPost {
         String modification;
-        int foodId, diningTableId, orderStatusId;
-
-        public OrderPost(int foodId, int diningTableId, int orderStatusId, String modification) {
-            this.foodId = foodId;
-            this.diningTableId = diningTableId;
-            this.orderStatusId = orderStatusId;
-            this.modification = modification;
-        }
+        Integer foodId, diningTableId, orderStatusId;
     }
 }
 

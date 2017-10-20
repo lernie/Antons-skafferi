@@ -130,11 +130,12 @@ public class KitchenActivity extends NavigationActivity {
         final Order order = orderList.get(gridView.getPositionForView((View) view.getParent().getParent()));
 
         OrderService.BulkOrderUpdate orderUpdate = new OrderService.BulkOrderUpdate();
-        orderUpdate.orders = new ArrayList<Integer>();
-        orderUpdate.orderStatusId = 2;
+        orderUpdate.orderIds = new ArrayList<Integer>();
+        orderUpdate.orderPost = new OrderService.OrderPost();
+        orderUpdate.orderPost.orderStatusId = 2;
 
         for (OrderServiceItem item : tablesOrdersList.get(order.getTable())) {
-            orderUpdate.orders.add(item.orderId);
+            orderUpdate.orderIds.add(item.orderId);
         }
 
         Call<Void> call = service.bulkUpdateOrder(orderUpdate);
@@ -143,7 +144,7 @@ public class KitchenActivity extends NavigationActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() != 200) {
-                    showToast();
+                    Toast.makeText(KitchenActivity.this, "Kunde inte checka av ordern, kod: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
