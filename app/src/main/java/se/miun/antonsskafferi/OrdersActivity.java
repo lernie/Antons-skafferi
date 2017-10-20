@@ -49,9 +49,10 @@ public class OrdersActivity extends BackButtonActivity {
                 .getIntExtra("table_number", -2);
         }
 
-        if (tableNumber > 0)
-        getSupportActionBar()
-            .setTitle("Bord " + tableNumber);
+        if (tableNumber > 0) {
+            getSupportActionBar()
+                .setTitle("Bord " + tableNumber);
+        }
 
         specItemIds = new HashMap<Course, Integer>();
         orderItems = new ArrayList<Order.OrderItem>();
@@ -70,63 +71,112 @@ public class OrdersActivity extends BackButtonActivity {
     }
 
     private void update() {
-        final Call<List<OrderServiceItem>> call = orderService.getOrders(tableNumber, 0);
+        final Call<List<OrderServiceItem>> orderCall = orderService.getOrders(tableNumber, 0);
+        final Call<List<OrderServiceItem>> readyCall = orderService.getOrders(tableNumber, 1);
 
         final CoursesCache cache = CoursesCache.getInstance();
 
         cache.update(new CoursesCache.UpdateCallback() {
             @Override
             public void onSuccess() {
-                call.enqueue(new Callback<List<OrderServiceItem>>() {
-                    @Override
-                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+            orderItems.clear();
+            specItemIds.clear();
 
-                        orderItems.clear();
+            orderCall.enqueue(new Callback<List<OrderServiceItem>>() {
+                @Override
+                public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                        if (response == null || response.body() == null) {
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
+                    if (response == null || response.body() == null) {
+                        adapter.notifyDataSetChanged();
+                        return;
+                    }
 
-                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+                    HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
 
-                        for (OrderServiceItem item : response.body()) {
-                            Course course = cache.getCourses().get(item.getFoodId());
+                    for (OrderServiceItem item : response.body()) {
+                        Course course = cache.getCourses().get(item.getFoodId());
 
-                            if (item.isSpecial()) {
-                                orderItems.add(new Order.OrderItem(course, item.getModification()));
-                                specItemIds.put(course, item.orderId);
+                        if (item.isSpecial()) {
+                            orderItems.add(new Order.OrderItem(course, item.getModification()));
+                            specItemIds.put(course, item.orderId);
+                        } else {
+                            if (nonSpecCount.containsKey(item.getFoodId())) {
+                                nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
                             } else {
-                                if (nonSpecCount.containsKey(item.getFoodId())) {
-                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
-                                } else {
-                                    nonSpecCount.put(item.getFoodId(), 1);
-                                }
+                                nonSpecCount.put(item.getFoodId(), 1);
                             }
                         }
+                    }
 
-                        for (int key : nonSpecCount.keySet()) {
-                            if (nonSpecCount.containsKey(key)) {
-                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
-                                        nonSpecCount.get(key)));
-                            }
+                    for (int key : nonSpecCount.keySet()) {
+                        if (nonSpecCount.containsKey(key)) {
+                            orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
+                                    nonSpecCount.get(key)));
                         }
-
-                        adapter.notifyDataSetChanged();
                     }
 
-                    @Override
-                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                        Toast.makeText(
-                                OrdersActivity.this,
-                                "Kunde inte hämta beställningar",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                    adapter.notifyDataSetChanged();
+                }
 
-                        orderItems.clear();
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                @Override
+                public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                    Toast.makeText(
+                            OrdersActivity.this,
+                            "Kunde inte hämta beställningar",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+//            readyCall.enqueue(new Callback<List<OrderServiceItem>>() {
+//                @Override
+//                public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+//
+//                    if (response == null || response.body() == null) {
+//                        adapter.notifyDataSetChanged();
+//                        return;
+//                    }
+//
+//                    HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+//
+//                    for (OrderServiceItem item : response.body()) {
+//                        Course course = cache.getCourses().get(item.getFoodId());
+//
+//                        if (item.isSpecial()) {
+//                            orderItems.add(new Order.OrderItem(course, item.getModification()));
+//                            specItemIds.put(course, item.orderId);
+//                        } else {
+//                            if (nonSpecCount.containsKey(item.getFoodId())) {
+//                                nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+//                            } else {
+//                                nonSpecCount.put(item.getFoodId(), 1);
+//                            }
+//                        }
+//                    }
+//
+//                    for (int key : nonSpecCount.keySet()) {
+//                        if (nonSpecCount.containsKey(key)) {
+//                            orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
+//                                    nonSpecCount.get(key)));
+//                        }
+//                    }
+//
+////                    adapter.notifyDataSetChanged();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+//                    Toast.makeText(
+//                            OrdersActivity.this,
+//                            "Kunde inte hämta beställningar",
+//                            Toast.LENGTH_SHORT
+//                    ).show();
+//
+//                    adapter.notifyDataSetChanged();
+//                }
+//            });
             }
         });
     }

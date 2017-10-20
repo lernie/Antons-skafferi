@@ -132,7 +132,7 @@ public class KitchenActivity extends NavigationActivity {
         OrderService.BulkOrderUpdate orderUpdate = new OrderService.BulkOrderUpdate();
         orderUpdate.orderIds = new ArrayList<Integer>();
         orderUpdate.orderPost = new OrderService.OrderPost();
-        orderUpdate.orderPost.orderStatusId = 2;
+        orderUpdate.orderPost.orderStatusId = 1;
 
         for (OrderServiceItem item : tablesOrdersList.get(order.getTable())) {
             orderUpdate.orderIds.add(item.orderId);
