@@ -120,7 +120,15 @@ public class CoursesActivity extends BackButtonActivity {
         spec = specEditText.getText().toString();
 
         ArrayList<OrderService.OrderPost> specOrderList = new ArrayList<OrderService.OrderPost>();
-        specOrderList.add(new OrderService.OrderPost(specOrderCourseId,tableId,0, spec));
+
+        OrderService.OrderPost orderPost = new OrderService.OrderPost();
+
+        orderPost.foodId = specOrderCourseId;
+        orderPost.diningTableId = tableId;
+        orderPost.orderStatusId = 0;
+        orderPost.modification = spec;
+
+        specOrderList.add(orderPost);
         Call<Void> call = service.postOrders(specOrderList);
         call.enqueue(new Callback<Void>() {
             private void showToast(){
