@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import android.support.annotation.FloatRange;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +49,24 @@ public class InventoryActivity extends NavigationActivity {
         inventoryList = new ArrayList<Ingredient>();
         adapter = new InventoryListAdapter(this, inventoryList);
         ((GridView) findViewById(R.id.inventory_list)).setAdapter(adapter);
+        ((GridView) findViewById(R.id.inventory_list)).setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+                if (i==SCROLL_STATE_FLING){
+                    if(((FloatingActionButton) findViewById(R.id.add_ingredient)).getVisibility()== absListView.VISIBLE)
+                    ((FloatingActionButton) findViewById(R.id.add_ingredient)).setVisibility(View.GONE);
+                    else ((FloatingActionButton) findViewById(R.id.add_ingredient)).setVisibility(View.VISIBLE);
+                }
+
+
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
