@@ -37,6 +37,8 @@ public class TableOrdersAdapter extends ArrayAdapter<Order.OrderItem>{
         View rowView;
         if(item.isSpecial()){
             rowView = inflater.inflate(R.layout.table_order_spec, parent, false);
+            TextView spectext = (TextView) rowView.findViewById(R.id.order_spec_order_text);
+            spectext.setText(item.getText());
         } else {
             rowView = inflater.inflate(R.layout.table_order, parent, false);
             TextView quantity = (TextView) rowView.findViewById(R.id.quantity);
