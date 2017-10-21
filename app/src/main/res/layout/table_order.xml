@@ -11,7 +11,7 @@
         android:id="@+id/order"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:paddingStart="5dp"
         android:paddingLeft="5dp"
         android:textColor="@color/colorBlack"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:text="x2"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
 
 </LinearLayout>
