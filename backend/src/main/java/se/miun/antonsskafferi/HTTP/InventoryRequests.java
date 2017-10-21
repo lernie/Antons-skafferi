@@ -85,7 +85,7 @@ public class InventoryRequests {
         return Response.ok(invDao.getAll()).build();
     }
 
-    @POST
+    @PUT
     @Path("/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateInventoryItem(InventoryItem item, @PathParam("id") int id) {
