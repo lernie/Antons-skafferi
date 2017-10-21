@@ -82,6 +82,28 @@ public class UnitDaoJdbc implements UnitDao {
 
     @Override
     public boolean update(Unit unit) {
-        return false;
+        boolean status = true;
+        try {
+            String sqlQuery = "UPDATE Unit " +
+                    "SET name = CASE WHEN ? = '' THEN name ELSE ? END, " +
+                    "prefix = CASE WHEN ? = '' THEN prefix ELSE ? END " +
+                    "WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+            ps.setString(1, unit.getName() == null ? "" : unit.getName());
+            ps.setString(2, unit.getName() == null ? "" : unit.getName());
+            ps.setString(3, unit.getPrefix() == null ? "" : unit.getPrefix());
+            ps.setString(4, unit.getPrefix() == null ? "" : unit.getPrefix());
+            ps.setInt(5, unit.getId());
+
+            ps.execute();
+            ps.close();
+            ConnectionSetup.conn.commit();
+
+        } catch(SQLException sqlExcept){
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
     }
 }

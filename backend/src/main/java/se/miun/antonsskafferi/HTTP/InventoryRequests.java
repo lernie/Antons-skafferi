@@ -45,6 +45,17 @@ public class InventoryRequests {
         return Response.status(500).build();
     }
 
+    @PUT
+    @Path("/unit/{id}")
+    public Response uppdateUnit(
+        @PathParam("id") int id,
+        Unit unit
+    ){
+        UnitDaoJdbc unitDaoJdbc = new UnitDaoJdbc();
+        unit.setId(id);
+        return Response.ok(unitDaoJdbc.update(unit)).build();
+    }
+
     @GET
     @Path("/ingredient")
     @Produces(MediaType.APPLICATION_JSON)
@@ -82,7 +93,7 @@ public class InventoryRequests {
         return Response.ok(invDao.getAll()).build();
     }
 
-    @POST
+    @PUT
     @Path("/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateInventoryItem(InventoryItem item, @PathParam("id") int id) {
@@ -151,7 +162,7 @@ public class InventoryRequests {
     @Path("/foodtype")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFoodTypes(){
-        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
-        return Response.ok(invDao.getAll()).build();
+        FoodTypeDaoJdbc foodTypeDaoJdbc = new FoodTypeDaoJdbc();
+        return Response.ok(foodTypeDaoJdbc.getAll()).build();
     }
 }

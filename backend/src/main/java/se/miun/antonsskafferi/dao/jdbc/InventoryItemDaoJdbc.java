@@ -58,7 +58,7 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
 
     @Override
     public boolean update(InventoryItem inventoryItem) {
-        boolean status = true;
+        /*boolean status = true;
         if (inventoryItem.getInstock() >= 0) {
             try {
                 StringBuilder sqlString = new StringBuilder("UPDATE InventoryItem SET ");
@@ -86,6 +86,33 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
                 sqlExcept.printStackTrace();
                 status = false;
             }
+        }
+
+        return status;*/
+
+        boolean status = true;
+        try {
+            String sqlQuery = "UPDATE Inventory " +
+                    "SET name = CASE WHEN ? = '' THEN name ELSE ? END, " +
+                    "unitid = CASE WHEN ? = -1 THEN unitid ELSE ? END, " +
+                    "instock = CASE WHEN ? = -1 THEN instock ELSE ? END " +
+                    "WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+            ps.setString(1, inventoryItem.getName() == null ? "" : inventoryItem.getName());
+            ps.setString(2, inventoryItem.getName() == null ? "" : inventoryItem.getName());
+            ps.setInt(3, inventoryItem.getUnitid());
+            ps.setInt(4, inventoryItem.getUnitid());
+            ps.setInt(5, inventoryItem.getInstock());
+            ps.setInt(6, inventoryItem.getInstock());
+            ps.setInt(7, inventoryItem.getId());
+
+            ps.execute();
+            ps.close();
+            ConnectionSetup.conn.commit();
+
+        } catch(SQLException sqlExcept){
+            sqlExcept.printStackTrace();
+            status = false;
         }
 
         return status;

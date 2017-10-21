@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class IngredientDaoJdbc implements IngredientDao {
+    @Deprecated
     @Override
     public List<Ingredient> getAll(int measurementId) {
         java.util.List<Ingredient> ingredients = new java.util.ArrayList();
@@ -49,6 +50,7 @@ public class IngredientDaoJdbc implements IngredientDao {
         return ingredients;
     }
 
+    @Deprecated
     @Override
     public boolean insert(Ingredient ingredient) {
         boolean status = true;

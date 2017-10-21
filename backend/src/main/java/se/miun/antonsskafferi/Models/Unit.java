@@ -1,9 +1,9 @@
 package se.miun.antonsskafferi.Models;
 
 public class Unit {
-    private int id; //PK
-    private String name;
-    private String prefix;
+    private int id = -1; //PK
+    private String name = "";
+    private String prefix = "";
 
     public int getId() {
         return id;

@@ -12,6 +12,7 @@ import java.util.List;
 
 public class MeasurementDaoJdbc implements MeasurementDao {
 
+    @Deprecated
     @Override
     public List<Measurement> getAll() {
         java.util.List<Measurement> measurements = new java.util.ArrayList();
@@ -40,6 +41,7 @@ public class MeasurementDaoJdbc implements MeasurementDao {
         return measurements;
     }
 
+    @Deprecated
     @Override
     public boolean insert(Measurement measurement) {
         boolean status = true;
@@ -60,6 +62,7 @@ public class MeasurementDaoJdbc implements MeasurementDao {
         return status;
     }
 
+    @Deprecated
     @Override
     public boolean delete(int id) {
         boolean status = true;
@@ -78,6 +81,7 @@ public class MeasurementDaoJdbc implements MeasurementDao {
         return status;
     }
 
+    @Deprecated
     @Override
     public boolean update(Measurement measurement) {
         return false;
