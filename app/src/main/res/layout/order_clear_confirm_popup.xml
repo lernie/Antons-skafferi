@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:text="Betala?"
+        android:text="@string/popup_title"
         android:textAlignment="center"
         android:textColor="@color/colorBlack"
         android:id="@+id/popup_title" />
@@ -24,14 +24,14 @@
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:text="Spara"
+            android:text="@string/save_button"
             android:onClick="clearOrders"/>
         <Button
             android:id="@+id/cancel_clear"
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:text="Avbryt"
+            android:text="@string/cancel_button"
             android:onClick="dissmissConfirmPopup"/>
     </LinearLayout>
 

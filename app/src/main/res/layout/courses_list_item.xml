@@ -46,7 +46,6 @@
         android:id="@+id/courses_item_course_name"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

@@ -3,6 +3,7 @@
 
     <string name="ip_address">http://simonarstam.com/antons-skafferi/api/</string>
 
+    <!-- Strings related to activity_tables-->
     <string name="table1">Bord 1</string>
     <string name="table2">Bord 2</string>
     <string name="table3">Bord 3</string>
@@ -10,18 +11,34 @@
     <string name="table5">Bord 5</string>
     <string name="table6">Bord 6</string>
     <string name="table7">Bord 7</string>
+    <string name="kitchen">Kök</string>
 
     <string name="title_activity_tables">Bord X</string>
-    <string name="edit">Redigera</string>
-    <string name="clear_table">Rensa bord</string>
+
+
+    <!-- Strings related to activity_orders-->
+    <string name="edit">Maträtter</string>
+    <string name="clear_table">Bekräfta köp</string>
+
+    <!-- Strings related to activity order_clear_confirm_popup and inventory_popup(_remove)-->
+    <string name="popup_title">Vill du bekräfta köp?</string>
+    <string name="save_button">Spara</string>
+    <string name="cancel_button">Avbryt</string>
+    <string name="remove_button">Ta bort</string>
+    <string name="quantity">Antal</string>
+    <string name="add_ingridient">Lägg till ingrediens:</string>
+    <string name="ingridient_name">Ingrediens</string>
+    <string name="unit">Enhet:</string>
+    <string name="change_ingridient">Redigera ingrediens:</string>
+
+    <!-- Strings related to courses-->
+    <string name="add_remove">Lägg till/Ta bort</string>
 
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Användarnamn</string>
-    <string name="prompt_password">Lösenord</string>
-    <string name="action_sign_in">Logga in eller registrera</string>
-    <string name="action_sign_in_short">Logga in</string>
-    <string name="loggIn">Logga in</string>
+    <string name="user_name">Användarnamn</string>
+    <string name="password">Lösenord</string>
+    <string name="logg_in">Logga in</string>
 
 </resources>
 

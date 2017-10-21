@@ -14,6 +14,7 @@ public class TablesActivity extends NavigationActivity {
     }
     public void goToKitchen (View view){
         Intent intent = new Intent(this, KitchenActivity.class);
+        finish();
         startActivity(intent);
     }
     public void goToOrder (View view){

@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:ems="10"
-        android:text="Logga in "
+        android:text="@string/logg_in"
         android:textSize="30sp" />
 
     <EditText
@@ -47,7 +47,7 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logga in"
+        android:text="@string/logg_in"
         android:layout_marginTop="21dp"
         android:onClick="doLogin"
         android:layout_below="@+id/password_login"
