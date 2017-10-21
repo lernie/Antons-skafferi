@@ -10,8 +10,12 @@ public class TablesActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
-    }
 
+    }
+    public void goToKitchen (View view){
+        Intent intent = new Intent(this, KitchenActivity.class);
+        startActivity(intent);
+    }
     public void goToOrder (View view){
         Intent intent = new Intent(this, OrdersActivity.class);
 
