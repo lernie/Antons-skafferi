@@ -23,7 +23,7 @@ public class AuthenticationProvider {
         return salt;
     }
 
-    public static String hashPassword(String passwordToHash, byte[] salt) {
+    public static String hashPassword(String passwordToHash, byte[] salt) throws NoSuchAlgorithmException, NullPointerException{
         String generatedPassword = null;
 
         try {
@@ -38,9 +38,9 @@ public class AuthenticationProvider {
 
             generatedPassword = sb.toString();
         }
-        catch (NoSuchAlgorithmException e)
+        catch (Exception e)
         {
-            e.printStackTrace();
+            throw e;
         }
 
         return generatedPassword;
