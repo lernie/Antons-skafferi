@@ -3,6 +3,7 @@ package se.miun.antonsskafferi;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by joel on 2017-09-30.
@@ -11,15 +12,22 @@ import java.util.Collection;
 public class Order {
     private int table;
     private ArrayList<OrderItem> courses;
+    private long created;
 
     public Order(int table) {
         this.table = table;
         this.courses = new ArrayList<OrderItem>();
+        this.created = 0;
     }
 
-    public Order(int table, Collection<OrderItem> courses) {
+    public Order(int table, Collection<OrderItem> courses, long created) {
         this.table = table;
         this.courses = new ArrayList<OrderItem>(courses);
+        this.created = created;
+    }
+
+    public long getCreated() {
+        return created;
     }
 
     public int getTable() {
