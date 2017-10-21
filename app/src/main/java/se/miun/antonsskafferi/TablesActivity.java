@@ -10,6 +10,8 @@ public class TablesActivity extends NavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
+
+        OrderStatusCache.getInstance().update(null);
     }
 
     public void goToOrder (View view){

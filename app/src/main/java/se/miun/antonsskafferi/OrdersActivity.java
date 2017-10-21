@@ -82,7 +82,8 @@ public class OrdersActivity extends BackButtonActivity {
                 @Override
                 public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
 
-                    if (response == null || response.body() == null) {
+                    if (response.code() != 200) {
+                        Toast.makeText(OrdersActivity.this, "Kunde inte hämta beställningar, kod " + response.code(), Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();
                         return;
                     }
@@ -134,7 +135,7 @@ public class OrdersActivity extends BackButtonActivity {
                 specItemIds.clear();
 
                 orderCall.enqueue(callback);
-                readyCall.enqueue(callback);
+//                readyCall.enqueue(callback);
             }
         });
     }
