@@ -11,41 +11,49 @@ import se.miun.antonsskafferi.Models.*;
 import se.miun.antonsskafferi.dao.FoodDao;
 import se.miun.antonsskafferi.dao.InventoryItemDao;
 import se.miun.antonsskafferi.dao.MeasurementDao;
-import se.miun.antonsskafferi.dao.jdbc.FoodDaoJdbc;
-import se.miun.antonsskafferi.dao.jdbc.IngredientDaoJdbc;
-import se.miun.antonsskafferi.dao.jdbc.InventoryItemDaoJdbc;
-import se.miun.antonsskafferi.dao.jdbc.MeasurementDaoJdbc;
+import se.miun.antonsskafferi.dao.jdbc.*;
 
 
 @Path("/api")
 public class InventoryRequests {
 
     @GET
-    @Path("/measurement")
+    @Path("/unit")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMeasurements() {
-        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
-        return Response.ok(dao.getAll()).build();
+    public Response getAllUnits() {
+        UnitDaoJdbc unitDaoJdbc = new UnitDaoJdbc();
+        return Response.ok(unitDaoJdbc.getAll()).build();
     }
 
     @POST
-    @Path("/measurement")
+    @Path("/unit")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(Measurement measurement) {
-        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
-        dao.insert(measurement);
+    public Response add(Unit unit) {
+        UnitDaoJdbc unitDaoJdbc = new UnitDaoJdbc();
+        unitDaoJdbc.insert(unit);
         return Response.ok().build();
     }
 
 
     @DELETE
-    @Path("/measurement/{id}")
-    public Response delMeasurement(@PathParam("id") int id) {
-        MeasurementDaoJdbc dao = new MeasurementDaoJdbc();
-        if (dao.delete(id)) {
+    @Path("/unit/{id}")
+    public Response delUnit(@PathParam("id") int id) {
+        UnitDaoJdbc unitDaoJdbc = new UnitDaoJdbc();
+        if (unitDaoJdbc.delete(id)) {
             return Response.ok().build();
         }
         return Response.status(500).build();
+    }
+
+    @PUT
+    @Path("/unit/{id}")
+    public Response uppdateUnit(
+        @PathParam("id") int id,
+        Unit unit
+    ){
+        UnitDaoJdbc unitDaoJdbc = new UnitDaoJdbc();
+        unit.setId(id);
+        return Response.ok(unitDaoJdbc.update(unit)).build();
     }
 
     @GET
@@ -89,10 +97,19 @@ public class InventoryRequests {
     @Path("/inventory/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateInventoryItem(InventoryItem item, @PathParam("id") int id) {
-        item.setIngredientId(id);
+        item.setId(id);
         InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
         invDao.update(item);
         return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("/inventory/{id}")
+    public Response deleteInventoryItem(
+        @PathParam("id") int id
+    ){
+        InventoryItemDaoJdbc inventoryItemDaoJdbc = new InventoryItemDaoJdbc();
+        return Response.ok(inventoryItemDaoJdbc.delete(id)).build();
     }
 
     @GET
@@ -145,7 +162,7 @@ public class InventoryRequests {
     @Path("/foodtype")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFoodTypes(){
-        InventoryItemDaoJdbc invDao = new InventoryItemDaoJdbc();
-        return Response.ok(invDao.getAll()).build();
+        FoodTypeDaoJdbc foodTypeDaoJdbc = new FoodTypeDaoJdbc();
+        return Response.ok(foodTypeDaoJdbc.getAll()).build();
     }
 }

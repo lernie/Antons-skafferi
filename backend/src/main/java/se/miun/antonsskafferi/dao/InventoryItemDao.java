@@ -8,4 +8,5 @@ public interface InventoryItemDao {
     List<InventoryItem> getAll();
     boolean insert(InventoryItem inventoryItem);
     boolean update(InventoryItem inventoryItem);
+    boolean delete(int id);
 }

@@ -17,12 +17,14 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
 
         try {
             Statement stmt = ConnectionSetup.conn.createStatement();
-            ResultSet results = stmt.executeQuery("select ingredientId, amount from InventoryItem");
+            ResultSet results = stmt.executeQuery("select id, name, unitid, instock from Inventory  ");
             java.sql.ResultSetMetaData rsmd = results.getMetaData();
             while (results.next()) {
                 InventoryItem tempItem = new InventoryItem();
-                tempItem.setIngredientId(results.getInt(1));
-                tempItem.setAmount(results.getInt(2));
+                tempItem.setId(results.getInt(1));
+                tempItem.setName(results.getString(2));
+                tempItem.setUnitid(results.getInt(3));
+                tempItem.setInstock(results.getInt(4));
                 inventoryList.add(tempItem);
             }
             results.close();
@@ -38,10 +40,11 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
     public boolean insert(InventoryItem inventoryItem) {
         boolean status = true;
         try {
-            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO InventoryItem"+
-                    "(ingredientId, amount) VALUES (?, ?)");
-            ps.setInt(1, inventoryItem.getIngredientId());
-            ps.setInt(2, inventoryItem.getAmount());
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("INSERT INTO Inventory"+
+                    "(name, unitid, instock) VALUES (?, ?, ?)");
+            ps.setString(1, inventoryItem.getName());
+            ps.setInt(2, inventoryItem.getUnitid());
+            ps.setInt(3, inventoryItem.getInstock());
 
             ps.execute();
             ConnectionSetup.conn.commit();
@@ -55,27 +58,27 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
 
     @Override
     public boolean update(InventoryItem inventoryItem) {
-        boolean status = true;
-        if (inventoryItem.getAmount() >= 0) {
+        /*boolean status = true;
+        if (inventoryItem.getInstock() >= 0) {
             try {
                 StringBuilder sqlString = new StringBuilder("UPDATE InventoryItem SET ");
 
                 List<String> sqlUpdatesList = new java.util.ArrayList();
-                if (inventoryItem.getAmount() >= 0) sqlUpdatesList.add("amount=?");
+                if (inventoryItem.getInstock() >= 0) sqlUpdatesList.add("instock=?");
 
                 sqlString.append(String.join(",", sqlUpdatesList));
-                sqlString.append(" WHERE ingredientId=?");
+                sqlString.append(" WHERE id=?");
 
                 PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlString.toString());
 
                 int count = 1;
 
-                if (inventoryItem.getAmount() >=0) {
-                    ps.setInt(count, inventoryItem.getAmount());
+                if (inventoryItem.getInstock() >=0) {
+                    ps.setInt(count, inventoryItem.getInstock());
                     count +=1;
                 }
 
-                ps.setInt(count, inventoryItem.getIngredientId());
+                ps.setInt(count, inventoryItem.getId());
 
                 ps.execute();
                 ConnectionSetup.conn.commit();
@@ -83,6 +86,51 @@ public class InventoryItemDaoJdbc implements InventoryItemDao {
                 sqlExcept.printStackTrace();
                 status = false;
             }
+        }
+
+        return status;*/
+
+        boolean status = true;
+        try {
+            String sqlQuery = "UPDATE Inventory " +
+                    "SET name = CASE WHEN ? = '' THEN name ELSE ? END, " +
+                    "unitid = CASE WHEN ? = -1 THEN unitid ELSE ? END, " +
+                    "instock = CASE WHEN ? = -1 THEN instock ELSE ? END " +
+                    "WHERE id = ?";
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement(sqlQuery);
+            ps.setString(1, inventoryItem.getName() == null ? "" : inventoryItem.getName());
+            ps.setString(2, inventoryItem.getName() == null ? "" : inventoryItem.getName());
+            ps.setInt(3, inventoryItem.getUnitid());
+            ps.setInt(4, inventoryItem.getUnitid());
+            ps.setInt(5, inventoryItem.getInstock());
+            ps.setInt(6, inventoryItem.getInstock());
+            ps.setInt(7, inventoryItem.getId());
+
+            ps.execute();
+            ps.close();
+            ConnectionSetup.conn.commit();
+
+        } catch(SQLException sqlExcept){
+            sqlExcept.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        boolean status = true;
+
+        try {
+            PreparedStatement ps = ConnectionSetup.conn.prepareStatement("DELETE FROM Inventory WHERE id=?");
+            ps.setInt(1, id);
+
+            ps.execute();
+            ConnectionSetup.conn.commit();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+            status=false;
         }
 
         return status;
