@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_weight="3"
-        android:textSize="20dp"
-        android:text="PonnyP-patch-plättar" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/course_count"
@@ -19,8 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_centerVertical="true"
-        android:textSize="20dp"
-        android:text="x3"/>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/course_cooking_time"
@@ -29,7 +27,6 @@
         android:layout_weight="1"
         android:gravity="right"
         android:layout_marginRight="20dp"
-        android:textSize="20dp"
-        android:text="10 min" />
+        android:textSize="20sp"/>
 
 </LinearLayout>

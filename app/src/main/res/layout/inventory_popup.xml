@@ -11,17 +11,17 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="22sp"
-        android:text="Lägg till ingrediens:"/>
+        android:text="@string/add_ingridient"/>
 
     <EditText
         android:id="@+id/popup_add_ingredient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ingrediens"
+        android:hint="@string/ingridient_name"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/ingredient_popup_title"
         android:layout_alignParentLeft="true"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
-        android:text="Enhet:"
+        android:text="@string/unit"
         android:textSize="22sp"
         android:layout_marginBottom="5dp"
         android:layout_below="@+id/popup_add_ingredient"/>
@@ -48,8 +48,8 @@
         android:id="@+id/popup_add_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Antal"
-        android:textSize="20dp"
+        android:hint="@string/quantity"
+        android:textSize="20sp"
         android:layout_below="@+id/popup_spinner_unit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -65,7 +65,7 @@
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:text="Spara"
+        android:text="@string/save_button"
         android:onClick="removePopupOnClick"/>
 
     <Button
@@ -73,7 +73,7 @@
         android:layout_width="80dp"
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        android:text="Avbryt"
+        android:text="@string/cancel_button"
         android:onClick="removePopupOnClick"/>
     </LinearLayout>
 </RelativeLayout>
