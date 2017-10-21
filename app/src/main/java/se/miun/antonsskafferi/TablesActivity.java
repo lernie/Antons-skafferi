@@ -11,6 +11,9 @@ public class TablesActivity extends NavigationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tables);
 
+        OrderStatusCache.getInstance().update(null);
+    }
+
     }
     public void goToKitchen (View view){
         Intent intent = new Intent(this, KitchenActivity.class);

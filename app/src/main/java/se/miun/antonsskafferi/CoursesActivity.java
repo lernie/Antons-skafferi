@@ -114,10 +114,8 @@ public class CoursesActivity extends BackButtonActivity {
     }
 
     public void saveSpecial(final View v){
-        String spec;
-        EditText specEditText = new EditText(this);
-        specEditText = (EditText) popupWindow.getContentView().findViewById(R.id.courses_popup_edittext);
-        spec = specEditText.getText().toString();
+        EditText specEditText = (EditText) popupWindow.getContentView().findViewById(R.id.courses_popup_edittext);
+        String spec = specEditText.getText().toString();
 
         ArrayList<OrderService.OrderPost> specOrderList = new ArrayList<OrderService.OrderPost>();
 
@@ -130,16 +128,19 @@ public class CoursesActivity extends BackButtonActivity {
 
         specOrderList.add(orderPost);
         Call<Void> call = service.postOrders(specOrderList);
+
         call.enqueue(new Callback<Void>() {
             private void showToast(){
                 Toast.makeText(CoursesActivity.this, "Nått gick snett", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.code()!=200){
+                if (response.code() != 200) {
                     showToast();
                     return;
                 }
+
                 closePopup(v);
             }
 

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by joel on 2017-09-28.
@@ -28,13 +29,26 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = (ViewGroup) inflater.inflate(R.layout.kitchen_order, parent, false);
+        View orderView = (ViewGroup) inflater.inflate(R.layout.kitchen_order, parent, false);
 
-        LinearLayout linLayout = view.findViewById(R.id.course_list);
+        LinearLayout linLayout = orderView.findViewById(R.id.course_list);
 
         Order order = getItem(position);
 
-        TextView tableNumberView = (TextView) view.findViewById(R.id.order_title);
+        TextView timeSinceOrdered = (TextView) orderView.findViewById(R.id.came_in_minutes_ago);
+
+        long seconds = ((Calendar.getInstance().get(Calendar.ZONE_OFFSET) +
+                            Calendar.getInstance().get(Calendar.DST_OFFSET) +
+                            Calendar.getInstance().getTime().getTime() -
+                            order.getCreated()))/1000; // milliseconds to seconds conversion
+
+        if (seconds >= 60) {
+            timeSinceOrdered.setText(Long.toString(seconds/60) + " min");
+        } else {
+            timeSinceOrdered.setText(Long.toString(seconds) + " sek");
+        }
+
+        TextView tableNumberView = (TextView) orderView.findViewById(R.id.order_title);
         tableNumberView.setText("Bord " + order.getTable());
 
         for (int i = 0; i < order.getCourseCount(); i++) {
@@ -63,6 +77,6 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
             linLayout.addView(courseView);
         }
 
-        return view;
+        return orderView;
     }
 }

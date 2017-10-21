@@ -2,22 +2,25 @@ package se.miun.antonsskafferi;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created by joel on 2017-10-09.
  */
 
 public class OrderServiceItem {
-    String created, delivered, modification, ready;
+    String modification;
+    long created, delivered, ready;
     int foodId, orderStatusId, diningTableId;
 
     @SerializedName("id")
     int orderId;
 
-    public String getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public String getDelivered() {
+    public long getDelivered() {
         return delivered;
     }
 
@@ -25,7 +28,7 @@ public class OrderServiceItem {
         return modification;
     }
 
-    public String getReady() {
+    public long getReady() {
         return ready;
     }
 
