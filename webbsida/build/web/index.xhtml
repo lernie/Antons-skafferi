@@ -1,9 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Antons Skafferi @ Hackers</title>
+        <title>Antons Skafferi @ Hackers</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -16,14 +17,14 @@
                 position: relative; 
             }
             #section1 {padding-top:50px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #404040;}
-            #section2 {padding-top:50px;height:1000px;color: #fff; background-color: #bfbfbf}
-            #section3 {padding-top:0px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #cccccc;}
-            #section41 {padding-top:50px;height:650px;color: #fff; background-color: #bfbfbf;}
-            #section42 {padding-top:50px;height:650px;color: #fff; background-color: #b3b3b3}
-            #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #595959}
+            #section2 {padding-top:50px;height:1000px;color: #fff; background-color: #404040;}
+            #section3 {padding-top:0px;padding-left:0px;padding-right:0px;height:1000px;color: #fff; background-color: #404040;}
+            #section41 {padding-top:50px;height:650px;color: #fff; background-color: #404040;}
+            #section42 {padding-top:50px;height:650px;color: #fff; background-color: #404040;}
+            #section5 {padding-top:0px;padding-bottom:0px;height:50px;color: #fff; background-color: #404040;}
         </style>
     </h:head>
-    <h:body data-spy="scroll" data-target=".navbar" data-offset="50">
+    <body data-spy="scroll" data-target=".navbar" data-offset="50">
         
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
@@ -67,12 +68,13 @@
         </h:form>
 
 
-        <script>
+            
+       <script>
         $(document).ready(function(){
             console.log("hej");
             $("#button").click(function() {
                 $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
+                    url: "http://simonarstam.com/antons-skafferi/api/food",
                     method: "POST",
                     dataType: "json",
                     contentType: "application/json; chaset=utf-8",
@@ -86,7 +88,7 @@
                 });
             });
                     $.ajax({
-                    url: "http://37.139.13.250:8080/api/food",
+                    url: "http://simonarstam.com/antons-skafferi/api/food",
                     method: "GET",
                     dataType: "json",
                     contentType: "application/json; chaset=utf-8",
@@ -109,49 +111,47 @@
                 });
         });
         
-
         
         </script>
          
         </div>
         <div id="section2" class="container-fluid">
-            <h1>Meny</h1>
-            <img src="bilder/laxmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-            <img src="bilder/köttfärsås.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
             
-            <br/>
+        <script>
+        $(document).ready(function(){
+            console.log("hej");
+                    $.ajax({
+                       
+                    url: "http://37.139.13.250:8080/api/todayslunch?startdate=#{todaysBean.todaysDate}&amp;enddate=#{todaysBean.todaysDate}",
+                    method: "GET",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    success : function(r) {
+                        console.log(r);
+                        //<![CDATA[
+                        for(var i = 0; i < r.length; i++){
+                           console.log(r[i]);
+                          $("#section1").append("<b>Dagens lunch:</b> ",r[i].foodName,"<br>");
+                        }
+                       
+                       //]]>
+                        r.forEach(function(element) {
+                        
+                    });
+                    }
+                }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                });
+        });
+        
+        
+        </script>
             
             
+            
 
-            <h2>Måndag</h2>
-                <p>Fisk med maskmasdkoasd</p>  
-                <p>Spaghetti med köttfärsås</p>
-            <br/> 
-            <h2>Tisdag</h2>
-                <p>Lasange</p>
-                <p>Thai-wok</p>
-                <img src="bilder/pastameny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-                <img src="bilder/köttigtmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
 
-            <br/> 
-            <h2>Onsdag</h2>
-                <p>Pastagratäng med rökt skinka, fetaost, rödlök, svarta oliver och vitvinsås</p>
-                <p>Högrevsgryta med sotad purjolök, pepparrot och bulgur</p>
-
-            <br/> 
-
-     
-            <h2>Torsdag</h2>
-                <p>Rosmarinkryddad kalvbiff med potatismos och rödvinssås</p>
-                <p>VARJE TORSDAG – Ärtsoppa med pannkaka och sylt</p>
-                <img src="bilder/kalvmeny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-                <img src="bilder/soppameny.jpg" alt="mat" style="width:20%;height:20%; float:right;"/>
-            <br/> 
-            <h2>Fredag</h2>
-                <p>Fisklasagne med spenat</p>
-                <p>Timiankryddad kyckling med chili, samt broccoli och potatisgratäng</p>
-       
-                
         </div>
         <div id="section3" class="container-fluid">
             <img src="bilder/delorian.jpg" alt="mat" style="width:100%;height:70%;"/>

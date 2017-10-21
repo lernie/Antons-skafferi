@@ -1,0 +1,144 @@
+    <?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Antons Skafferi @ Hackers</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="./resources/css/admin.css" rel="stylesheet" type="text/css"/>
+        
+    </h:head>
+    
+    <h:body>
+
+        <div id="wrapper">
+            <div id="header">
+                <ul>
+                    <li><a href="index.xhtml">Huvudsida</a></li>
+                </ul>
+            </div>
+            <br/>
+            <div id="food">
+                <p> Lägg till en maträtt i sortimentet </p>
+                <h:form>
+                    Rättens namn: <input type="text" name="fname" id="name" style="color:black;"/><br/>
+                    Tillagningstid: <input type="text" name="fname" id="tid" style="color:black;" /><br/>
+                    Pris:<br/> <input type="text" name="fname" id="pris" style="color:black;" /><br/>
+                    <br/>
+                    <input type="button" value="Lägg till en maträtt!" id="button" style="color:black;" />
+                </h:form>
+            </div> 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div id="lunch"> 
+               
+                    Food: <select id="fillMe" style="color:black"></select>
+                    ID: <input title="ID number" id="foodTxt" name="foodSelected" type="text" style="color:black"/>
+                    <br/>
+                    <br/>
+                    Date: <input type="text" id="datePicker"/>
+                    <br/>
+                    
+                    <br/>
+                    <button id="sendToServer" value="">Send</button>
+                    <!--    <input id="success" name="success" type="text" style="color:black;"/>
+-->      
+                
+            </div>
+            
+            
+            <h1> alla färger är placeholder </h1>
+            
+        </div> 
+       
+        
+        
+        
+        <script>
+            $(document).ready(function(){
+            $(document).ready(function(){
+                console.log("hej");
+                $("#button").click(function() {
+                    $.ajax({
+                        url: "http://simonarstam.com/antons-skafferi/api/food",
+                        method: "POST",
+                        dataType: "json",
+                        contentType: "application/json; chaset=utf-8",
+                        data : JSON.stringify({name:$("#name").val(),foodTypeId: 1,timeToCook:$("#tid").val(),price:$("#pris").val()}),
+                        success : function(r) {
+                            console.log(r);
+                        }
+                    }).done(function(response) {
+                    
+                    console.log("hej", JSON.parse(response));
+                    });
+                });
+            });
+            });
+        </script>
+<script> 
+         $(document).ready(function(){
+           $.getJSON("http://simonarstam.com/antons-skafferi/api/food", function(r){
+          $("#fillMe").html("");
+          //<![CDATA[
+       for(var i = 0; i < r.length; i++){
+            
+            $("#fillMe").append("<option value='"+r[i].id+"'>"+r[i].name+"</option>");
+            }
+            
+             //]]>
+   });    
+ });
+</script> 
+
+        
+<script>
+        
+        $("#fillMe").on('change', function(){
+            $("#foodTxt").val($('#fillMe').val());
+            
+        });
+</script>
+
+    
+<script>
+  $( function() {
+    $( "#datePicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    
+  } );
+</script>
+    
+
+    
+<script>
+        $("#sendToServer").click(function() {
+          // $("#success").val(JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}));
+          
+                $.ajax({
+                    url: "http://simonarstam.com/antons-skafferi/api/todayslunch",
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json; chaset=utf-8",
+                    data : JSON.stringify({foodId:$('#fillMe').val(),todaysDate:$('#datePicker').val()}),
+                    //data : JSON.stringify({"foodId": 47, "todaysDate": "2017-10-15"}),
+                    
+                    success : function(r) {
+                        console.log(r);
+                    }
+                })
+            });
+</script>
+    </h:body>
+</html>
+
