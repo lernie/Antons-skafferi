@@ -135,7 +135,7 @@ public class OrdersActivity extends BackButtonActivity {
                 specItemIds.clear();
 
                 orderCall.enqueue(callback);
-//                readyCall.enqueue(callback);
+                readyCall.enqueue(callback);
             }
         });
     }

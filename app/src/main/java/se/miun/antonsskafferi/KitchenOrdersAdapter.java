@@ -37,11 +37,16 @@ public class KitchenOrdersAdapter extends ArrayAdapter<Order> {
 
         TextView timeSinceOrdered = (TextView) orderView.findViewById(R.id.came_in_minutes_ago);
 
-        timeSinceOrdered.setText(Long.toString(((
-                Calendar.getInstance().get(Calendar.ZONE_OFFSET) +
-                Calendar.getInstance().get(Calendar.DST_OFFSET) +
-                Calendar.getInstance().getTime().getTime() -
-                    order.getCreated())/60000)) + " min");
+        long seconds = ((Calendar.getInstance().get(Calendar.ZONE_OFFSET) +
+                            Calendar.getInstance().get(Calendar.DST_OFFSET) +
+                            Calendar.getInstance().getTime().getTime() -
+                            order.getCreated()))/1000; // milliseconds to seconds conversion
+
+        if (seconds >= 60) {
+            timeSinceOrdered.setText(Long.toString(seconds/60) + " min");
+        } else {
+            timeSinceOrdered.setText(Long.toString(seconds) + " sek");
+        }
 
         TextView tableNumberView = (TextView) orderView.findViewById(R.id.order_title);
         tableNumberView.setText("Bord " + order.getTable());
