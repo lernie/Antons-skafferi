@@ -1,9 +1,13 @@
 package se.miun.antonsskafferi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +59,7 @@ public class KitchenActivity extends NavigationActivity {
                 cache.update(new CoursesCache.UpdateCallback() {
                     @Override
                     public void onSuccess() {
-                        final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(0);
+                        final Call<List<OrderServiceItem>> call = service.getOrdersWithStatus(OrderStatusCache.getInstance().getIds().get("ordered"));
 
                         call.enqueue(new Callback<List<OrderServiceItem>>() {
                             @Override
@@ -132,7 +136,7 @@ public class KitchenActivity extends NavigationActivity {
         OrderService.BulkOrderUpdate orderUpdate = new OrderService.BulkOrderUpdate();
         orderUpdate.orderIds = new ArrayList<Integer>();
         orderUpdate.orderPost = new OrderService.OrderPost();
-        orderUpdate.orderPost.orderStatusId = 1;
+        orderUpdate.orderPost.orderStatusId = OrderStatusCache.getInstance().getIds().get("ready");
 
         for (OrderServiceItem item : tablesOrdersList.get(order.getTable())) {
             orderUpdate.orderIds.add(item.orderId);
@@ -155,10 +159,6 @@ public class KitchenActivity extends NavigationActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                showToast();
-            }
-
-            private void showToast() {
                 Toast.makeText(KitchenActivity.this, "Kunde inte checka av ordern", Toast.LENGTH_SHORT).show();
             }
         });

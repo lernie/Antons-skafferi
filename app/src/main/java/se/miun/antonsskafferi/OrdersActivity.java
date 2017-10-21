@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class OrdersActivity extends BackButtonActivity {
 
     private TableOrdersAdapter adapter;
     private ArrayList<Order.OrderItem> orderItems;
+    private ArrayList<Integer> orderIds;
     private int tableNumber;
   
     private Retrofit retrofit;
@@ -54,6 +56,7 @@ public class OrdersActivity extends BackButtonActivity {
                 .setTitle("Bord " + tableNumber);
         }
 
+        orderIds = new ArrayList<Integer>();
         specItemIds = new HashMap<Course, Integer>();
         orderItems = new ArrayList<Order.OrderItem>();
         adapter = new TableOrdersAdapter(this, orderItems);
@@ -62,120 +65,76 @@ public class OrdersActivity extends BackButtonActivity {
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.ip_address))
-                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         orderService = retrofit.create(OrderService.class);
     }
 
     private void update() {
-        final Call<List<OrderServiceItem>> orderCall = orderService.getOrders(tableNumber, 0);
-        final Call<List<OrderServiceItem>> readyCall = orderService.getOrders(tableNumber, 1);
+        final Call<List<OrderServiceItem>> orderCall = orderService.getOrders(tableNumber, OrderStatusCache.getInstance().getIds().get("ordered"));
+        final Call<List<OrderServiceItem>> readyCall = orderService.getOrders(tableNumber, OrderStatusCache.getInstance().getIds().get("ready"));
 
         final CoursesCache cache = CoursesCache.getInstance();
 
         cache.update(new CoursesCache.UpdateCallback() {
+            Callback<List<OrderServiceItem>> callback = new Callback<List<OrderServiceItem>>() {
+                @Override
+                public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
+
+                    if (response == null || response.body() == null) {
+                        adapter.notifyDataSetChanged();
+                        return;
+                    }
+
+                    HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
+
+                    for (OrderServiceItem item : response.body()) {
+                        Course course = cache.getCourses().get(item.getFoodId());
+
+                        orderIds.add(new Integer(item.orderId));
+
+                        if (item.isSpecial()) {
+                            orderItems.add(new Order.OrderItem(course, item.getModification()));
+                            specItemIds.put(course, item.orderId);
+                        } else {
+                            if (nonSpecCount.containsKey(item.getFoodId())) {
+                                nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
+                            } else {
+                                nonSpecCount.put(item.getFoodId(), 1);
+                            }
+                        }
+                    }
+
+                    for (int courseId : nonSpecCount.keySet()) {
+                        orderItems.add(new Order.OrderItem(cache.getCourses().get(courseId),
+                                nonSpecCount.get(courseId)));
+                    }
+
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
+                    Toast.makeText(
+                            OrdersActivity.this,
+                            "Kunde inte hämta beställningar",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    adapter.notifyDataSetChanged();
+                }
+            };
+
             @Override
             public void onSuccess() {
 
+                orderIds.clear();
                 orderItems.clear();
                 specItemIds.clear();
 
-                orderCall.enqueue(new Callback<List<OrderServiceItem>>() {
-                    @Override
-                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
-
-                        if (response == null || response.body() == null) {
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
-
-                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
-
-                        for (OrderServiceItem item : response.body()) {
-                            Course course = cache.getCourses().get(item.getFoodId());
-
-                            if (item.isSpecial()) {
-                                orderItems.add(new Order.OrderItem(course, item.getModification()));
-                                specItemIds.put(course, item.orderId);
-                            } else {
-                                if (nonSpecCount.containsKey(item.getFoodId())) {
-                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
-                                } else {
-                                    nonSpecCount.put(item.getFoodId(), 1);
-                                }
-                            }
-                        }
-
-                        for (int key : nonSpecCount.keySet()) {
-                            if (nonSpecCount.containsKey(key)) {
-                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
-                                        nonSpecCount.get(key)));
-                            }
-                        }
-
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                        Toast.makeText(
-                                OrdersActivity.this,
-                                "Kunde inte hämta beställningar",
-                                Toast.LENGTH_SHORT
-                        ).show();
-
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-
-                readyCall.enqueue(new Callback<List<OrderServiceItem>>() {
-                    @Override
-                    public void onResponse(Call<List<OrderServiceItem>> call, Response<List<OrderServiceItem>> response) {
-
-                        if (response == null || response.body() == null) {
-                            adapter.notifyDataSetChanged();
-                            return;
-                        }
-
-                        HashMap<Integer, Integer> nonSpecCount = new HashMap<Integer, Integer>();
-
-                        for (OrderServiceItem item : response.body()) {
-                            Course course = cache.getCourses().get(item.getFoodId());
-
-                            if (item.isSpecial()) {
-                                orderItems.add(new Order.OrderItem(course, item.getModification()));
-                                specItemIds.put(course, item.orderId);
-                            } else {
-                                if (nonSpecCount.containsKey(item.getFoodId())) {
-                                    nonSpecCount.put(item.getFoodId(), nonSpecCount.get(item.getFoodId()) + 1);
-                                } else {
-                                    nonSpecCount.put(item.getFoodId(), 1);
-                                }
-                            }
-                        }
-
-                        for (int key : nonSpecCount.keySet()) {
-                            if (nonSpecCount.containsKey(key)) {
-                                orderItems.add(new Order.OrderItem(cache.getCourses().get(key),
-                                        nonSpecCount.get(key)));
-                            }
-                        }
-
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<OrderServiceItem>> call, Throwable t) {
-                        Toast.makeText(
-                                OrdersActivity.this,
-                                "Kunde inte hämta beställningar",
-                                Toast.LENGTH_SHORT
-                        ).show();
-
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                orderCall.enqueue(callback);
+                readyCall.enqueue(callback);
             }
         });
     }
@@ -188,18 +147,44 @@ public class OrdersActivity extends BackButtonActivity {
     }
 
     public void clearOrders(View view) {
-        orderItems.clear();
-        specItemIds.clear();
-        adapter.notifyDataSetChanged();
-        orderConfirmPopup.remove();
-        onBackPressed();
+
+        OrderService.BulkOrderUpdate bulkUpdate = new OrderService.BulkOrderUpdate();
+        bulkUpdate.orderIds = new ArrayList<Integer>();
+        bulkUpdate.orderIds.addAll(orderIds);
+
+        bulkUpdate.orderPost = new OrderService.OrderPost();
+        bulkUpdate.orderPost.orderStatusId = OrderStatusCache.getInstance().getIds().get("paid");
+
+        Call<Void> call = orderService.bulkUpdateOrder(bulkUpdate);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() != 200) {
+                    Toast.makeText(OrdersActivity.this,
+                            "Gick inte att markera order som betalad, kod: " + response.code(),
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                orderConfirmPopup.remove();
+                onBackPressed();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(OrdersActivity.this,
+                        "Gick inte att markera order som betalad",
+                        Toast.LENGTH_SHORT);
+            }
+        });
     }
 
-    public void showConfirmPopup(View view){
+    public void showConfirmPopup(View view) {
         orderConfirmPopup = new OrderConfirmPopup(this);
     }
 
-    public void dissmissConfirmPopup(View view){
+    public void dismissConfirmPopup(View view){
         orderConfirmPopup.remove();
     }
 
@@ -210,7 +195,7 @@ public class OrdersActivity extends BackButtonActivity {
         Order.OrderItem item = orderItems.get(i);
 
         OrderService.OrderUpdate orderUpdate = new OrderService.OrderUpdate();
-        orderUpdate.orderStatusId = OrderStatusCache.getInstance().getIds().get("cancelled").intValue();
+        orderUpdate.orderStatusId = OrderStatusCache.getInstance().getIds().get("cancelled");
 
         Call<Void> call = orderService
                 .updateOrder(
